@@ -351,6 +351,11 @@
   #lightbox .lb-close{position:absolute; top:-52px; right:0; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
   #lightbox .lb-cap{position:absolute; left:0; right:0; bottom:0; padding:22px;}
 
+
+  .gallery-item[hidden]{display:none!important;}
+  .gallery-item.filter-enter{animation:galleryFilterIn .38s var(--ease) both;}
+  @keyframes galleryFilterIn{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+
   /* ============ CONTACT ============ */
   .contact-wrap{display:grid; grid-template-columns:1fr; gap:1px; border-radius:28px; overflow:hidden; border:1px solid var(--glass-border);}
   @media(min-width:960px){.contact-wrap{grid-template-columns:0.85fr 1.15fr;}}
@@ -413,9 +418,34 @@
     -webkit-backdrop-filter:blur(30px) saturate(160%);
   }
   .form-card::before{
-    content:'';position:absolute;inset:0 0 auto 0;height:4px;
-    background:linear-gradient(90deg,#17372c 0%,#dca51d 48%,#8dcbb8 100%);
-    opacity:.9;
+    content:'';
+    position:absolute;
+    inset:-2px;
+    border-radius:inherit;
+    padding:2px;
+    pointer-events:none;
+    z-index:0;
+    background:conic-gradient(
+      from 0deg,
+      transparent 0deg 255deg,
+      rgba(229,169,31,.12) 270deg,
+      rgba(255,222,114,.98) 292deg,
+      rgba(255,255,255,1) 302deg,
+      rgba(126,211,184,.92) 316deg,
+      transparent 338deg 360deg
+    );
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    filter:drop-shadow(0 0 8px rgba(229,169,31,.38));
+    animation:quoteBorderOrbit 4.8s linear infinite;
+  }
+  .form-card > *{position:relative;z-index:1;}
+  @keyframes quoteBorderOrbit{
+    to{transform:rotate(360deg);}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .form-card::before{animation:none;background:linear-gradient(90deg,rgba(23,55,44,.7),rgba(229,169,31,.8),rgba(126,211,184,.7));}
   }
   .quote-form-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid rgba(30,65,53,.10);}
   .quote-form-kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8d6505;margin-bottom:8px;}
@@ -437,6 +467,17 @@
   }
   #quoteSubmitBtn{min-height:54px;font-size:15px;letter-spacing:.01em;box-shadow:0 14px 32px rgba(23,55,44,.22);}
   #quoteSubmitBtn:disabled{cursor:wait;}
+
+  #quoteSubmitBtn.is-loading::before{
+    content:'';
+    width:17px;height:17px;border-radius:50%;
+    border:2px solid rgba(255,255,255,.35);
+    border-top-color:#fff;
+    animation:quoteSendSpin .75s linear infinite;
+    flex:0 0 auto;
+  }
+  @keyframes quoteSendSpin{to{transform:rotate(360deg)}}
+
 
   .form-msg{
     margin-top:16px;
@@ -744,11 +785,38 @@
     .about-wrap{gap:34px;}.about-visual{aspect-ratio:4/5;border-radius:24px;}
     .about-info-cards{grid-template-columns:1fr;gap:8px;}
     .gallery-grid{grid-template-columns:1fr;gap:18px;}
-    .gallery-item{display:block!important;visibility:visible!important;aspect-ratio:4/3;border-radius:20px;}
+    .gallery-item{visibility:visible!important;aspect-ratio:4/3;border-radius:20px;}
     .gallery-item img{display:block!important;visibility:visible!important;opacity:1!important;width:100%;height:100%;object-fit:cover;}
     .gallery-item .cap{left:10px;right:10px;bottom:10px;padding:12px 14px;}
     .contact-card,.form-card{padding:26px 18px;}
     #lightbox{padding:14px;}.lb-box{aspect-ratio:4/5;}
+  }
+
+
+  /* ============ MOBILE NAVBAR STABILITY ============ */
+  #navbar{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100%;
+    z-index:900;
+    transform:translate3d(0,0,0);
+    -webkit-transform:translate3d(0,0,0);
+    will-change:transform;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+  }
+  @media(max-width:919px){
+    #navbar{
+      padding-top:max(10px,env(safe-area-inset-top))!important;
+      padding-bottom:8px;
+    }
+    #navbar.scrolled{padding-top:max(8px,env(safe-area-inset-top))!important;padding-bottom:7px;}
+    #navbar .nav-shell,#navbar.scrolled .nav-shell{
+      transform:translateZ(0);
+      -webkit-transform:translateZ(0);
+    }
   }
 
 </style>
@@ -1457,9 +1525,28 @@
       document.querySelectorAll('.filter-chip').forEach(function(c){ c.classList.remove('active'); });
       chip.classList.add('active');
       var f = chip.dataset.filter;
+      var firstVisible = null;
+
       document.querySelectorAll('.gallery-item').forEach(function(g){
-        g.style.display = (f === 'all' || g.dataset.cat === f) ? '' : 'none';
+        var show = (f === 'all' || g.dataset.cat === f);
+        g.hidden = !show;
+        g.classList.remove('filter-enter');
+        if(show){
+          if(!firstVisible) firstVisible = g;
+          void g.offsetWidth;
+          g.classList.add('filter-enter');
+        }
       });
+
+      // On phones, bring the chosen work card into view so only the selected result is immediately visible.
+      if(firstVisible && window.matchMedia('(max-width: 680px)').matches){
+        window.setTimeout(function(){
+          var navbar = document.getElementById('navbar');
+          var offset = (navbar ? navbar.offsetHeight : 72) + 14;
+          var top = firstVisible.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({top:Math.max(0,top),behavior:reducedMotion?'auto':'smooth'});
+        },70);
+      }
     });
   });
 
@@ -1535,7 +1622,8 @@
     errMsg.classList.remove('show');
     isSubmitting = true;
     submitBtn.disabled = true;
-    submitBtn.style.opacity = '0.7';
+    submitBtn.classList.add('is-loading');
+    submitBtn.style.opacity = '0.82';
     submitBtn.textContent = 'Lähetetään…';
 
     var payload = {
@@ -1574,6 +1662,7 @@
       .finally(function(){
         isSubmitting = false;
         submitBtn.disabled = false;
+        submitBtn.classList.remove('is-loading');
         submitBtn.style.opacity = '';
         submitBtn.textContent = submitBtnDefaultText;
       });
