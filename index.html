@@ -738,10 +738,8 @@
           <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" style="width:100%; justify-content:center; padding:15px;">Lähetä tarjouspyyntö</button>
           <p class="form-msg" id="formMsg">Kiitos viestistäsi — otamme sinuun yhteyttä pian.</p>
           <p class="form-msg" id="formErr" style="color:#e0776b;">Lähetys epäonnistui. Yritä hetken kuluttua uudelleen tai soita meille suoraan.</p>
-          <!-- Backend integration: submits to a secure serverless endpoint (see /api/send-quote.js
-               and README.md). The endpoint holds the Resend API key server-side and forwards
-               submissions to malistanpalvelu.fi@gmail.com. Set QUOTE_API_URL below to your
-               deployed endpoint (e.g. https://your-backend.example.com/api/send-quote). -->
+          <!-- Backend integration: submits to a secure Cloudflare Worker. The Worker holds the
+               Resend API key server-side and forwards submissions to malistanpalvelu.fi@gmail.com. -->
         </form>
       </div>
     </div>
@@ -1151,10 +1149,9 @@
     if(e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openC(); copts[0].focus(); }
   });
 
-  /* ---- Contact form: secure submission to serverless backend (Resend) ---- */
-  // Set this to your deployed backend endpoint (see /api/send-quote.js + README.md).
+  /* ---- Contact form: secure submission to Cloudflare Worker (Resend) ---- */
   // The Resend API key lives ONLY on that server — never in this frontend file.
-  var QUOTE_API_URL = window.MALISTAN_QUOTE_API_URL || 'https://your-backend.example.com/api/send-quote';
+  var QUOTE_API_URL = window.MALISTAN_QUOTE_API_URL || 'https://malistan-quote-api.malistanpalvelu-fi.workers.dev';
 
   var form = document.getElementById('quoteForm');
   var msg = document.getElementById('formMsg');
