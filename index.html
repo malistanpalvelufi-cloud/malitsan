@@ -937,6 +937,80 @@ dialog{max-width:calc(100% - 18px)!important}
 /* language-fix: keep icon/text alignment after translated map label */
 .area-copy .glass-btn.compact > span{display:inline-flex;align-items:center}
 
+
+
+/* === FINAL DESKTOP ALIGNMENT FIX ===
+   Keep the content optically centered inside its cards instead of drifting right.
+*/
+@media (min-width: 901px){
+  /* Company/About card */
+  .about-card,
+  .company-card{
+    box-sizing:border-box !important;
+  }
+
+  .about-card .section-inner,
+  .about-card .about-inner,
+  .about-card .content,
+  .company-card .section-inner,
+  .company-card .about-inner,
+  .company-card .content{
+    width:min(100%, 980px) !important;
+    max-width:980px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    padding-left:clamp(34px,4vw,68px) !important;
+    padding-right:clamp(34px,4vw,68px) !important;
+    box-sizing:border-box !important;
+  }
+
+  /* Contact/quote left card */
+  .contact-card,
+  .contact-info,
+  .quote-intro{
+    box-sizing:border-box !important;
+  }
+  .contact-card > *,
+  .contact-info > *,
+  .quote-intro > *{
+    max-width:100% !important;
+  }
+
+  /* The two large desktop panels must receive equal inner breathing room. */
+  #tarjous .contact-card,
+  #tarjous .quote-intro,
+  #tarjous .quote-form,
+  #yhteystiedot .contact-card,
+  #yhteystiedot .quote-intro{
+    padding-left:clamp(42px,4vw,72px) !important;
+    padding-right:clamp(42px,4vw,72px) !important;
+  }
+
+  /* Prevent headings/paragraphs from visually hugging the right edge. */
+  #yrityksesta h2,
+  #yrityksesta h3,
+  #yrityksesta p,
+  #tarjous h2,
+  #tarjous h3,
+  #tarjous p,
+  #yhteystiedot h2,
+  #yhteystiedot h3,
+  #yhteystiedot p{
+    max-width:100% !important;
+    box-sizing:border-box !important;
+  }
+}
+
+/* More robust centering for the actual section containers on all screens */
+#yrityksesta .section-head,
+#yrityksesta .about-copy,
+#tarjous .section-head,
+#yhteystiedot .section-head{
+  margin-left:auto !important;
+  margin-right:auto !important;
+  box-sizing:border-box !important;
+}
+
 </style></head>
 <body>
 <a class="skip" href="#main">Siirry sisältöön</a>
