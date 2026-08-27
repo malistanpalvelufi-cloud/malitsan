@@ -819,6 +819,90 @@
     }
   }
 
+
+
+  /* ============ SYSTEM THEME + 3D CONSTRUCTION ATMOSPHERE + LANGUAGE ============ */
+  :root{color-scheme:light dark;}
+  .lang-switch{display:flex;align-items:center;padding:3px;border-radius:999px;background:rgba(255,255,255,.58);border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 8px 22px rgba(26,61,49,.08);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+  .lang-btn{min-width:34px;height:34px;padding:0 9px;border:0;border-radius:999px;background:transparent;color:var(--soft-gray);font-size:11px;font-weight:800;letter-spacing:.04em;transition:.25s ease}
+  .lang-btn.active{background:#17372c;color:#fff;box-shadow:0 6px 16px rgba(23,55,44,.22)}
+
+  .phone-combo{display:grid;grid-template-columns:minmax(112px,138px) 1fr;gap:8px;align-items:stretch}
+  .country-code{width:100%;min-width:0;border:1px solid rgba(42,78,65,.10);border-radius:14px;background:rgba(255,255,255,.78);color:var(--ink);padding:14px 10px;font:600 13px var(--font-body);box-shadow:inset 0 1px 0 #fff,0 8px 20px rgba(34,72,58,.035);outline:none}
+  .country-code:focus{border-color:rgba(210,157,26,.72);box-shadow:0 0 0 4px rgba(229,169,31,.10),inset 0 1px 0 #fff}
+
+  section{isolation:isolate;overflow:hidden}
+  section>.container{position:relative;z-index:2}
+  .work-3d-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;perspective:1100px;opacity:.72}
+  .work-3d-bg::before{content:'';position:absolute;width:min(48vw,660px);aspect-ratio:1;right:-12%;top:4%;border-radius:50%;background:radial-gradient(circle,rgba(78,158,127,.16),rgba(229,169,31,.08) 38%,transparent 70%);filter:blur(8px);animation:atmosFloat 12s ease-in-out infinite alternate}
+  .terrain{position:absolute;width:68%;height:44%;left:-13%;bottom:-26%;transform-style:preserve-3d;transform:rotateX(66deg) rotateZ(-12deg);border-radius:28px;background:repeating-linear-gradient(90deg,rgba(38,81,65,.14) 0 1px,transparent 1px 40px),repeating-linear-gradient(0deg,rgba(38,81,65,.12) 0 1px,transparent 1px 40px),linear-gradient(145deg,rgba(111,171,148,.12),rgba(229,169,31,.05));box-shadow:0 -28px 80px rgba(30,73,56,.10);animation:terrainDrift 18s ease-in-out infinite alternate}
+  .terrain-b{left:auto;right:-30%;bottom:-30%;transform:rotateX(68deg) rotateZ(18deg);opacity:.55;animation-delay:-6s}
+  .machine-cube{position:absolute;width:76px;height:76px;right:12%;top:30%;transform-style:preserve-3d;transform:rotateX(58deg) rotateY(-20deg) rotateZ(34deg);border:1px solid rgba(188,139,20,.18);background:linear-gradient(135deg,rgba(229,169,31,.12),rgba(23,55,44,.10));box-shadow:28px 34px 0 rgba(23,55,44,.035),0 22px 60px rgba(23,55,44,.08);animation:cubeOrbit 10s ease-in-out infinite alternate}
+  .cube-b{width:44px;height:44px;right:28%;top:56%;opacity:.55;animation-delay:-4s}
+  .depth-line{position:absolute;width:240px;height:2px;right:4%;top:22%;background:linear-gradient(90deg,transparent,rgba(229,169,31,.32),transparent);transform:rotate(-24deg);filter:drop-shadow(0 0 7px rgba(229,169,31,.28));animation:scanLine 7s ease-in-out infinite}
+  .line-b{top:70%;right:18%;width:170px;animation-delay:-3s}
+  @keyframes terrainDrift{to{transform:rotateX(66deg) rotateZ(-9deg) translate3d(2%, -2%, 12px)}}
+  @keyframes cubeOrbit{to{transform:rotateX(64deg) rotateY(-8deg) rotateZ(48deg) translate3d(-18px,10px,36px)}}
+  @keyframes atmosFloat{to{transform:translate3d(-4%,5%,0) scale(1.08)}}
+  @keyframes scanLine{0%,100%{opacity:.16;transform:translateX(0) rotate(-24deg)}50%{opacity:.7;transform:translateX(-80px) rotate(-24deg)}}
+
+  /* Quote card: deeper construction-tech 3D surface */
+  .form-card{isolation:isolate}
+  .form-card::after{content:'';position:absolute;z-index:0;inset:auto -16% -24% 18%;height:48%;border-radius:38px;transform:perspective(900px) rotateX(62deg) rotateZ(-8deg);background:repeating-linear-gradient(90deg,rgba(27,68,52,.09) 0 1px,transparent 1px 34px),repeating-linear-gradient(0deg,rgba(27,68,52,.08) 0 1px,transparent 1px 34px),radial-gradient(circle at 66% 35%,rgba(229,169,31,.13),transparent 38%);box-shadow:0 -40px 80px rgba(31,78,60,.07);pointer-events:none;animation:quoteTerrain 13s ease-in-out infinite alternate}
+  @keyframes quoteTerrain{to{transform:perspective(900px) rotateX(66deg) rotateZ(-4deg) translate3d(-18px,-10px,12px)}}
+  .quote-form-icon{position:relative;overflow:visible}
+  .quote-form-icon::before{content:'';position:absolute;inset:-7px;border-radius:20px;border:2px solid transparent;border-top-color:#e5a91f;border-right-color:rgba(126,211,184,.9);filter:drop-shadow(0 0 7px rgba(229,169,31,.38));animation:beaconSpin 2.8s linear infinite}
+  .quote-form-icon::after{content:'';position:absolute;width:7px;height:7px;border-radius:50%;top:-4px;left:50%;background:#ffd45a;box-shadow:0 0 12px #e5a91f,0 0 24px rgba(229,169,31,.55);animation:beaconPulse 1.25s ease-in-out infinite alternate}
+  @keyframes beaconSpin{to{transform:rotate(360deg)}}
+  @keyframes beaconPulse{to{transform:scale(1.45);opacity:.55}}
+
+  @media(max-width:680px){
+    .lang-switch{padding:2px}.lang-btn{min-width:30px;height:30px;padding:0 7px;font-size:10px}
+    .phone-combo{grid-template-columns:112px 1fr;gap:7px}
+    .country-code{padding:14px 7px;font-size:12px}
+    .work-3d-bg{opacity:.48}.machine-cube{right:3%;top:18%;transform:scale(.78) rotateX(58deg) rotateY(-20deg) rotateZ(34deg)}
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#f3f7f5;--charcoal-2:#0b0e0d;--charcoal-3:#111614;--charcoal-4:#171d1a;
+      --warm-white:#f4f8f6;--soft-gray:#9caaa4;--sand:#c6d2cd;--amber:#f0b72c;--amber-soft:rgba(240,183,44,.18);
+      --glass-bg:rgba(20,24,22,.66);--glass-border:rgba(255,255,255,.10);--glass-hi:rgba(255,255,255,.14);
+      --line:rgba(255,255,255,.08);--line-strong:rgba(255,255,255,.14);
+      --glass-shadow:0 20px 60px rgba(0,0,0,.35),0 2px 12px rgba(0,0,0,.20);
+    }
+    html{background:#050706}
+    body{background:radial-gradient(circle at 14% 15%,rgba(40,88,70,.24),transparent 30rem),radial-gradient(circle at 92% 38%,rgba(229,169,31,.12),transparent 34rem),linear-gradient(145deg,#070908 0%,#0b100e 50%,#080a09 100%);color:var(--ink)}
+    body::before{background:linear-gradient(115deg,rgba(255,255,255,.03),transparent 38%,rgba(255,255,255,.02))}
+    h1,h2,h3,h4,.service-row.active,.service-row:hover{color:var(--ink)}
+    .bg-charcoal{background:rgba(10,14,12,.64)}
+    .liquid-glass,.liquid-glass-strong,#navbar .nav-shell,#navbar.scrolled .nav-shell{background:linear-gradient(135deg,rgba(24,29,26,.78),rgba(12,16,14,.66));border-color:rgba(255,255,255,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 16px 42px rgba(0,0,0,.28)}
+    .wordmark,.wordmark span,.nav-links a{color:var(--ink)}
+    .hamburger,.lang-switch{background:rgba(18,23,20,.76);border-color:rgba(255,255,255,.09)}
+    .hamburger span{background:var(--ink)}
+    #mobile-menu{background:rgba(6,9,8,.94);color:var(--ink)}
+    #mobile-menu a{color:var(--ink)}
+    .hero-atmos .sky{background:radial-gradient(70% 75% at 80% 24%,rgba(214,158,33,.17),transparent 58%),radial-gradient(62% 72% at 12% 78%,rgba(50,112,89,.25),transparent 62%),linear-gradient(145deg,#070908 0%,#0c120f 52%,#080a09 100%)}
+    .hero h1{color:#f5f8f6;text-shadow:none}.hero-sub,.hero-badge{color:#bdc9c4}.hero-vignette{background:linear-gradient(90deg,rgba(5,8,7,.58),transparent 72%)}
+    .services-shell,.contact-wrap{background:rgba(15,20,17,.58);border-color:rgba(255,255,255,.08)}
+    .service-list,.contact-card,.form-card{background:rgba(18,24,21,.66)}
+    .service-row{color:#c3d0ca}.service-row:hover,.service-row.active{background:rgba(255,255,255,.07);color:#fff}.service-row .sic,.contact-row .ic{background:rgba(255,255,255,.05)}
+    .service-row p,.contact-row span,.section-head p,.p-step p,.quote-form-head p{color:#98a7a1}
+    .service-visual,.gallery-item{background:#101613;border-color:rgba(255,255,255,.09)}
+    .process-steps .p-step,.about-info-cards .cell{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.07);box-shadow:0 14px 34px rgba(0,0,0,.18)}
+    .filter-chip{color:#aab8b2;background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.08)}
+    .filter-chip.active,.filter-chip:hover{background:#d7a31e;color:#111}
+    .form-card{background:radial-gradient(circle at 92% 4%,rgba(229,169,31,.10),transparent 22rem),linear-gradient(145deg,rgba(17,23,20,.88),rgba(10,14,12,.82));border-color:rgba(255,255,255,.09)}
+    .quote-form-head h3,.form-card .field label,.contact-row b{color:#edf4f0}
+    .form-card .field input,.form-card .field textarea,.form-card .cselect-btn,.country-code{background:rgba(255,255,255,.055);color:#eef5f1;border-color:rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+    .form-card .field input::placeholder,.form-card .field textarea::placeholder{color:#7f8d87}
+    .cselect-panel{background:rgba(14,19,16,.97);border-color:rgba(255,255,255,.09)}.cselect-opt{color:#eaf2ee}.cselect-opt:hover{background:rgba(255,255,255,.07)}
+    .form-success{background:linear-gradient(135deg,rgba(19,67,48,.92),rgba(16,43,34,.94));border-color:rgba(83,206,151,.22);color:#d9f7e9}.form-success strong{color:#effff7}.form-success span{color:#a8d6c2}
+    footer{background:#050706}
+  }
+
+  @media(prefers-reduced-motion:reduce){.work-3d-bg *,.quote-form-icon::before,.quote-form-icon::after,.form-card::after{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -840,7 +924,11 @@
         <a href="#tyot">Työt</a>
         <a href="#yhteystiedot">Yhteystiedot</a>
       </nav>
-      <div style="display:flex; align-items:center; gap:12px;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn active" data-lang="fi" aria-pressed="true">FI</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
         <a href="#yhteystiedot" class="btn btn-primary" id="navCta" style="display:none;">Pyydä tarjous</a>
         <button class="hamburger" id="hamburgerBtn" aria-label="Avaa valikko" aria-expanded="false" aria-controls="mobile-menu">
           <span></span><span></span><span></span>
@@ -949,6 +1037,7 @@
 
   <!-- ============ SERVICES ============ -->
   <section class="section-pad bg-charcoal" id="palvelut">
+    <div class="work-3d-bg" aria-hidden="true"><span class="terrain terrain-a"></span><span class="terrain terrain-b"></span><span class="machine-cube cube-a"></span><span class="machine-cube cube-b"></span><span class="depth-line line-a"></span><span class="depth-line line-b"></span></div>
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow">Palvelut</div>
@@ -1011,6 +1100,7 @@
 
   <!-- ============ PROCESS ============ -->
   <section class="section-pad bg-charcoal hairline" id="prosessi">
+    <div class="work-3d-bg" aria-hidden="true"><span class="terrain terrain-a"></span><span class="terrain terrain-b"></span><span class="machine-cube cube-a"></span><span class="machine-cube cube-b"></span><span class="depth-line line-a"></span><span class="depth-line line-b"></span></div>
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow">Prosessi</div>
@@ -1031,6 +1121,7 @@
 
   <!-- ============ WORK / GALLERY ============ -->
   <section class="section-pad" id="tyot">
+    <div class="work-3d-bg" aria-hidden="true"><span class="terrain terrain-a"></span><span class="terrain terrain-b"></span><span class="machine-cube cube-a"></span><span class="machine-cube cube-b"></span><span class="depth-line line-a"></span><span class="depth-line line-b"></span></div>
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow">Työt</div>
@@ -1051,6 +1142,7 @@
 
   <!-- ============ CONTACT ============ -->
   <section class="section-pad bg-charcoal hairline" id="yhteystiedot">
+    <div class="work-3d-bg" aria-hidden="true"><span class="terrain terrain-a"></span><span class="terrain terrain-b"></span><span class="machine-cube cube-a"></span><span class="machine-cube cube-b"></span><span class="depth-line line-a"></span><span class="depth-line line-b"></span></div>
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow">Yhteystiedot</div>
@@ -1103,7 +1195,10 @@
             </div>
             <div class="field">
               <label for="fPhone">Puhelinnumero</label>
-              <input id="fPhone" name="phone" type="tel" placeholder="+358 40 123 4567" required>
+              <div class="phone-combo">
+                <select id="countryCode" class="country-code" aria-label="Maan suuntanumero"></select>
+                <input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="40 123 4567" required>
+              </div>
             </div>
           </div>
           <div class="field-row">
@@ -1624,11 +1719,11 @@
     submitBtn.disabled = true;
     submitBtn.classList.add('is-loading');
     submitBtn.style.opacity = '0.82';
-    submitBtn.textContent = 'Lähetetään…';
+    submitBtn.textContent = (document.documentElement.lang === 'en' ? 'Sending…' : 'Lähetetään…');
 
     var payload = {
       name: form.name.value.trim(),
-      phone: form.phone.value.trim(),
+      phone: ((document.getElementById('countryCode')||{}).value || '+358') + ' ' + form.phone.value.trim().replace(/^\+?[0-9 ]{1,5}\s*/, function(m){ return m.indexOf('+')===0 ? '' : m; }),
       email: form.email.value.trim(),
       projectType: form.projectType.value,
       message: form.message.value.trim(),
@@ -1770,6 +1865,69 @@
       visualEl2.addEventListener('pointerleave', function(){ visualEl2.style.transform = ''; });
     }
   })();
+})();
+</script>
+
+
+
+<script>
+(function(){
+  'use strict';
+  /* Country calling codes — Finland is the default. */
+  var countries = [
+    ['FI','Finland','+358'],['AF','Afghanistan','+93'],['AL','Albania','+355'],['DZ','Algeria','+213'],['AD','Andorra','+376'],['AO','Angola','+244'],['AG','Antigua and Barbuda','+1268'],['AR','Argentina','+54'],['AM','Armenia','+374'],['AU','Australia','+61'],['AT','Austria','+43'],['AZ','Azerbaijan','+994'],['BS','Bahamas','+1242'],['BH','Bahrain','+973'],['BD','Bangladesh','+880'],['BB','Barbados','+1246'],['BY','Belarus','+375'],['BE','Belgium','+32'],['BZ','Belize','+501'],['BJ','Benin','+229'],['BT','Bhutan','+975'],['BO','Bolivia','+591'],['BA','Bosnia and Herzegovina','+387'],['BW','Botswana','+267'],['BR','Brazil','+55'],['BN','Brunei','+673'],['BG','Bulgaria','+359'],['BF','Burkina Faso','+226'],['BI','Burundi','+257'],['CV','Cabo Verde','+238'],['KH','Cambodia','+855'],['CM','Cameroon','+237'],['CA','Canada','+1'],['CF','Central African Republic','+236'],['TD','Chad','+235'],['CL','Chile','+56'],['CN','China','+86'],['CO','Colombia','+57'],['KM','Comoros','+269'],['CG','Congo','+242'],['CD','DR Congo','+243'],['CR','Costa Rica','+506'],['CI','Côte d’Ivoire','+225'],['HR','Croatia','+385'],['CU','Cuba','+53'],['CY','Cyprus','+357'],['CZ','Czechia','+420'],['DK','Denmark','+45'],['DJ','Djibouti','+253'],['DM','Dominica','+1767'],['DO','Dominican Republic','+1809'],['EC','Ecuador','+593'],['EG','Egypt','+20'],['SV','El Salvador','+503'],['GQ','Equatorial Guinea','+240'],['ER','Eritrea','+291'],['EE','Estonia','+372'],['SZ','Eswatini','+268'],['ET','Ethiopia','+251'],['FJ','Fiji','+679'],['FR','France','+33'],['GA','Gabon','+241'],['GM','Gambia','+220'],['GE','Georgia','+995'],['DE','Germany','+49'],['GH','Ghana','+233'],['GR','Greece','+30'],['GD','Grenada','+1473'],['GT','Guatemala','+502'],['GN','Guinea','+224'],['GW','Guinea-Bissau','+245'],['GY','Guyana','+592'],['HT','Haiti','+509'],['HN','Honduras','+504'],['HU','Hungary','+36'],['IS','Iceland','+354'],['IN','India','+91'],['ID','Indonesia','+62'],['IR','Iran','+98'],['IQ','Iraq','+964'],['IE','Ireland','+353'],['IL','Israel','+972'],['IT','Italy','+39'],['JM','Jamaica','+1876'],['JP','Japan','+81'],['JO','Jordan','+962'],['KZ','Kazakhstan','+7'],['KE','Kenya','+254'],['KI','Kiribati','+686'],['KP','North Korea','+850'],['KR','South Korea','+82'],['KW','Kuwait','+965'],['KG','Kyrgyzstan','+996'],['LA','Laos','+856'],['LV','Latvia','+371'],['LB','Lebanon','+961'],['LS','Lesotho','+266'],['LR','Liberia','+231'],['LY','Libya','+218'],['LI','Liechtenstein','+423'],['LT','Lithuania','+370'],['LU','Luxembourg','+352'],['MG','Madagascar','+261'],['MW','Malawi','+265'],['MY','Malaysia','+60'],['MV','Maldives','+960'],['ML','Mali','+223'],['MT','Malta','+356'],['MH','Marshall Islands','+692'],['MR','Mauritania','+222'],['MU','Mauritius','+230'],['MX','Mexico','+52'],['FM','Micronesia','+691'],['MD','Moldova','+373'],['MC','Monaco','+377'],['MN','Mongolia','+976'],['ME','Montenegro','+382'],['MA','Morocco','+212'],['MZ','Mozambique','+258'],['MM','Myanmar','+95'],['NA','Namibia','+264'],['NR','Nauru','+674'],['NP','Nepal','+977'],['NL','Netherlands','+31'],['NZ','New Zealand','+64'],['NI','Nicaragua','+505'],['NE','Niger','+227'],['NG','Nigeria','+234'],['MK','North Macedonia','+389'],['NO','Norway','+47'],['OM','Oman','+968'],['PK','Pakistan','+92'],['PW','Palau','+680'],['PS','Palestine','+970'],['PA','Panama','+507'],['PG','Papua New Guinea','+675'],['PY','Paraguay','+595'],['PE','Peru','+51'],['PH','Philippines','+63'],['PL','Poland','+48'],['PT','Portugal','+351'],['QA','Qatar','+974'],['RO','Romania','+40'],['RU','Russia','+7'],['RW','Rwanda','+250'],['KN','Saint Kitts and Nevis','+1869'],['LC','Saint Lucia','+1758'],['VC','Saint Vincent and the Grenadines','+1784'],['WS','Samoa','+685'],['SM','San Marino','+378'],['ST','São Tomé and Príncipe','+239'],['SA','Saudi Arabia','+966'],['SN','Senegal','+221'],['RS','Serbia','+381'],['SC','Seychelles','+248'],['SL','Sierra Leone','+232'],['SG','Singapore','+65'],['SK','Slovakia','+421'],['SI','Slovenia','+386'],['SB','Solomon Islands','+677'],['SO','Somalia','+252'],['ZA','South Africa','+27'],['SS','South Sudan','+211'],['ES','Spain','+34'],['LK','Sri Lanka','+94'],['SD','Sudan','+249'],['SR','Suriname','+597'],['SE','Sweden','+46'],['CH','Switzerland','+41'],['SY','Syria','+963'],['TW','Taiwan','+886'],['TJ','Tajikistan','+992'],['TZ','Tanzania','+255'],['TH','Thailand','+66'],['TL','Timor-Leste','+670'],['TG','Togo','+228'],['TO','Tonga','+676'],['TT','Trinidad and Tobago','+1868'],['TN','Tunisia','+216'],['TR','Türkiye','+90'],['TM','Turkmenistan','+993'],['TV','Tuvalu','+688'],['UG','Uganda','+256'],['UA','Ukraine','+380'],['AE','United Arab Emirates','+971'],['GB','United Kingdom','+44'],['US','United States','+1'],['UY','Uruguay','+598'],['UZ','Uzbekistan','+998'],['VU','Vanuatu','+678'],['VA','Vatican City','+39'],['VE','Venezuela','+58'],['VN','Vietnam','+84'],['YE','Yemen','+967'],['ZM','Zambia','+260'],['ZW','Zimbabwe','+263']
+  ];
+  var countrySelect=document.getElementById('countryCode');
+  if(countrySelect){
+    countries.forEach(function(c){var o=document.createElement('option');o.value=c[2];o.textContent=c[0]+' '+c[2];o.title=c[1];if(c[0]==='FI')o.selected=true;countrySelect.appendChild(o);});
+  }
+
+  var EN = {
+    'Etusivu':'Home','Palvelut':'Services','Yrityksestä':'Company','Työt':'Projects','Yhteystiedot':'Contact','Pyydä tarjous':'Request a quote',
+    'Maanrakennus · Kirkkonummi':'Earthworks · Kirkkonummi','Maanrakennus · Kirkkonummi':'Earthworks · Kirkkonummi',
+    'Maanrakennus':'Earthworks','Kaivuutyöt':'Excavation','Pohjarakentaminen':'Groundworks','Työmaat':'Worksites','Piha-alueet':'Outdoor areas','Kaivinkoneen kuljettaja':'Excavator operator',
+    'Piha- ja ulkoalueiden rakentaminen':'Yard and outdoor construction','Muu':'Other',
+    'Kaikki':'All','Rakennustyön jälki näkyy maassa.':'Our work leaves a solid foundation.','Yleiskuvia toimialan työstä, jotka havainnollistavat palveluiden luonnetta.':'Examples of our work that show the nature of our services.',
+    'Maa-ainesten käsittely':'Material handling','Tarkka kaivanto':'Precision excavation','Valmis kantava pohja':'Ready load-bearing base','Viimeistellyt ulkoalueet':'Finished outdoor areas','Hallittu kokonaisuus':'Complete site management','Tarkkaa koneenkäsittelyä':'Precise machine operation',
+    'Suunnitteletko projektia?':'Planning a project?','Ota yhteyttä ja kerro meille kohteestasi — tai pyydä tarjous suoraan lomakkeella.':'Tell us about your site — or request a quote directly with the form.',
+    'Kirkkonummi, Suomi':'Kirkkonummi, Finland','Puhelin':'Phone','Sähköposti · tarjouspyynnöt':'Email · quote requests','Lisäyhteystieto':'Additional contact','Toimialue':'Service area','Y-tunnus':'Business ID',
+    'Tarjouspyyntö':'Quote request','Pyydä tarjous projektillesi':'Request a quote for your project','Täytä tiedot lyhyesti. Käymme kohteen ja tarpeesi läpi ja olemme sinuun yhteydessä mahdollisimman pian.':'Tell us briefly about your project. We will review your needs and contact you as soon as possible.',
+    'Nimi':'Name','Puhelinnumero':'Phone number','Sähköposti':'Email','Projektin tyyppi':'Project type','Projektin kuvaus':'Project description','Lähetä tarjouspyyntö':'Send quote request',
+    'Tarjouspyyntö lähetetty!':'Quote request sent!','Kiitos viestistäsi. Olemme sinuun yhteydessä mahdollisimman pian.':'Thank you. We will contact you as soon as possible.','Lähetys epäonnistui. Yritä hetken kuluttua uudelleen tai soita meille suoraan.':'Sending failed. Please try again shortly or call us directly.',
+    'Älä täytä tätä kenttää':'Do not fill in this field','Avaa valikko':'Open menu','Sulje valikko':'Close menu',
+    'Monipuoliset maanrakennustyöt erilaisiin rakennus- ja pihahankkeisiin.':'Versatile earthworks for construction and yard projects.','Kaivu- ja maansiirtotyöt työmaan tarpeiden mukaan.':'Excavation and earthmoving tailored to the site.','Rakentamisen pohjatyöt ja maa-alueiden valmistelu.':'Ground preparation and base construction.','Työmaiden valmistelu ja kokonaisvaltainen toteutus.':'Worksite preparation and complete implementation.','Pihamaiden, kulkuväylien ja ympäristön rakentaminen.':'Construction of yards, access routes and outdoor areas.','Kokenut kaivinkoneen kuljettaja erilaisiin työmaakohteisiin.':'Experienced excavator operator for different worksites.'
+  };
+  var PH={
+    'Etu- ja sukunimi':'First and last name','nimi@sahkoposti.fi':'name@email.com','Kerro kohteestasi ja aikataulusta...':'Tell us about your site and schedule...'
+  };
+  function translateTextNode(n,to){
+    if(!n || n.nodeType!==3) return;
+    var raw=n.nodeValue, key=raw.trim(); if(!key) return;
+    if(n.parentElement && ['SCRIPT','STYLE'].indexOf(n.parentElement.tagName)>=0) return;
+    if(!n.__fiText) n.__fiText=raw;
+    if(to==='fi'){n.nodeValue=n.__fiText;return;}
+    var fi=n.__fiText.trim(); if(EN[fi]) n.nodeValue=n.__fiText.replace(fi,EN[fi]);
+  }
+  function applyLang(lang){
+    document.documentElement.lang=lang;
+    localStorage.setItem('malistan-lang',lang);
+    document.querySelectorAll('.lang-btn').forEach(function(b){var on=b.dataset.lang===lang;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on?'true':'false');});
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);var n;while(n=walker.nextNode())translateTextNode(n,lang);
+    document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(function(el){if(!el.dataset.fiPlaceholder)el.dataset.fiPlaceholder=el.getAttribute('placeholder')||'';el.setAttribute('placeholder',lang==='en'?(PH[el.dataset.fiPlaceholder]||el.dataset.fiPlaceholder):el.dataset.fiPlaceholder);});
+    var cc=document.getElementById('countryCode');if(cc)cc.setAttribute('aria-label',lang==='en'?'Country calling code':'Maan suuntanumero');
+    document.title=lang==='en'?'Malistan Palvelu | Earthworks and infrastructure construction in Kirkkonummi':'Malistan Palvelu | Maanrakennus ja infrarakentaminen Kirkkonummi';
+  }
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.addEventListener('click',function(){applyLang(b.dataset.lang);});});
+  var initial=localStorage.getItem('malistan-lang')||'fi';
+  applyLang(initial);
+  var mo=new MutationObserver(function(records){if(document.documentElement.lang!=='en')return;records.forEach(function(r){r.addedNodes.forEach(function(node){if(node.nodeType===3)translateTextNode(node,'en');else if(node.nodeType===1){var w=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);var x;while(x=w.nextNode())translateTextNode(x,'en');}});});});
+  mo.observe(document.body,{subtree:true,childList:true});
+
+  /* Keep browser chrome matched to system theme. */
+  var themeMeta=document.querySelector('meta[name="theme-color"]');
+  var mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function syncTheme(){if(themeMeta)themeMeta.setAttribute('content',mq.matches?'#050706':'#edf6f2');}
+  syncTheme(); if(mq.addEventListener)mq.addEventListener('change',syncTheme);
 })();
 </script>
 
