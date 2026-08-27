@@ -399,6 +399,78 @@
   .cselect-opt:hover, .cselect-opt.focus{background:rgba(255,255,255,0.08);}
   .cselect-opt.selected{color:var(--ink); background:var(--amber); font-weight:600;}
 
+
+  /* ============ QUOTE FORM — PREMIUM GLASS CARD ============ */
+  .form-card{
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.92);
+    background:
+      radial-gradient(circle at 92% 4%, rgba(229,169,31,.16), transparent 22rem),
+      linear-gradient(145deg,rgba(255,255,255,.78),rgba(245,251,248,.52));
+    box-shadow:0 24px 70px rgba(26,61,49,.13), inset 0 1px 0 #fff;
+    backdrop-filter:blur(30px) saturate(160%);
+    -webkit-backdrop-filter:blur(30px) saturate(160%);
+  }
+  .form-card::before{
+    content:'';position:absolute;inset:0 0 auto 0;height:4px;
+    background:linear-gradient(90deg,#17372c 0%,#dca51d 48%,#8dcbb8 100%);
+    opacity:.9;
+  }
+  .quote-form-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid rgba(30,65,53,.10);}
+  .quote-form-kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8d6505;margin-bottom:8px;}
+  .quote-form-kicker::before{content:'';width:18px;height:2px;border-radius:99px;background:#d8a11d;}
+  .quote-form-head h3{font-size:clamp(24px,3vw,32px);line-height:1.1;color:var(--ink);}
+  .quote-form-head p{margin-top:9px;color:var(--soft-gray);font-size:13.5px;line-height:1.65;max-width:48ch;}
+  .quote-form-icon{width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;background:linear-gradient(145deg,#17372c,#285646);box-shadow:0 12px 30px rgba(23,55,44,.20),inset 0 1px 0 rgba(255,255,255,.18);}
+  .quote-form-icon svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8;}
+  .form-card .field{margin-bottom:18px;}
+  .form-card .field label{font-size:12px;font-weight:700;letter-spacing:.025em;color:#435f54;}
+  .form-card .field input,.form-card .field textarea,.form-card .cselect-btn{
+    border-color:rgba(42,78,65,.10);
+    background:rgba(255,255,255,.78);
+    box-shadow:inset 0 1px 0 #fff,0 8px 20px rgba(34,72,58,.035);
+  }
+  .form-card .field input:focus,.form-card .field textarea:focus,.form-card .cselect.open .cselect-btn{
+    border-color:rgba(210,157,26,.72);
+    box-shadow:0 0 0 4px rgba(229,169,31,.10),inset 0 1px 0 #fff;
+  }
+  #quoteSubmitBtn{min-height:54px;font-size:15px;letter-spacing:.01em;box-shadow:0 14px 32px rgba(23,55,44,.22);}
+  #quoteSubmitBtn:disabled{cursor:wait;}
+
+  .form-msg{
+    margin-top:16px;
+    border-radius:18px;
+    padding:0;
+    font-size:13.5px;
+    display:none;
+  }
+  .form-msg.show{display:flex;}
+  .form-success{
+    align-items:center;gap:13px;
+    padding:16px 18px;
+    color:#123e2e;
+    background:linear-gradient(135deg,rgba(221,248,237,.98),rgba(242,253,248,.96));
+    border:1px solid rgba(57,151,111,.26);
+    box-shadow:0 14px 34px rgba(31,103,74,.11),inset 0 1px 0 #fff;
+    animation:successPop .42s cubic-bezier(.2,.8,.25,1);
+  }
+  .form-success .success-check{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto;background:#1e7a58;box-shadow:0 7px 18px rgba(30,122,88,.24);}
+  .form-success .success-check svg{width:20px;height:20px;stroke:white;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;}
+  .form-success strong{display:block;font-size:14.5px;color:#0e432f;margin-bottom:2px;}
+  .form-success span{display:block;color:#517066;line-height:1.45;}
+  .form-error{align-items:center;gap:10px;padding:14px 16px;color:#8c332c!important;background:rgba(255,239,237,.96);border:1px solid rgba(185,73,64,.20);}
+  @keyframes successPop{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+
+  @media(max-width:680px){
+    .form-card{padding:24px 16px!important;border-radius:22px!important;}
+    .quote-form-head{margin-bottom:22px;padding-bottom:20px;}
+    .quote-form-icon{width:44px;height:44px;border-radius:14px;}
+    .quote-form-head h3{font-size:25px;}
+    .quote-form-head p{font-size:13px;}
+    .form-success{align-items:flex-start;padding:15px;}
+  }
+
   /* ============ FOOTER ============ */
   footer{padding:60px 0 32px; border-top:1px solid var(--line); background:var(--ink);}
   .footer-grid{display:grid; grid-template-columns:1fr; gap:40px;}
@@ -946,6 +1018,16 @@
         </div>
 
         <form class="form-card" id="quoteForm" novalidate>
+          <div class="quote-form-head">
+            <div>
+              <div class="quote-form-kicker">Tarjouspyyntö</div>
+              <h3>Pyydä tarjous projektillesi</h3>
+              <p>Täytä tiedot lyhyesti. Käymme kohteen ja tarpeesi läpi ja olemme sinuun yhteydessä mahdollisimman pian.</p>
+            </div>
+            <div class="quote-form-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="m4 7 8 6 8-6"/></svg>
+            </div>
+          </div>
           <div class="field-row">
             <div class="field">
               <label for="fName">Nimi</label>
@@ -990,8 +1072,11 @@
             <input type="text" id="fWebsite" name="website" tabindex="-1" autocomplete="off">
           </div>
           <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" style="width:100%; justify-content:center; padding:15px;">Lähetä tarjouspyyntö</button>
-          <p class="form-msg" id="formMsg">Kiitos viestistäsi — otamme sinuun yhteyttä pian.</p>
-          <p class="form-msg" id="formErr" style="color:#e0776b;">Lähetys epäonnistui. Yritä hetken kuluttua uudelleen tai soita meille suoraan.</p>
+          <div class="form-msg form-success" id="formMsg" role="status" aria-live="polite">
+            <span class="success-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></span>
+            <span><strong>Tarjouspyyntö lähetetty!</strong><span>Kiitos viestistäsi. Olemme sinuun yhteydessä mahdollisimman pian.</span></span>
+          </div>
+          <div class="form-msg form-error" id="formErr" role="alert">Lähetys epäonnistui. Yritä hetken kuluttua uudelleen tai soita meille suoraan.</div>
           <!-- Backend integration: submits to a secure Cloudflare Worker. The Worker holds the
                Resend API key server-side and forwards submissions to malistanpalvelu.fi@gmail.com. -->
         </form>
@@ -1313,6 +1398,17 @@
       r.setAttribute('aria-selected', idx===i ? 'true':'false');
     });
     visualEl.querySelectorAll('.service-scene').forEach(function(s,idx){ s.classList.toggle('active', idx===i); });
+
+    // Mobile: after choosing a service, move the selected visual into view.
+    // This keeps the chosen service visible instead of leaving the user at the list.
+    if(window.matchMedia('(max-width: 959px)').matches){
+      window.setTimeout(function(){
+        var navbar = document.getElementById('navbar');
+        var offset = (navbar ? navbar.offsetHeight : 72) + 14;
+        var top = visualEl.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: reducedMotion ? 'auto' : 'smooth' });
+      }, 80);
+    }
   }
 
   /* ---- Gallery ---- */
@@ -1463,6 +1559,11 @@
       })
       .then(function(){
         msg.classList.add('show');
+        if(window.matchMedia('(max-width: 680px)').matches){
+          window.setTimeout(function(){
+            msg.scrollIntoView({behavior: reducedMotion ? 'auto' : 'smooth', block:'center'});
+          }, 60);
+        }
         form.reset();
         document.querySelectorAll('.cselect-opt').forEach(function(o,i){ o.classList.toggle('selected', i===0); });
         cvalue.textContent = 'Maanrakennus'; chidden.value = 'Maanrakennus';
