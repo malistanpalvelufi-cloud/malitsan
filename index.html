@@ -1033,6 +1033,125 @@ dialog{max-width:calc(100% - 18px)!important}
     word-break:normal !important;
   }
 }
+
+
+/* ===== Final Finnish heading + map button fix ===== */
+
+/* Only Finnish text gets the smaller sizing.
+   English keeps its current typography. */
+html[lang="fi"] #yrityksesta .about-main h2{
+  font-size:clamp(2rem,3.55vw,3.65rem)!important;
+  line-height:1.04!important;
+  letter-spacing:-.04em!important;
+  max-width:12.5ch!important;
+  width:fit-content!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+
+html[lang="fi"] .area-copy h2{
+  font-size:clamp(2rem,3.45vw,3.55rem)!important;
+  line-height:1.04!important;
+  letter-spacing:-.04em!important;
+  max-width:12.8ch!important;
+  width:fit-content!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+
+/* Keep the text blocks optically centered inside their cards,
+   while preserving left-aligned reading. */
+#yrityksesta .about-main > .eyebrow,
+#yrityksesta .about-main > h2,
+#yrityksesta .about-main > p,
+.area-copy > .eyebrow,
+.area-copy > h2,
+.area-copy > p,
+.area-copy > .glass-btn{
+  position:relative!important;
+  z-index:2!important;
+}
+
+#yrityksesta .about-main > p{
+  width:min(100%,60ch)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+.area-copy{
+  min-width:0!important;
+}
+.area-copy > p{
+  width:min(100%,46ch)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Site-colored map button */
+.area-copy .glass-btn.compact{
+  color:#fff!important;
+  min-height:54px!important;
+  padding-inline:21px!important;
+  border:1px solid rgba(118,199,166,.48)!important;
+  background:
+    linear-gradient(145deg,#1c5b4d,#0b3029) padding-box,
+    linear-gradient(120deg,#78c9a8,#d4a62f,#1c5b4d) border-box!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 13px 30px rgba(7,31,27,.20)!important;
+}
+.area-copy .glass-btn.compact:hover{
+  background:
+    linear-gradient(145deg,#24715f,#0d3a31) padding-box,
+    linear-gradient(120deg,#9be0c4,#f1d983,#24715f) border-box!important;
+}
+.area-copy .glass-btn.compact svg{
+  width:20px!important;
+  height:20px!important;
+  stroke:#fff!important;
+  stroke-width:1.8!important;
+}
+
+/* Phone-specific protection against any Finnish overflow. */
+@media(max-width:620px){
+  html[lang="fi"] #yrityksesta .about-main h2{
+    font-size:clamp(2rem,9.2vw,2.72rem)!important;
+    max-width:100%!important;
+    width:100%!important;
+    line-height:1.03!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+
+  html[lang="fi"] .area-copy h2{
+    font-size:clamp(1.95rem,8.7vw,2.58rem)!important;
+    max-width:100%!important;
+    width:100%!important;
+    line-height:1.04!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+
+  #yrityksesta .about-main,
+  .area-panel{
+    overflow:hidden!important;
+  }
+
+  #yrityksesta .about-main > p,
+  .area-copy > p{
+    width:100%!important;
+  }
+
+  .area-copy .glass-btn.compact{
+    width:max-content!important;
+    max-width:100%!important;
+  }
+}
+
 </style></head>
 <body>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -1133,7 +1252,7 @@ dialog{max-width:calc(100% - 18px)!important}
 <section aria-labelledby="areaTitle" class="section area">
 <div class="container area-panel glass reveal">
 <div class="area-copy"><div class="eyebrow" data-en="Service area" data-fi="Palvelualue">Palvelualue</div><h2 data-en="From Kirkkonummi across the Helsinki region." data-fi="Kirkkonummelta koko pääkaupunkiseudulle." id="areaTitle">Kirkkonummelta koko pääkaupunkiseudulle.</h2><p data-en="In addition to Kirkkonummi, we serve Helsinki, Espoo and Vantaa." data-fi="Palvelemme Kirkkonummen lisäksi Helsingissä, Espoossa ja Vantaalla.">Palvelemme Kirkkonummen lisäksi Helsingissä, Espoossa ja Vantaalla.</p>
-<a class="glass-btn compact" href="https://www.google.com/maps/search/?api=1&amp;query=Kirkkonummi%2C%20Finland" rel="noopener noreferrer" target="_blank"><span data-fi="Avaa kartta" data-en="Open map">Avaa kartta</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M14 5h5v5M10 14 19 5M19 13v6H5V5h6"></path></svg></a>
+<a class="glass-btn compact" href="https://www.google.com/maps/search/?api=1&amp;query=Kirkkonummi%2C%20Finland" rel="noopener noreferrer" target="_blank"><span data-fi="Avaa kartta" data-en="Open map">Avaa kartta</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3Z"></path><path d="M9 3v15M15 6v15"></path></svg></a>
 </div>
 <div aria-label="Palvelualueet: Kirkkonummi, Espoo, Helsinki ja Vantaa" class="area-map"><div aria-hidden="true" class="route"></div><div class="place kirkkonummi"><b>Kirkkonummi</b></div><div class="place espoo"><b>Espoo</b></div><div class="place helsinki"><b>Helsinki</b></div><div class="place vantaa"><b>Vantaa</b></div></div>
 </div>
