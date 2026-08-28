@@ -1396,6 +1396,16 @@ html[lang="fi"] .area-copy h2{
   background:linear-gradient(145deg,#2d8b70,#155c4b)!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 6px 18px rgba(45,139,112,.28)!important;
 }
+
+
+/* ===== Direct navigation targets ===== */
+#quoteForm{
+  scroll-margin-top:calc(var(--head) + 26px)!important;
+}
+#etusivu,#palvelut,#yrityksesta,#toiminta,#tarjous{
+  scroll-margin-top:calc(var(--head) + 22px)!important;
+}
+
 </style>
 </head>
 <body>
@@ -1408,8 +1418,8 @@ html[lang="fi"] .area-copy h2{
 </a>
 <nav aria-label="Päänavigaatio" class="main-nav" id="mainNav">
 <a data-en="Home" data-fi="Etusivu" href="#etusivu">Etusivu</a><a data-en="Services" data-fi="Palvelut" href="#palvelut">Palvelut</a><a data-en="About us" data-fi="Yrityksestä" href="#yrityksesta">Yrityksestä</a><a data-en="How we work" data-fi="Työskentely" href="#toiminta">Työskentely</a><a data-en="Contact" data-fi="Yhteystiedot" href="#tarjous">Yhteystiedot</a>
-<a class="mobile-quote-link" data-en="Request a quote" data-fi="Pyydä tarjous" href="#tarjous">Pyydä tarjous</a></nav>
-<div aria-label="Language" class="lang-switch"><button aria-pressed="true" class="lang-btn active" data-lang="fi" type="button">FI</button><button aria-pressed="false" class="lang-btn" data-lang="en" type="button">EN</button></div><a class="glass-btn primary compact header-cta" href="#tarjous"><span data-en="Request a quote" data-fi="Pyydä tarjous">Pyydä tarjous</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a class="mobile-quote-link" data-en="Request a quote" data-fi="Pyydä tarjous" href="#quoteForm">Pyydä tarjous</a></nav>
+<div aria-label="Language" class="lang-switch"><button aria-pressed="true" class="lang-btn active" data-lang="fi" type="button">FI</button><button aria-pressed="false" class="lang-btn" data-lang="en" type="button">EN</button></div><a class="glass-btn primary compact header-cta" href="#quoteForm"><span data-en="Request a quote" data-fi="Pyydä tarjous">Pyydä tarjous</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
 <button aria-controls="mainNav" aria-expanded="false" aria-label="Avaa valikko" class="menu-btn" id="menuButton" type="button">
 <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4 8h16M4 16h16"></path></svg>
 </button>
@@ -1423,7 +1433,7 @@ html[lang="fi"] .area-copy h2{
 <h1 class="reveal" data-en-html="We build a &lt;span&gt;solid foundation.&lt;/span&gt;" data-fi-html="Rakennamme &lt;span&gt;kestävän perustan.&lt;/span&gt;">Rakennamme <span>kestävän perustan.</span></h1>
 <p class="hero-lead reveal" data-en="Reliable earthworks, excavation and ground construction in Kirkkonummi and across the Helsinki metropolitan area." data-fi="Luotettavaa maanrakennusta, kaivuutöitä ja pohjarakentamista Kirkkonummella ja pääkaupunkiseudulla.">Luotettavaa maanrakennusta, kaivuutöitä ja pohjarakentamista Kirkkonummella ja pääkaupunkiseudulla.</p>
 <div class="hero-actions reveal">
-<a class="glass-btn primary" href="#tarjous"><span data-en="Request a quote" data-fi="Pyydä tarjous">Pyydä tarjous</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a class="glass-btn primary" href="#quoteForm"><span data-en="Request a quote" data-fi="Pyydä tarjous">Pyydä tarjous</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
 <a class="glass-btn" href="#palvelut"><span data-en="Explore services" data-fi="Tutustu palveluihin">Tutustu palveluihin</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></a>
 </div>
 <div aria-label="Yrityksen perustiedot" class="hero-facts glass reveal">
@@ -1558,7 +1568,7 @@ html[lang="fi"] .area-copy h2{
 <div class="container">
 <div class="footer-grid">
 <div class="footer-brand"><a class="brand" href="#etusivu"><span aria-hidden="true" class="brand-mark"><img alt="" height="44" loading="lazy" src="data:image/webp;base64,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" width="44"/></span><span class="brand-copy"><span>Malistan Palvelu</span><small>Maanrakennus · Kirkkonummi</small></span></a><p data-en="Earthworks, excavation, ground construction and yard construction services in Kirkkonummi and the Helsinki metropolitan area." data-fi="Maanrakennus-, kaivuu-, pohjarakennus- ja piharakentamisen palvelut Kirkkonummella ja pääkaupunkiseudulla.">Maanrakennus-, kaivuu-, pohjarakennus- ja piharakentamisen palvelut Kirkkonummella ja pääkaupunkiseudulla.</p></div>
-<div class="footer-col"><h3 data-en="Pages" data-fi="Sivut">Sivut</h3><nav aria-label="Alatunnisteen navigaatio"><a data-en="Services" data-fi="Palvelut" href="#palvelut">Palvelut</a><a data-en="About us" data-fi="Yrityksestä" href="#yrityksesta">Yrityksestä</a><a data-en="How we work" data-fi="Työskentely" href="#toiminta">Työskentely</a><a data-en="Request a quote" data-fi="Pyydä tarjous" href="#tarjous">Pyydä tarjous</a></nav></div>
+<div class="footer-col"><h3 data-en="Pages" data-fi="Sivut">Sivut</h3><nav aria-label="Alatunnisteen navigaatio"><a data-en="Services" data-fi="Palvelut" href="#palvelut">Palvelut</a><a data-en="About us" data-fi="Yrityksestä" href="#yrityksesta">Yrityksestä</a><a data-en="How we work" data-fi="Työskentely" href="#toiminta">Työskentely</a><a data-en="Request a quote" data-fi="Pyydä tarjous" href="#quoteForm">Pyydä tarjous</a></nav></div>
 <div class="footer-col"><h3 data-en="Contact" data-fi="Yhteys">Yhteys</h3><nav><a href="mailto:malistanpalvelu.fi@gmail.com">malistanpalvelu.fi@gmail.com</a><a href="mailto:aliqaderi00358@gmail.com">aliqaderi00358@gmail.com</a><span data-en="Mohammad Ali Qaderi · Owner" data-fi="Mohammad Ali Qaderi · Omistaja">Mohammad Ali Qaderi · Omistaja</span><span data-en="Kirkkonummi, Finland" data-fi="Kirkkonummi, Suomi">Kirkkonummi, Suomi</span><span data-en="Business ID 3456470-1" data-fi="Y-tunnus 3456470-1">Y-tunnus 3456470-1</span></nav></div>
 </div>
 <div class="footer-bottom"><span>© <span id="year"></span> Malistan Palvelu · malistanpalvelu.fi</span><button class="cookie-footer-link" type="button" data-open-cookie-settings data-fi="Evästeasetukset" data-en="Cookie settings">Evästeasetukset</button></div>
@@ -1648,7 +1658,7 @@ html[lang="fi"] .area-copy h2{
       dialog.addEventListener('click',function(e){if(e.target===dialog){stopVideo();if(typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open')}});dialog.addEventListener('close',stopVideo);dialog.addEventListener('cancel',stopVideo);
 
       var type=d.getElementById('fType');
-      d.querySelectorAll('[data-service]').forEach(function(btn){btn.addEventListener('click',function(){type.value=btn.getAttribute('data-service');d.getElementById('tarjous').scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});window.setTimeout(function(){type.focus({preventScroll:true})},reduced?0:650)})});
+      d.querySelectorAll('[data-service]').forEach(function(btn){btn.addEventListener('click',function(){type.value=btn.getAttribute('data-service');d.getElementById('quoteForm').scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});window.setTimeout(function(){type.focus({preventScroll:true})},reduced?0:650)})});
 
       var form=d.getElementById('quoteForm'),submit=d.getElementById('quoteSubmit'),text=submit.querySelector('.button-text');
       var success=d.getElementById('formSuccess'),error=d.getElementById('formError'),sending=false;
@@ -1696,5 +1706,41 @@ html[lang="fi"] .area-copy h2{
   if(!existing)show();
 })();
 </script>
+
+
+<script>
+(function(){
+  function goToTarget(hash){
+    if(!hash || hash.charAt(0)!=='#') return false;
+    var target=document.querySelector(hash);
+    if(!target) return false;
+    var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    try{history.replaceState(null,'',hash)}catch(e){}
+    return true;
+  }
+
+  document.addEventListener('click',function(e){
+    var link=e.target.closest('a[href^="#"]');
+    if(!link) return;
+    var hash=link.getAttribute('href');
+    if(!hash || hash==='#') return;
+    if(!document.querySelector(hash)) return;
+
+    e.preventDefault();
+
+    var menu=document.getElementById('menuButton');
+    var nav=document.getElementById('mainNav');
+    if(menu && nav && menu.getAttribute('aria-expanded')==='true'){
+      menu.setAttribute('aria-expanded','false');
+      nav.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    }
+
+    requestAnimationFrame(function(){goToTarget(hash)});
+  });
+})();
+</script>
+
 </body>
 </html>
