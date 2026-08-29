@@ -312,6 +312,19 @@
       .contact-icon svg{stroke:#071f1b!important}
     }
 
+
+    /* Premium Instagram contact */
+    .instagram-contact .contact-icon{
+      color:#fff!important;background:linear-gradient(135deg,#f9ce34 0%,#ee2a7b 48%,#6228d7 100%)!important;
+      border:1px solid rgba(255,255,255,.78);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 8px 22px rgba(238,42,123,.24)
+    }
+    .instagram-contact .contact-icon::after{content:"";position:absolute;inset:-45%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-70%) rotate(15deg);transition:transform .65s var(--ease)}
+    .instagram-contact:hover .contact-icon::after{transform:translateX(70%) rotate(15deg)}
+    .instagram-contact .contact-icon svg{stroke:#fff!important;position:relative;z-index:1}
+    .instagram-contact:hover{transform:translateY(-2px);border-color:rgba(241,217,131,.48);box-shadow:0 12px 30px rgba(0,0,0,.14)}
+    .footer-instagram{display:inline-flex!important;align-items:center;gap:8px}
+    .footer-instagram svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8}
+
     /* iPhone/Safari select fix: never turn into a white block */
     .field select{
       -webkit-appearance:none;appearance:none;
@@ -1406,6 +1419,595 @@ html[lang="fi"] .area-copy h2{
   scroll-margin-top:calc(var(--head) + 22px)!important;
 }
 
+
+
+/* ===== Unified 3D contact icons + dedicated Instagram stage ===== */
+
+/* Contact card: all information icons use ONE site-color system */
+#tarjous .contacts{
+  position:relative;
+  isolation:isolate;
+  gap:12px;
+}
+#tarjous .contacts::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:190px;
+  height:190px;
+  right:-80px;
+  top:14%;
+  border-radius:50%;
+  border:1px solid rgba(241,217,131,.20);
+  box-shadow:
+    0 0 0 24px rgba(28,91,77,.06),
+    0 0 0 50px rgba(241,217,131,.025);
+  pointer-events:none;
+}
+#tarjous .contacts::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:86px;
+  height:86px;
+  left:-32px;
+  bottom:8%;
+  border-radius:28px;
+  transform:rotate(28deg);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.10),rgba(28,91,77,.02));
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 18px 35px rgba(0,0,0,.09);
+  pointer-events:none;
+}
+
+#tarjous .contact.premium-contact{
+  position:relative;
+  overflow:hidden;
+  min-height:72px;
+  border-color:rgba(255,255,255,.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 12px 30px rgba(0,0,0,.08);
+}
+#tarjous .contact.premium-contact::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 18%,rgba(255,255,255,.08) 43%,transparent 62%);
+  transform:translateX(-110%);
+  transition:transform .7s var(--ease);
+}
+#tarjous a.contact.premium-contact:hover::after{
+  transform:translateX(110%);
+}
+
+/* All phone / email / owner / location icons share one green 3D palette */
+#tarjous .contact-icon,
+#tarjous .contacts .contact:nth-child(n) .contact-icon{
+  position:relative!important;
+  overflow:visible!important;
+  color:#eefaf5!important;
+  background:
+    radial-gradient(circle at 28% 22%,rgba(255,255,255,.35),transparent 24%),
+    linear-gradient(145deg,#2f8b75 0%,#176b59 42%,#0a392f 100%)!important;
+  border:1px solid rgba(211,246,233,.58)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.42),
+    inset -6px -8px 16px rgba(3,34,27,.22),
+    0 7px 0 rgba(4,39,32,.34),
+    0 15px 25px rgba(0,0,0,.18)!important;
+  transform:translateY(-2px);
+}
+#tarjous .contact-icon::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:-7px;
+  border-radius:19px;
+  border:1px solid rgba(241,217,131,.26);
+  opacity:.8;
+  transform:rotate(8deg);
+}
+#tarjous .contact-icon::after{
+  content:"";
+  position:absolute;
+  width:7px;
+  height:7px;
+  right:-7px;
+  top:-6px;
+  border-radius:50%;
+  background:#f1d983;
+  box-shadow:0 0 0 5px rgba(241,217,131,.08),0 0 18px rgba(241,217,131,.42);
+}
+#tarjous .contact-icon svg{
+  position:relative;
+  z-index:2;
+  width:21px!important;
+  height:21px!important;
+  fill:none!important;
+  stroke:#eefaf5!important;
+  stroke-width:2.05!important;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.18));
+}
+
+/* Dedicated Instagram section */
+.social-showcase{
+  position:relative;
+  overflow:hidden;
+  padding:clamp(58px,8vw,110px) 0;
+  background:
+    radial-gradient(circle at 18% 16%,rgba(241,217,131,.11),transparent 24rem),
+    radial-gradient(circle at 86% 72%,rgba(68,159,132,.18),transparent 26rem),
+    var(--forest);
+}
+.social-showcase::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.24;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.38) 1px,transparent 1.25px);
+  background-size:28px 28px;
+  mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
+}
+.instagram-stage{
+  position:relative;
+  isolation:isolate;
+  min-height:360px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:42px;
+  color:#fff;
+  background:
+    radial-gradient(circle at 17% 20%,rgba(241,217,131,.20),transparent 17rem),
+    radial-gradient(circle at 83% 76%,rgba(84,190,157,.26),transparent 21rem),
+    linear-gradient(145deg,#0f5b4b 0%,#0a493d 45%,#071f1b 100%);
+  border:1px solid rgba(188,240,221,.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 -40px 80px rgba(0,0,0,.10),
+    0 30px 80px rgba(0,0,0,.26);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s;
+}
+.instagram-stage:hover{
+  transform:translateY(-5px);
+  border-color:rgba(241,217,131,.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 38px 90px rgba(0,0,0,.32);
+}
+.instagram-stage-inner{
+  position:relative;
+  z-index:4;
+  width:min(850px,calc(100% - 64px));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+}
+.instagram-brandline{
+  display:flex;
+  align-items:center;
+  gap:28px;
+}
+.instagram-stage-copy{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.instagram-kicker{
+  color:var(--gold2);
+  font:700 .72rem/1 Manrope,sans-serif;
+  letter-spacing:.18em;
+}
+.instagram-stage-copy strong{
+  color:#fff;
+  font:800 clamp(2.3rem,5.5vw,5.1rem)/.95 Manrope,sans-serif;
+  letter-spacing:-.05em;
+}
+.instagram-handle{
+  color:rgba(255,255,255,.68);
+  font:600 clamp(.92rem,1.6vw,1.18rem)/1.4 Inter,sans-serif;
+}
+.instagram-3d-icon{
+  position:relative;
+  flex:0 0 clamp(104px,14vw,154px);
+  width:clamp(104px,14vw,154px);
+  aspect-ratio:1;
+  display:grid;
+  place-items:center;
+  border-radius:34%;
+  background:
+    radial-gradient(circle at 28% 20%,rgba(255,255,255,.34),transparent 24%),
+    linear-gradient(145deg,#2e927a,#155f50 54%,#082e27);
+  border:1px solid rgba(220,252,240,.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.36),
+    inset -14px -18px 28px rgba(1,31,24,.24),
+    0 12px 0 rgba(3,37,30,.42),
+    0 28px 45px rgba(0,0,0,.24);
+  transform:perspective(700px) rotateX(7deg) rotateY(-9deg);
+}
+.instagram-3d-icon::before{
+  content:"";
+  position:absolute;
+  inset:-13px;
+  z-index:-1;
+  border-radius:38%;
+  border:1px solid rgba(241,217,131,.35);
+  transform:rotate(9deg);
+}
+.instagram-3d-icon::after{
+  content:"";
+  position:absolute;
+  width:13px;
+  height:13px;
+  right:-9px;
+  top:4px;
+  border-radius:50%;
+  background:var(--gold2);
+  box-shadow:0 0 0 8px rgba(241,217,131,.07),0 0 28px rgba(241,217,131,.42);
+}
+.instagram-3d-icon svg{
+  width:54%;
+  height:54%;
+  fill:none;
+  stroke:#fff;
+  stroke-width:1.65;
+  filter:drop-shadow(0 3px 3px rgba(0,0,0,.2));
+}
+
+.instagram-cta{
+  flex:0 0 auto;
+  min-height:58px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+  padding:0 22px;
+  border-radius:999px;
+  color:#fff;
+  background:
+    linear-gradient(145deg,rgba(45,139,117,.96),rgba(8,55,46,.94)) padding-box,
+    linear-gradient(110deg,rgba(255,255,255,.24),var(--gold2),rgba(255,255,255,.24)) border-box;
+  border:1px solid transparent;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 13px 28px rgba(0,0,0,.18);
+  font:750 .86rem/1 Manrope,sans-serif;
+}
+.instagram-cta svg{
+  width:18px;
+  height:18px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.social-orbit{
+  position:absolute;
+  z-index:1;
+  border-radius:50%;
+  border:1px solid rgba(241,217,131,.22);
+  pointer-events:none;
+}
+.social-orbit-a{
+  width:250px;
+  height:250px;
+  left:-76px;
+  top:-74px;
+  box-shadow:0 0 0 32px rgba(46,139,117,.05),0 0 0 66px rgba(255,255,255,.018);
+  animation:socialOrbit 15s linear infinite;
+}
+.social-orbit-b{
+  width:190px;
+  height:190px;
+  right:-38px;
+  bottom:-62px;
+  border-color:rgba(167,236,212,.18);
+  box-shadow:0 0 0 26px rgba(241,217,131,.035);
+  animation:socialOrbitReverse 18s linear infinite;
+}
+.social-spark{
+  position:absolute;
+  z-index:2;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:var(--gold2);
+  box-shadow:0 0 0 9px rgba(241,217,131,.05),0 0 28px rgba(241,217,131,.38);
+}
+.social-spark-a{left:12%;bottom:17%}
+.social-spark-b{right:15%;top:16%;width:9px;height:9px}
+
+@keyframes socialOrbit{to{transform:rotate(360deg)}}
+@keyframes socialOrbitReverse{to{transform:rotate(-360deg)}}
+
+@media(max-width:820px){
+  .instagram-stage{min-height:330px;border-radius:32px}
+  .instagram-stage-inner{
+    width:min(100% - 38px,620px);
+    flex-direction:column;
+    text-align:center;
+    gap:28px;
+  }
+  .instagram-brandline{
+    flex-direction:column;
+    gap:20px;
+  }
+  .instagram-stage-copy{align-items:center}
+  .instagram-cta{width:min(100%,330px)}
+}
+@media(max-width:620px){
+  .social-showcase{padding:48px 0}
+  .instagram-stage{min-height:360px;border-radius:28px}
+  .instagram-stage-inner{width:calc(100% - 28px)}
+  .instagram-3d-icon{
+    flex-basis:104px;
+    width:104px;
+    border-radius:31px;
+  }
+  #tarjous .contact-icon{
+    flex-basis:44px;
+    width:44px;
+    height:44px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .social-orbit-a,.social-orbit-b{animation:none!important}
+}
+
+
+
+/* ===== FINAL refinement: cleaner 3D contacts + compact Instagram ===== */
+
+/* Remove the circular lamp/orbit decorations from contact area */
+#tarjous .contacts::before,
+#tarjous .contacts::after,
+#tarjous .contact-icon::before,
+#tarjous .contact-icon::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* Give the contact cards themselves more depth so each item is visibly distinct */
+#tarjous .contact.premium-contact{
+  min-height:74px!important;
+  gap:16px!important;
+  padding:11px 14px!important;
+  border:1px solid rgba(207,238,227,.16)!important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.045))!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.11),
+    inset 0 -1px 0 rgba(0,0,0,.18),
+    0 10px 22px rgba(0,0,0,.10)!important;
+  transform:translateZ(0);
+}
+#tarjous .contact.premium-contact:hover{
+  transform:translateY(-2px);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.065))!important;
+}
+
+/* Stronger genuine 3D icon tiles — no lamps / no rings */
+#tarjous .contact-icon,
+#tarjous .contacts .contact:nth-child(n) .contact-icon{
+  flex:0 0 48px!important;
+  width:48px!important;
+  height:48px!important;
+  border-radius:15px!important;
+  overflow:hidden!important;
+  color:#f4fffb!important;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.22),transparent 34%),
+    linear-gradient(145deg,#2b8c75 0%,#176a58 45%,#082f27 100%)!important;
+  border:1px solid rgba(215,249,237,.52)!important;
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,.28),
+    inset -7px -10px 14px rgba(1,30,24,.28),
+    0 5px 0 #06271f,
+    0 11px 18px rgba(0,0,0,.28)!important;
+  transform:translateY(-3px) perspective(500px) rotateX(4deg);
+}
+#tarjous .contact-icon::before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  border-radius:inherit!important;
+  background:linear-gradient(120deg,rgba(255,255,255,.22),transparent 34%,transparent 72%,rgba(255,255,255,.04))!important;
+  pointer-events:none!important;
+}
+#tarjous .contact-icon::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  left:6px!important;
+  right:6px!important;
+  bottom:4px!important;
+  height:5px!important;
+  border-radius:999px!important;
+  background:rgba(0,0,0,.14)!important;
+  filter:blur(3px)!important;
+  pointer-events:none!important;
+}
+#tarjous .contact-icon svg{
+  width:22px!important;
+  height:22px!important;
+  stroke:#fff!important;
+  stroke-width:2!important;
+  filter:drop-shadow(0 2px 1px rgba(0,0,0,.28))!important;
+}
+
+/* Make contact text hierarchy clearer so phone/email/name do not visually blend together */
+#tarjous .contact-copy,
+#tarjous .contact > span:last-child{
+  min-width:0!important;
+}
+#tarjous .contact b{
+  color:#fff!important;
+  font-size:.84rem!important;
+  line-height:1.25!important;
+  letter-spacing:-.01em!important;
+  font-weight:750!important;
+}
+#tarjous .contact span{
+  color:rgba(255,255,255,.58)!important;
+  font-size:.69rem!important;
+}
+#tarjous .contact + .contact{
+  margin-top:2px!important;
+}
+
+/* Compact Instagram area: no huge icon, no extra slogan, no CTA sentence */
+.social-showcase-refined{
+  padding:34px 0 46px!important;
+  background:
+    radial-gradient(circle at 16% 20%,rgba(55,143,118,.16),transparent 18rem),
+    linear-gradient(180deg,#08271f,#061b17)!important;
+}
+.social-showcase-refined::before{
+  opacity:.10!important;
+}
+.instagram-strip{
+  width:min(100%,760px);
+  margin-inline:auto;
+  min-height:104px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:18px;
+  padding:16px 18px;
+  border-radius:26px;
+  color:#fff;
+  background:
+    linear-gradient(145deg,rgba(33,107,89,.74),rgba(7,39,32,.9));
+  border:1px solid rgba(205,239,227,.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.13),
+    0 18px 38px rgba(0,0,0,.18);
+  transition:transform .28s var(--ease),border-color .28s,background .28s;
+}
+.instagram-strip:hover{
+  transform:translateY(-3px);
+  border-color:rgba(241,217,131,.34);
+  background:
+    linear-gradient(145deg,rgba(39,124,102,.82),rgba(7,39,32,.94));
+}
+.instagram-mini-icon{
+  position:relative;
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  border-radius:18px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.20),transparent 36%),
+    linear-gradient(145deg,#2a8e76,#145f50 56%,#082e27);
+  border:1px solid rgba(216,249,238,.45);
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,.25),
+    inset -8px -10px 15px rgba(2,29,24,.25),
+    0 5px 0 #05271f,
+    0 12px 20px rgba(0,0,0,.22);
+  transform:translateY(-2px) perspective(500px) rotateX(5deg);
+}
+.instagram-mini-icon svg{
+  width:29px;
+  height:29px;
+  fill:none;
+  stroke:#fff;
+  stroke-width:1.8;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.22));
+}
+.instagram-strip-copy{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.instagram-strip-copy strong{
+  font:800 1.08rem/1.15 Manrope,sans-serif;
+  letter-spacing:-.02em;
+}
+.instagram-strip-copy span{
+  color:rgba(255,255,255,.62);
+  font:600 .76rem/1.3 Inter,sans-serif;
+}
+.instagram-strip-arrow{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+}
+.instagram-strip-arrow svg{
+  width:19px;
+  height:19px;
+  fill:none;
+  stroke:#f1d983;
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+@media(max-width:620px){
+  #tarjous .contact.premium-contact{
+    min-height:70px!important;
+    gap:14px!important;
+    padding:10px 12px!important;
+  }
+  #tarjous .contact-icon,
+  #tarjous .contacts .contact:nth-child(n) .contact-icon{
+    flex-basis:46px!important;
+    width:46px!important;
+    height:46px!important;
+  }
+  #tarjous .contact b{
+    font-size:.79rem!important;
+  }
+  #tarjous .contact span{
+    font-size:.65rem!important;
+  }
+  .social-showcase-refined{
+    padding:26px 0 34px!important;
+  }
+  .instagram-strip{
+    min-height:88px;
+    gap:14px;
+    padding:13px 14px;
+    border-radius:22px;
+  }
+  .instagram-mini-icon{
+    width:50px;
+    height:50px;
+    border-radius:16px;
+  }
+  .instagram-mini-icon svg{
+    width:25px;
+    height:25px;
+  }
+  .instagram-strip-copy strong{
+    font-size:.96rem;
+  }
+  .instagram-strip-copy span{
+    font-size:.69rem;
+  }
+  .instagram-strip-arrow{
+    width:38px;
+    height:38px;
+    border-radius:13px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1564,6 +2166,34 @@ html[lang="fi"] .area-copy h2{
 </div>
 </section>
 </main>
+
+
+<section class="social-showcase social-showcase-refined" aria-labelledby="social-instagram-title">
+  <div class="container">
+    <a class="instagram-strip reveal" href="https://www.instagram.com/malistanpalvelu?igsi=MXg4a25qZmVlY2RvZA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Malistan Palvelu Instagram">
+      <span class="instagram-mini-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle cx="17.4" cy="6.7" r="1"></circle>
+        </svg>
+      </span>
+
+      <span class="instagram-strip-copy">
+        <strong id="social-instagram-title">Instagram</strong>
+        <span>@malistanpalvelu</span>
+      </span>
+
+      <span class="instagram-strip-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12h14"></path>
+          <path d="m14 7 5 5-5 5"></path>
+        </svg>
+      </span>
+    </a>
+  </div>
+</section>
+
 <footer>
 <div class="container">
 <div class="footer-grid">
