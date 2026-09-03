@@ -2208,6 +2208,137 @@ html[lang="fi"] .area-copy h2{
     .menu-material-overlay{background:rgba(0,8,6,.94);-webkit-backdrop-filter:none;backdrop-filter:none}
   }
 </style>
+<style id="malistan-service-globe-styles">
+/* Service-area globe: a purposeful regional visual, not a decorative world map. */
+.area-map.globe-stage{
+  position:relative;
+  isolation:isolate;
+  min-height:480px;
+  overflow:hidden;
+  cursor:grab;
+  touch-action:pan-y;
+  user-select:none;
+  -webkit-user-select:none;
+  background:
+    radial-gradient(circle at 50% 43%,rgba(68,171,137,.18),transparent 42%),
+    radial-gradient(circle at 16% 10%,rgba(241,217,131,.12),transparent 28%),
+    linear-gradient(155deg,#061713 0%,#0a2b24 58%,#071b17 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 22px 50px rgba(2,16,13,.22);
+}
+.area-map.globe-stage:active{cursor:grabbing}
+.area-map.globe-stage:focus-visible{outline:3px solid rgba(241,217,131,.92);outline-offset:4px}
+.globe-stage::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  opacity:.16!important;
+  pointer-events:none;
+  background-image:radial-gradient(circle,rgba(209,244,229,.68) 1px,transparent 1.25px)!important;
+  background-size:25px 25px!important;
+  -webkit-mask-image:linear-gradient(115deg,transparent,#000 22%,#000 76%,transparent)!important;
+  mask-image:linear-gradient(115deg,transparent,#000 22%,#000 76%,transparent)!important;
+}
+.globe-stage::after{
+  content:"";
+  position:absolute;
+  z-index:2;
+  width:62%;
+  height:16%;
+  left:19%;
+  bottom:58px;
+  border-radius:50%;
+  pointer-events:none;
+  background:rgba(1,10,8,.55);
+  filter:blur(24px);
+}
+.globe-canvas{position:absolute;z-index:1;inset:12px 0 76px;opacity:0;transition:opacity .55s ease}
+.globe-canvas canvas{display:block;width:100%!important;height:100%!important;touch-action:pan-y}
+.globe-stage.is-ready .globe-canvas{opacity:1}
+.globe-fallback{
+  position:absolute;
+  z-index:1;
+  width:min(72%,350px);
+  aspect-ratio:1;
+  left:50%;
+  top:44%;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  opacity:.88;
+  background:
+    radial-gradient(circle at 34% 27%,rgba(255,255,255,.18),transparent 18%),
+    repeating-radial-gradient(ellipse at center,transparent 0 25px,rgba(169,226,203,.15) 27px 28px),
+    linear-gradient(145deg,rgba(32,111,89,.8),rgba(3,22,18,.96));
+  border:1px solid rgba(186,235,216,.38);
+  box-shadow:inset -28px -20px 55px rgba(0,0,0,.45),0 0 60px rgba(45,139,112,.18);
+  transition:opacity .4s ease;
+}
+.globe-fallback::before,.globe-fallback::after{content:"";position:absolute;inset:7% 25%;border:1px solid rgba(193,238,220,.23);border-radius:50%}
+.globe-fallback::after{inset:25% 7%;transform:rotate(90deg)}
+.globe-fallback span{position:absolute;left:61%;top:23%;width:12px;height:12px;border-radius:50%;background:#f1d983;box-shadow:0 0 0 7px rgba(241,217,131,.13),0 0 25px rgba(241,217,131,.72)}
+.globe-stage.is-ready .globe-fallback{opacity:0}
+.globe-status{
+  position:absolute;
+  z-index:4;
+  left:50%;
+  top:49%;
+  transform:translate(-50%,-50%);
+  color:rgba(235,248,243,.74);
+  font:700 .68rem/1.2 Manrope,sans-serif;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  transition:opacity .3s ease;
+}
+.globe-status::after{content:"";display:block;width:48px;height:2px;margin:10px auto 0;border-radius:2px;background:linear-gradient(90deg,transparent,#f1d983,transparent);animation:globeLoad 1.15s ease-in-out infinite}
+.globe-stage.is-ready .globe-status{opacity:0;pointer-events:none}
+.globe-stage.has-error .globe-status{top:58%;max-width:28ch;text-align:center;text-transform:none;letter-spacing:0;line-height:1.5}
+.globe-stage.has-error .globe-status::after{display:none}
+.globe-city-list{
+  position:absolute;
+  z-index:5;
+  left:16px;
+  right:16px;
+  bottom:15px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:7px;
+  pointer-events:none;
+}
+.globe-city-list span{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:42px;
+  padding:9px 8px;
+  overflow:hidden;
+  color:#f5fbf8;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  border:1px solid rgba(203,239,225,.18);
+  border-radius:14px;
+  background:rgba(10,39,32,.66);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09);
+  -webkit-backdrop-filter:blur(18px) saturate(1.25);
+  backdrop-filter:blur(18px) saturate(1.25);
+  font:700 clamp(.62rem,1.3vw,.72rem)/1 Manrope,sans-serif;
+}
+.globe-city-list i{flex:0 0 7px;width:7px;height:7px;border-radius:50%;background:#f1d983;box-shadow:0 0 0 4px rgba(241,217,131,.1),0 0 12px rgba(241,217,131,.48)}
+.globe-hint{position:absolute;z-index:4;top:16px;left:50%;transform:translateX(-50%);padding:8px 12px;color:rgba(232,247,241,.64);border:1px solid rgba(205,239,225,.12);border-radius:999px;background:rgba(5,24,20,.38);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);font:650 .63rem/1 Manrope,sans-serif;letter-spacing:.02em;pointer-events:none}
+@keyframes globeLoad{0%,100%{opacity:.25;transform:scaleX(.55)}50%{opacity:1;transform:scaleX(1)}}
+@media(max-width:620px){
+  .area-map.globe-stage{min-height:430px;border-radius:24px}
+  .globe-canvas{inset:20px -24px 104px}
+  .globe-city-list{grid-template-columns:repeat(2,minmax(0,1fr));bottom:13px;gap:6px}
+  .globe-city-list span{min-height:37px;border-radius:12px;font-size:.65rem}
+  .globe-stage::after{bottom:86px}
+}
+@media(prefers-reduced-motion:reduce){
+  .globe-canvas,.globe-fallback,.globe-status{transition:none!important}
+  .globe-status::after{animation:none!important}
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -2311,7 +2442,15 @@ html[lang="fi"] .area-copy h2{
 <div class="area-copy"><div class="eyebrow" data-en="Service area" data-fi="Palvelualue">Palvelualue</div><h2 data-en="From Kirkkonummi across the Helsinki region." data-fi="Kirkkonummelta koko pääkaupunkiseudulle." id="areaTitle">Kirkkonummelta koko pääkaupunkiseudulle.</h2><p data-en="In addition to Kirkkonummi, we serve Helsinki, Espoo and Vantaa." data-fi="Palvelemme Kirkkonummen lisäksi Helsingissä, Espoossa ja Vantaalla.">Palvelemme Kirkkonummen lisäksi Helsingissä, Espoossa ja Vantaalla.</p>
 <a class="glass-btn compact" href="https://www.google.com/maps/search/?api=1&amp;query=Kirkkonummi%2C%20Finland" rel="noopener noreferrer" target="_blank"><span data-fi="Avaa kartta" data-en="Open map">Avaa kartta</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3Z"></path><path d="M9 3v15M15 6v15"></path></svg></a>
 </div>
-<div aria-label="Palvelualueet: Kirkkonummi, Espoo, Helsinki ja Vantaa" class="area-map"><div aria-hidden="true" class="route"></div><div class="place kirkkonummi"><b>Kirkkonummi</b></div><div class="place espoo"><b>Espoo</b></div><div class="place helsinki"><b>Helsinki</b></div><div class="place vantaa"><b>Vantaa</b></div></div>
+<div aria-label="Interaktiivinen palvelualuekartta: Kirkkonummi, Espoo, Helsinki ja Vantaa" class="area-map globe-stage" data-en-aria-label="Interactive service area globe: Kirkkonummi, Espoo, Helsinki and Vantaa" data-fi-aria-label="Interaktiivinen palvelualuekartta: Kirkkonummi, Espoo, Helsinki ja Vantaa" id="serviceGlobe" role="img" tabindex="0">
+<div aria-hidden="true" class="globe-fallback"><span></span></div>
+<div aria-hidden="true" class="globe-canvas" id="serviceGlobeCanvas"></div>
+<div class="globe-status" data-fi="Ladataan palvelualuetta" data-en="Loading service area">Ladataan palvelualuetta</div>
+<div class="globe-city-list" aria-label="Kirkkonummi, Espoo, Helsinki, Vantaa">
+<span><i></i>Kirkkonummi</span><span><i></i>Espoo</span><span><i></i>Helsinki</span><span><i></i>Vantaa</span>
+</div>
+<div class="globe-hint" data-fi="Vedä pyörittääksesi" data-en="Drag to rotate">Vedä pyörittääksesi</div>
+</div>
 </div>
 </section>
 <section class="section process" id="toiminta">
@@ -2596,5 +2735,335 @@ html[lang="fi"] .area-copy h2{
 })();
 </script>
 
+<script type="text/plain" id="malistan-service-globe-script-disabled">
+(async function(){
+  'use strict';
+  const stage=document.getElementById('serviceGlobe');
+  const mount=document.getElementById('serviceGlobeCanvas');
+  const status=stage&&stage.querySelector('.globe-status');
+  if(!stage||!mount)return;
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobile=window.matchMedia('(max-width: 620px)').matches;
+  const setError=function(){
+    stage.classList.add('has-error');
+    if(status){
+      status.setAttribute('data-fi','3D-karttaa ei voitu ladata. Palvelualue: Kirkkonummi, Espoo, Helsinki ja Vantaa.');
+      status.setAttribute('data-en','The 3D map could not load. Service area: Kirkkonummi, Espoo, Helsinki and Vantaa.');
+      status.textContent=document.documentElement.lang==='en'?status.getAttribute('data-en'):status.getAttribute('data-fi');
+    }
+  };
+  try{
+    const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js');
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(42,1,.1,20);
+    camera.position.set(0,0,3.55);
+    const renderer=new THREE.WebGLRenderer({alpha:true,antialias:!mobile,powerPreference:'high-performance'});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,mobile?1.5:2));
+    renderer.outputColorSpace=THREE.SRGBColorSpace;
+    renderer.setClearColor(0x000000,0);
+    mount.appendChild(renderer.domElement);
+
+    const globe=new THREE.Group();
+    globe.rotation.order='YXZ';
+    const finlandLat=60.21*Math.PI/180;
+    const finlandLng=24.75*Math.PI/180;
+    globe.rotation.x=-finlandLat;
+    globe.rotation.y=-finlandLng;
+    scene.add(globe);
+
+    const radius=1.28;
+    const ocean=new THREE.Mesh(
+      new THREE.SphereGeometry(radius,mobile?48:64,mobile?32:48),
+      new THREE.MeshBasicMaterial({color:0x071d18,transparent:true,opacity:.98})
+    );
+    globe.add(ocean);
+    const atmosphere=new THREE.Mesh(
+      new THREE.SphereGeometry(radius*1.035,48,32),
+      new THREE.MeshBasicMaterial({color:0x5bbd9b,transparent:true,opacity:.055,side:THREE.BackSide,depthWrite:false})
+    );
+    globe.add(atmosphere);
+
+    const xyz=function(lat,lng,r){
+      const p=lat*Math.PI/180,q=lng*Math.PI/180;
+      return new THREE.Vector3(Math.cos(p)*Math.sin(q)*r,Math.sin(p)*r,Math.cos(p)*Math.cos(q)*r);
+    };
+    const gridMat=new THREE.LineBasicMaterial({color:0xa9d9c6,transparent:true,opacity:.12,depthWrite:false});
+    for(let lat=-75;lat<=75;lat+=15){
+      const pts=[];for(let lng=-180;lng<=180;lng+=4)pts.push(xyz(lat,lng,radius*1.003));
+      globe.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(pts),gridMat));
+    }
+    for(let lng=-180;lng<180;lng+=15){
+      const pts=[];for(let lat=-90;lat<=90;lat+=3)pts.push(xyz(lat,lng,radius*1.003));
+      globe.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),gridMat));
+    }
+
+    const hubPosition=xyz(60.21,24.75,radius*1.025);
+    const hub=new THREE.Mesh(
+      new THREE.SphereGeometry(.035,16,16),
+      new THREE.MeshBasicMaterial({color:0xf1d983})
+    );
+    hub.position.copy(hubPosition);
+    globe.add(hub);
+    const halo=new THREE.Mesh(
+      new THREE.SphereGeometry(.065,18,18),
+      new THREE.MeshBasicMaterial({color:0xf1d983,transparent:true,opacity:.16,depthWrite:false})
+    );
+    halo.position.copy(hubPosition);
+    globe.add(halo);
+
+    const resize=function(){
+      const w=Math.max(1,mount.clientWidth),h=Math.max(1,mount.clientHeight);
+      camera.aspect=w/h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w,h,false);
+      renderer.render(scene,camera);
+    };
+    new ResizeObserver(resize).observe(mount);
+    resize();
+
+    let targetX=globe.rotation.x,targetY=globe.rotation.y;
+    let velocityX=0,velocityY=0,dragging=false,pointerId=null,lastX=0,lastY=0,startX=0,startY=0,axis='';
+    const down=function(e){
+      if(e.pointerType==='mouse'&&e.button!==0)return;
+      dragging=true;pointerId=e.pointerId;lastX=startX=e.clientX;lastY=startY=e.clientY;axis='';velocityX=velocityY=0;
+      stage.setPointerCapture&&stage.setPointerCapture(pointerId);
+    };
+    const move=function(e){
+      if(!dragging||e.pointerId!==pointerId)return;
+      const totalX=e.clientX-startX,totalY=e.clientY-startY;
+      if(!axis&&Math.hypot(totalX,totalY)>6)axis=Math.abs(totalX)>Math.abs(totalY)?'x':'y';
+      if(axis!=='x'){lastX=e.clientX;lastY=e.clientY;return;}
+      e.preventDefault();
+      const dx=e.clientX-lastX,dy=e.clientY-lastY;
+      velocityY=dx*.0045;velocityX=dy*.0035;
+      targetY+=velocityY;targetX+=velocityX;
+      targetX=Math.max(-1.42,Math.min(1.42,targetX));
+      lastX=e.clientX;lastY=e.clientY;
+    };
+    const up=function(e){
+      if(e.pointerId!==pointerId)return;
+      dragging=false;pointerId=null;axis='';
+    };
+    stage.addEventListener('pointerdown',down);
+    stage.addEventListener('pointermove',move,{passive:false});
+    stage.addEventListener('pointerup',up);
+    stage.addEventListener('pointercancel',up);
+    stage.addEventListener('keydown',function(e){
+      const step=.12;
+      if(e.key==='ArrowLeft'){targetY-=step;e.preventDefault()}
+      else if(e.key==='ArrowRight'){targetY+=step;e.preventDefault()}
+      else if(e.key==='ArrowUp'){targetX=Math.min(1.42,targetX+step);e.preventDefault()}
+      else if(e.key==='ArrowDown'){targetX=Math.max(-1.42,targetX-step);e.preventDefault()}
+    });
+
+    let visible=true,raf=0,lastTime=performance.now();
+    const animate=function(now){
+      const dt=Math.min(32,now-lastTime);lastTime=now;
+      if(!dragging){
+        if(!reduced)targetY+=dt*.000055;
+        targetY+=velocityY;targetX+=velocityX;
+        velocityY*=.92;velocityX*=.92;
+      }
+      globe.rotation.y+=(targetY-globe.rotation.y)*.12;
+      globe.rotation.x+=(targetX-globe.rotation.x)*.12;
+      const pulse=.93+Math.sin(now*.004)*.12;
+      halo.scale.setScalar(reduced?1:pulse);
+      renderer.render(scene,camera);
+      if(visible&&!document.hidden)raf=requestAnimationFrame(animate);
+    };
+    const start=function(){if(!raf){lastTime=performance.now();raf=requestAnimationFrame(animate)}};
+    const stop=function(){if(raf){cancelAnimationFrame(raf);raf=0}};
+    new IntersectionObserver(function(entries){visible=entries[0].isIntersecting;visible?start():stop()},{rootMargin:'160px'}).observe(stage);
+    document.addEventListener('visibilitychange',function(){document.hidden?stop():(visible&&start())});
+
+    const dataUrls=[
+      'https://cdn.jsdelivr.net/gh/martynafford/natural-earth-geojson@master/50m/physical/ne_50m_land.json',
+      'https://raw.githubusercontent.com/martynafford/natural-earth-geojson/master/50m/physical/ne_50m_land.json'
+    ];
+    let landData=null;
+    for(const url of dataUrls){
+      try{const response=await fetch(url,{mode:'cors'});if(response.ok){landData=await response.json();break}}catch(_e){}
+    }
+    if(!landData)throw new Error('land-data');
+
+    const outlineMat=new THREE.LineBasicMaterial({color:0xd6eee4,transparent:true,opacity:.48,depthWrite:false});
+    const outlinePositions=[];
+    const mask=document.createElement('canvas');mask.width=1024;mask.height=512;
+    const ctx=mask.getContext('2d',{willReadFrequently:true});
+    ctx.fillStyle='#000';ctx.fillRect(0,0,mask.width,mask.height);ctx.fillStyle='#fff';
+    const rings=[];
+    const collect=function(geometry){
+      if(!geometry)return;
+      if(geometry.type==='Polygon')geometry.coordinates.forEach(function(r){rings.push(r)});
+      if(geometry.type==='MultiPolygon')geometry.coordinates.forEach(function(p){p.forEach(function(r){rings.push(r)})});
+    };
+    landData.features.forEach(function(f){collect(f.geometry)});
+    rings.forEach(function(ring){
+      if(ring.length<3)return;
+      ctx.beginPath();
+      ring.forEach(function(c,i){const x=(c[0]+180)/360*mask.width,y=(90-c[1])/180*mask.height;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});
+      ctx.closePath();ctx.fill();
+      const stride=mobile?5:3,points=[];
+      for(let i=0;i<ring.length;i+=stride)points.push(xyz(ring[i][1],ring[i][0],radius*1.009));
+      if(points.length>2){
+        points.push(points[0]);
+        for(let i=1;i<points.length;i++)outlinePositions.push(points[i-1].x,points[i-1].y,points[i-1].z,points[i].x,points[i].y,points[i].z);
+      }
+    });
+    const outlineGeometry=new THREE.BufferGeometry();
+    outlineGeometry.setAttribute('position',new THREE.Float32BufferAttribute(outlinePositions,3));
+    globe.add(new THREE.LineSegments(outlineGeometry,outlineMat));
+    const pixels=ctx.getImageData(0,0,mask.width,mask.height).data;
+    const landPositions=[];
+    const step=mobile?4:3.2;
+    for(let lat=-84;lat<=84;lat+=step){
+      const lngStep=step/Math.max(.32,Math.cos(Math.abs(lat)*Math.PI/180));
+      for(let lng=-180;lng<180;lng+=lngStep){
+        const x=Math.min(mask.width-1,Math.max(0,Math.round((lng+180)/360*mask.width)));
+        const y=Math.min(mask.height-1,Math.max(0,Math.round((90-lat)/180*mask.height)));
+        if(pixels[(y*mask.width+x)*4]>128){const p=xyz(lat,lng,radius*1.014);landPositions.push(p.x,p.y,p.z)}
+      }
+    }
+    const dotGeometry=new THREE.BufferGeometry();
+    dotGeometry.setAttribute('position',new THREE.Float32BufferAttribute(landPositions,3));
+    const dots=new THREE.Points(dotGeometry,new THREE.PointsMaterial({color:0x82d6b7,size:mobile ? .019 : .016,transparent:true,opacity:.86,sizeAttenuation:true,depthWrite:false}));
+    globe.add(dots);
+    stage.classList.add('is-ready');
+    start();
+  }catch(error){
+    console.warn('[Malistan globe] Falling back to the static service-area visual.',error);
+    setError();
+  }
+})();
+</script>
+<script id="malistan-self-contained-globe">
+(function(){
+  'use strict';
+  var stage=document.getElementById('serviceGlobe');
+  var mount=document.getElementById('serviceGlobeCanvas');
+  if(!stage||!mount)return;
+  var canvas=document.createElement('canvas');
+  canvas.setAttribute('aria-hidden','true');
+  mount.appendChild(canvas);
+  stage.setAttribute('data-renderer','self-contained-canvas');
+  var ctx=canvas.getContext('2d');
+  if(!ctx){stage.classList.add('has-error');return}
+
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var yaw=-24.75*Math.PI/180,pitch=60.21*Math.PI/180;
+  var targetYaw=yaw,targetPitch=pitch,velocityYaw=0,velocityPitch=0;
+  var width=1,height=1,cx=0,cy=0,radius=1,dpr=1;
+  var dragging=false,pointerId=null,startX=0,startY=0,lastX=0,lastY=0,axis='';
+  var visible=true,raf=0,lastTime=performance.now();
+
+  var land=[
+    [[-11,36],[-5,44],[4,48],[8,55],[18,58],[22,66],[29,71],[42,69],[40,59],[34,51],[28,44],[20,39],[10,36]],
+    [[-17,36],[-5,37],[10,36],[25,32],[36,22],[49,12],[43,-10],[34,-26],[27,-35],[14,-34],[5,-23],[-5,-2],[-15,16]],
+    [[28,70],[55,76],[92,76],[126,70],[160,62],[178,51],[151,45],[143,29],[121,19],[108,6],[96,20],[78,9],[61,24],[45,31],[34,46]],
+    [[-168,71],[-145,72],[-125,64],[-112,54],[-96,50],[-82,25],[-67,20],[-61,43],[-53,56],[-76,67],[-105,73],[-135,76]],
+    [[-81,12],[-67,11],[-50,2],[-39,-15],[-46,-31],[-55,-52],[-68,-55],[-74,-34],[-79,-12]],
+    [[112,-11],[130,-10],[151,-18],[154,-34],[135,-40],[116,-32]],
+    [[-62,82],[-31,83],[-20,72],[-29,60],[-48,59],[-64,72]],
+    [[47,-13],[50,-17],[49,-25],[44,-20]],
+    [[130,33],[141,44],[146,42],[139,31]],
+    [[166,-34],[178,-38],[174,-47],[166,-45]]
+  ];
+
+  function vector(lat,lng){
+    var p=lat*Math.PI/180,q=lng*Math.PI/180,cp=Math.cos(p);
+    return {x:cp*Math.sin(q),y:Math.sin(p),z:cp*Math.cos(q)};
+  }
+  function project(lat,lng){
+    var v=vector(lat,lng),cyaw=Math.cos(yaw),syaw=Math.sin(yaw),cpitch=Math.cos(pitch),spitch=Math.sin(pitch);
+    var x=v.x*cyaw+v.z*syaw;
+    var z=-v.x*syaw+v.z*cyaw;
+    var y=v.y*cpitch-z*spitch;
+    var depth=v.y*spitch+z*cpitch;
+    return {x:cx+x*radius,y:cy-y*radius,z:depth};
+  }
+  function lerpLng(a,b,t){
+    var d=b-a;if(d>180)d-=360;if(d<-180)d+=360;return a+d*t;
+  }
+  function denseRing(ring){
+    var out=[];
+    for(var i=0;i<ring.length;i++){
+      var a=ring[i],b=ring[(i+1)%ring.length],steps=Math.max(2,Math.ceil(Math.max(Math.abs(b[1]-a[1]),Math.abs(b[0]-a[0]))/4));
+      for(var j=0;j<steps;j++){var t=j/steps;out.push([lerpLng(a[0],b[0],t),a[1]+(b[1]-a[1])*t])}
+    }
+    return out;
+  }
+  var denseLand=land.map(denseRing);
+
+  function strokeGeo(points,color,lineWidth,closed){
+    ctx.beginPath();var drawing=false;
+    for(var i=0;i<points.length+(closed?1:0);i++){
+      var c=points[i%points.length],p=project(c[1],c[0]);
+      if(p.z>.015){if(!drawing){ctx.moveTo(p.x,p.y);drawing=true}else ctx.lineTo(p.x,p.y)}else drawing=false;
+    }
+    ctx.strokeStyle=color;ctx.lineWidth=lineWidth;ctx.stroke();
+  }
+  function fillLand(points){
+    ctx.beginPath();var drawing=false,seen=0;
+    for(var i=0;i<=points.length;i++){
+      var c=points[i%points.length],p=project(c[1],c[0]);
+      if(p.z>-.025){if(!drawing){ctx.moveTo(p.x,p.y);drawing=true}else ctx.lineTo(p.x,p.y);seen++}else drawing=false;
+    }
+    if(seen>2){ctx.closePath();ctx.fillStyle='rgba(59,145,114,.48)';ctx.fill();ctx.strokeStyle='rgba(202,240,225,.62)';ctx.lineWidth=Math.max(1,dpr*.7);ctx.stroke()}
+  }
+  function drawGraticule(){
+    for(var lat=-75;lat<=75;lat+=15){var row=[];for(var lng=-180;lng<=180;lng+=4)row.push([lng,lat]);strokeGeo(row,'rgba(175,224,205,.16)',Math.max(.55,dpr*.42),false)}
+    for(var lng=-180;lng<180;lng+=15){var col=[];for(var lat=-90;lat<=90;lat+=3)col.push([lng,lat]);strokeGeo(col,'rgba(175,224,205,.14)',Math.max(.55,dpr*.42),false)}
+  }
+  function drawDots(){
+    ctx.fillStyle='rgba(138,215,184,.7)';
+    for(var lat=-78;lat<=78;lat+=6){for(var lng=-180;lng<180;lng+=8){var p=project(lat,lng);if(p.z>.06){ctx.beginPath();ctx.arc(p.x,p.y,Math.max(.65,dpr*.55),0,Math.PI*2);ctx.fill()}}}
+  }
+  function drawMarker(now){
+    var p=project(60.21,24.75);if(p.z<=0)return;
+    var pulse=reduced?1:1+(Math.sin(now*.004)+1)*.18;
+    var glow=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,24*dpr*pulse);
+    glow.addColorStop(0,'rgba(241,217,131,.58)');glow.addColorStop(.25,'rgba(241,217,131,.18)');glow.addColorStop(1,'rgba(241,217,131,0)');
+    ctx.fillStyle=glow;ctx.beginPath();ctx.arc(p.x,p.y,24*dpr*pulse,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#f1d983';ctx.beginPath();ctx.arc(p.x,p.y,5.5*dpr,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='rgba(255,246,198,.72)';ctx.lineWidth=1*dpr;ctx.beginPath();ctx.arc(p.x,p.y,10*dpr*pulse,0,Math.PI*2);ctx.stroke();
+  }
+  function draw(now){
+    ctx.clearRect(0,0,width,height);
+    ctx.save();ctx.beginPath();ctx.arc(cx,cy,radius,0,Math.PI*2);ctx.clip();
+    var ocean=ctx.createRadialGradient(cx-radius*.32,cy-radius*.34,radius*.05,cx,cy,radius*1.08);
+    ocean.addColorStop(0,'#174e40');ocean.addColorStop(.48,'#0b3027');ocean.addColorStop(1,'#03120f');
+    ctx.fillStyle=ocean;ctx.fillRect(cx-radius,cy-radius,radius*2,radius*2);
+    drawDots();drawGraticule();denseLand.forEach(fillLand);drawMarker(now);
+    var shade=ctx.createRadialGradient(cx-radius*.42,cy-radius*.38,radius*.1,cx,cy,radius*1.12);
+    shade.addColorStop(0,'rgba(255,255,255,.11)');shade.addColorStop(.48,'rgba(255,255,255,0)');shade.addColorStop(.82,'rgba(0,0,0,.08)');shade.addColorStop(1,'rgba(0,0,0,.58)');
+    ctx.fillStyle=shade;ctx.fillRect(cx-radius,cy-radius,radius*2,radius*2);ctx.restore();
+    ctx.strokeStyle='rgba(192,235,219,.42)';ctx.lineWidth=1.15*dpr;ctx.beginPath();ctx.arc(cx,cy,radius,0,Math.PI*2);ctx.stroke();
+  }
+  function resize(){
+    var rect=mount.getBoundingClientRect();dpr=Math.min(window.devicePixelRatio||1,2);width=Math.max(1,Math.round(rect.width*dpr));height=Math.max(1,Math.round(rect.height*dpr));
+    canvas.width=width;canvas.height=height;canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';
+    cx=width/2;cy=height/2+4*dpr;radius=Math.min(width*.39,height*.44);draw(performance.now());
+  }
+  function down(e){if(e.pointerType==='mouse'&&e.button!==0)return;dragging=true;pointerId=e.pointerId;startX=lastX=e.clientX;startY=lastY=e.clientY;axis='';velocityYaw=velocityPitch=0;if(stage.setPointerCapture)stage.setPointerCapture(pointerId)}
+  function move(e){
+    if(!dragging||e.pointerId!==pointerId)return;
+    var tx=e.clientX-startX,ty=e.clientY-startY;if(!axis&&Math.hypot(tx,ty)>7)axis=Math.abs(tx)>Math.abs(ty)?'x':'y';
+    if(axis!=='x'){lastX=e.clientX;lastY=e.clientY;return}e.preventDefault();
+    var dx=e.clientX-lastX,dy=e.clientY-lastY;velocityYaw=dx*.006;velocityPitch=dy*.0045;targetYaw+=velocityYaw;targetPitch=Math.max(-1.28,Math.min(1.28,targetPitch+velocityPitch));lastX=e.clientX;lastY=e.clientY;
+  }
+  function up(e){if(e.pointerId!==pointerId)return;dragging=false;pointerId=null;axis=''}
+  stage.addEventListener('pointerdown',down);stage.addEventListener('pointermove',move,{passive:false});stage.addEventListener('pointerup',up);stage.addEventListener('pointercancel',up);
+  stage.addEventListener('keydown',function(e){var step=.13;if(e.key==='ArrowLeft'){targetYaw-=step;e.preventDefault()}else if(e.key==='ArrowRight'){targetYaw+=step;e.preventDefault()}else if(e.key==='ArrowUp'){targetPitch=Math.min(1.28,targetPitch+step);e.preventDefault()}else if(e.key==='ArrowDown'){targetPitch=Math.max(-1.28,targetPitch-step);e.preventDefault()}});
+  function frame(now){
+    var dt=Math.min(34,now-lastTime);lastTime=now;if(!dragging){if(!reduced)targetYaw+=dt*.000045;targetYaw+=velocityYaw;targetPitch+=velocityPitch;velocityYaw*=.91;velocityPitch*=.91}
+    yaw+=(targetYaw-yaw)*.14;pitch+=(targetPitch-pitch)*.14;draw(now);if(visible&&!document.hidden)raf=requestAnimationFrame(frame);
+  }
+  function start(){if(!raf){lastTime=performance.now();raf=requestAnimationFrame(frame)}}function stop(){if(raf){cancelAnimationFrame(raf);raf=0}}
+  if('ResizeObserver'in window)new ResizeObserver(resize).observe(mount);else window.addEventListener('resize',resize);
+  if('IntersectionObserver'in window)new IntersectionObserver(function(entries){visible=entries[0].isIntersecting;visible?start():stop()},{rootMargin:'140px'}).observe(stage);
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():(visible&&start())});
+  resize();stage.classList.add('is-ready');start();
+})();
+</script>
 </body>
 </html>
