@@ -2105,6 +2105,109 @@ html[lang="fi"] .area-copy h2{
     body.menu-open .nav-shell,body.menu-open .main-nav.open { background:#020b08!important; -webkit-backdrop-filter:none!important; backdrop-filter:none!important; }
   }
 </style>
+<style id="malistan-final-behavior-fixes">
+  /* The header must never scroll away or fall behind page content. */
+  #siteHeader.site-header {
+    position:fixed!important;
+    z-index:10000!important;
+    top:max(9px,env(safe-area-inset-top))!important;
+    left:0!important;
+    right:0!important;
+    display:block!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none!important;
+    -webkit-transform:translateZ(0)!important;
+    backface-visibility:hidden;
+    pointer-events:none!important;
+  }
+  #siteHeader .nav-shell {
+    pointer-events:auto!important;
+    -webkit-backdrop-filter:blur(34px) saturate(1.4)!important;
+    backdrop-filter:blur(34px) saturate(1.4)!important;
+  }
+  #siteHeader.scrolled .nav-shell {
+    background:rgba(2,10,8,.82)!important;
+    border-color:rgba(183,236,213,.16)!important;
+    box-shadow:0 18px 54px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.08)!important;
+  }
+
+  /* A real DOM overlay is more reliable than a body pseudo-element on iOS Safari. */
+  body.menu-open::after{display:none!important}
+  .menu-material-overlay{
+    position:fixed;
+    inset:0;
+    z-index:9990;
+    display:block;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    background:rgba(0,8,6,.34);
+    -webkit-backdrop-filter:blur(38px) saturate(1.45) brightness(.56);
+    backdrop-filter:blur(38px) saturate(1.45) brightness(.56);
+    transition:opacity .28s cubic-bezier(.22,1,.36,1),visibility 0s linear .28s;
+  }
+  body.menu-open .menu-material-overlay{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transition:opacity .28s cubic-bezier(.22,1,.36,1),visibility 0s;
+  }
+  body.menu-open #siteHeader .nav-shell{
+    background:rgba(1,9,7,.66)!important;
+    -webkit-backdrop-filter:blur(54px) saturate(1.55)!important;
+    backdrop-filter:blur(54px) saturate(1.55)!important;
+  }
+  body.menu-open #mainNav.open{
+    background:rgba(1,8,6,.62)!important;
+    -webkit-backdrop-filter:blur(64px) saturate(1.6)!important;
+    backdrop-filter:blur(64px) saturate(1.6)!important;
+    border-color:rgba(175,237,211,.22)!important;
+    box-shadow:0 36px 120px rgba(0,0,0,.72),inset 0 1px 0 rgba(255,255,255,.08)!important;
+  }
+
+  /* An empty cell visibly fills while the request is travelling. */
+  #quoteSubmit[aria-busy="true"] .spinner{
+    position:relative!important;
+    display:inline-block!important;
+    width:24px!important;
+    height:24px!important;
+    flex:0 0 24px!important;
+    overflow:hidden!important;
+    border:2px solid rgba(255,255,255,.84)!important;
+    border-radius:7px!important;
+    background:rgba(0,0,0,.18)!important;
+    box-shadow:0 0 0 3px rgba(112,216,174,.09),0 0 18px rgba(112,216,174,.22)!important;
+    animation:none!important;
+  }
+  #quoteSubmit[aria-busy="true"] .spinner::after{
+    content:"";
+    position:absolute;
+    left:3px;
+    right:3px;
+    bottom:3px;
+    height:calc(100% - 6px);
+    border-radius:3px;
+    transform-origin:bottom;
+    background:linear-gradient(180deg,#f5df84,#75d6ad 55%,#38b982);
+    box-shadow:0 0 12px rgba(117,214,173,.52);
+    animation:requestCellFill 1.25s cubic-bezier(.45,0,.25,1) infinite;
+  }
+  #quoteSubmit[aria-busy="true"] .button-text{animation:none!important;opacity:1!important}
+  @keyframes requestCellFill{
+    0%{transform:scaleY(.06);opacity:.45}
+    72%{transform:scaleY(1);opacity:1}
+    100%{transform:scaleY(1);opacity:.72}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    #quoteSubmit[aria-busy="true"] .spinner::after{animation:none;transform:scaleY(.72)}
+    .menu-material-overlay{transition:none}
+  }
+  @media(prefers-reduced-transparency:reduce){
+    .menu-material-overlay{background:rgba(0,8,6,.94);-webkit-backdrop-filter:none;backdrop-filter:none}
+  }
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -2123,6 +2226,7 @@ html[lang="fi"] .area-copy h2{
 </button>
 </div>
 </header>
+<div class="menu-material-overlay" id="menuMaterialOverlay" aria-hidden="true"></div>
 <main id="main">
 <section class="hero section" id="etusivu">
 <div class="container hero-grid">
@@ -2191,7 +2295,7 @@ html[lang="fi"] .area-copy h2{
 <div class="about-list">
 <div class="about-point"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.5 2.5L16 9"></path></svg><span data-en="Local operator" data-fi="Paikallinen toimija">Paikallinen toimija</span></div>
 <div class="about-point"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 5h16v12H7l-3 3V5ZM8 9h8M8 13h5"></path></svg><span data-en="Clear communication" data-fi="Selkeä yhteydenpito">Selkeä yhteydenpito</span></div>
-<div class="about-point"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 20h16M6 20V9l6-5 6 5v11M9 13h6"></path></svg><span data-en="Professional execution" data-fi="Ammattimainen toteutus">Ammattimainen toteutus</span></div>
+<div class="about-point"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 16v-1a8 8 0 0 1 16 0v1"></path><path d="M3 16h18v3H3z"></path><path d="M8.5 14V8.5M15.5 14V8.5M12 6v8"></path></svg><span data-en="Professional execution" data-fi="Ammattimainen toteutus">Ammattimainen toteutus</span></div>
 </div>
 </div>
 <aside aria-label="Yrityksen tiedot" class="company-card reveal">
@@ -2357,8 +2461,10 @@ html[lang="fi"] .area-copy h2{
       var d=document,b=d.body,reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var header=d.getElementById('siteHeader'),menu=d.getElementById('menuButton'),nav=d.getElementById('mainNav');
       d.getElementById('year').textContent=String(new Date().getFullYear());
-      function setMenu(open){menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?(document.documentElement.lang==='en'?'Close menu':'Sulje valikko'):(document.documentElement.lang==='en'?'Open menu':'Avaa valikko'));nav.classList.toggle('open',open);b.classList.toggle('menu-open',open)}
+      var menuOverlay=d.getElementById('menuMaterialOverlay');
+      function setMenu(open){menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?(document.documentElement.lang==='en'?'Close menu':'Sulje valikko'):(document.documentElement.lang==='en'?'Open menu':'Avaa valikko'));nav.classList.toggle('open',open);b.classList.toggle('menu-open',open);if(menuOverlay)menuOverlay.setAttribute('aria-hidden',String(!open))}
       menu.addEventListener('click',function(){setMenu(menu.getAttribute('aria-expanded')!=='true')});
+      if(menuOverlay)menuOverlay.addEventListener('click',function(){setMenu(false)});
       nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
       d.addEventListener('click',function(e){if(menu.getAttribute('aria-expanded')==='true'&&!e.target.closest('.nav-shell'))setMenu(false)});
       window.addEventListener('scroll',function(){header.classList.toggle('scrolled',window.scrollY>24)},{passive:true});
@@ -2394,20 +2500,23 @@ html[lang="fi"] .area-copy h2{
         if(!AudioEngine)return null;
         try{
           if(!audioEngine)audioEngine=new AudioEngine();
-          if(audioEngine.state==='suspended')audioEngine.resume().catch(function(){});
           return audioEngine;
         }catch(e){return null}
       }
       function tone(frequency,start,duration,volume,type){
         var ctx=primeAudio();if(!ctx)return;
-        var osc=ctx.createOscillator(),gain=ctx.createGain(),now=ctx.currentTime+start;
-        osc.type=type||'sine';osc.frequency.setValueAtTime(frequency,now);
-        gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(volume,now+.018);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
-        osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+duration+.03);
+        function begin(){
+          var osc=ctx.createOscillator(),gain=ctx.createGain(),now=ctx.currentTime+start;
+          osc.type=type||'sine';osc.frequency.setValueAtTime(frequency,now);
+          gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(volume,now+.018);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
+          osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+duration+.03);
+        }
+        if(ctx.state==='suspended')ctx.resume().then(begin).catch(function(){});else begin();
       }
-      function playSendingSound(){tone(420,0,.12,.018,'sine');tone(560,.07,.14,.014,'sine')}
-      function playSuccessSound(){tone(523.25,0,.22,.028,'sine');tone(659.25,.075,.25,.026,'sine');tone(783.99,.15,.34,.024,'sine')}
-      function playErrorSound(){tone(220,0,.2,.022,'triangle');tone(174.61,.12,.28,.018,'triangle')}
+      function playSendingSound(){tone(420,0,.12,.055,'sine');tone(560,.07,.16,.045,'sine')}
+      function playSuccessSound(){tone(523.25,0,.22,.085,'sine');tone(659.25,.075,.28,.075,'sine');tone(783.99,.16,.4,.065,'sine');if(navigator.vibrate)navigator.vibrate([28,40,55])}
+      function playErrorSound(){tone(220,0,.22,.07,'triangle');tone(174.61,.12,.32,.06,'triangle');if(navigator.vibrate)navigator.vibrate([70,45,70])}
+      submit.addEventListener('pointerdown',function(){var ctx=primeAudio();if(ctx&&ctx.state==='suspended')ctx.resume().catch(function(){})},{passive:true});
       function hide(){success.classList.remove('visible');error.classList.remove('visible')}
       function busy(on){sending=on;submit.disabled=on;submit.setAttribute('aria-busy',String(on));text.textContent=on?(document.documentElement.lang==='en'?'Sending…':'Lähetetään…'):(document.documentElement.lang==='en'?'Send quote request':'Lähetä tarjouspyyntö')}
       form.addEventListener('submit',function(e){
