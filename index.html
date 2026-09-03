@@ -2009,6 +2009,102 @@ html[lang="fi"] .area-copy h2{
 }
 
 </style>
+<style id="malistan-menu-material-and-submit-feedback">
+  /* Full-page material scrim: the open mobile menu remains the only sharp layer. */
+  @media (max-width:900px) {
+    body.menu-open::after {
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:90;
+      pointer-events:auto;
+      background:rgba(0,8,6,.52);
+      -webkit-backdrop-filter:blur(42px) saturate(1.38) brightness(.68);
+      backdrop-filter:blur(42px) saturate(1.38) brightness(.68);
+      animation:materialScrimIn .28s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    body.menu-open .site-header { z-index:100; }
+    body.menu-open .nav-shell {
+      background:rgba(3,14,11,.72)!important;
+      border-color:rgba(177,235,210,.18)!important;
+      -webkit-backdrop-filter:blur(54px) saturate(1.45)!important;
+      backdrop-filter:blur(54px) saturate(1.45)!important;
+      box-shadow:0 28px 90px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)!important;
+    }
+    body.menu-open .main-nav.open {
+      background:rgba(1,8,6,.68)!important;
+      -webkit-backdrop-filter:blur(64px) saturate(1.5)!important;
+      backdrop-filter:blur(64px) saturate(1.5)!important;
+      border-color:rgba(159,231,199,.2)!important;
+      box-shadow:0 34px 110px rgba(0,0,0,.64),inset 0 1px 0 rgba(255,255,255,.07)!important;
+    }
+
+    /* Remove the center dot and turn its pseudo-element into an edge highlight. */
+    .main-nav.open .mobile-quote-link::before {
+      content:""!important;
+      position:absolute!important;
+      inset:-2px!important;
+      width:auto!important;
+      height:auto!important;
+      left:-2px!important;
+      top:-2px!important;
+      z-index:1!important;
+      border-radius:22px!important;
+      padding:2px!important;
+      opacity:.9!important;
+      transform:none!important;
+      background:conic-gradient(from var(--angle),transparent 0 16%,#91e2bf 24%,#f1d983 31%,transparent 40% 66%,#49cc72 75%,transparent 84%)!important;
+      box-shadow:0 0 24px rgba(73,204,114,.16)!important;
+      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0)!important;
+      -webkit-mask-composite:xor!important;
+      mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0)!important;
+      mask-composite:exclude!important;
+      animation:orbit 3.8s linear infinite!important;
+      pointer-events:none!important;
+    }
+  }
+
+  @keyframes materialScrimIn {
+    from { opacity:0; -webkit-backdrop-filter:blur(0) saturate(1); backdrop-filter:blur(0) saturate(1); }
+    to { opacity:1; }
+  }
+
+  /* Sending state: immediate, unmistakable and layout-stable. */
+  #quoteSubmit[aria-busy="true"] {
+    cursor:progress!important;
+    opacity:1!important;
+    transform:scale(.985)!important;
+    filter:saturate(.84) brightness(.92)!important;
+    box-shadow:0 0 0 1px rgba(122,220,180,.26),0 12px 36px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.18)!important;
+  }
+  #quoteSubmit[aria-busy="true"] .spinner {
+    display:block!important;
+    width:22px;
+    height:22px;
+    flex:0 0 22px;
+    border-width:2.5px;
+    border-color:rgba(255,255,255,.25);
+    border-top-color:#fff;
+    border-right-color:#9be7c6;
+    box-shadow:0 0 15px rgba(112,216,174,.32);
+  }
+  #quoteSubmit[aria-busy="true"] .button-text { animation:sendingTextPulse 1.1s ease-in-out infinite alternate; }
+  #quoteSubmit[aria-busy="true"] > svg { display:none; }
+  #quoteSubmit[aria-busy="true"]::after {
+    animation:buttonSheen 1.35s ease-in-out infinite!important;
+  }
+  @keyframes sendingTextPulse { from{opacity:.62} to{opacity:1} }
+
+  @media (prefers-reduced-motion:reduce) {
+    body.menu-open::after { animation:none; }
+    #quoteSubmit[aria-busy="true"] .button-text { animation:none; }
+  }
+  @media (prefers-reduced-transparency:reduce) {
+    body.menu-open::after { background:rgba(0,8,6,.92); -webkit-backdrop-filter:none; backdrop-filter:none; }
+    body.menu-open .nav-shell,body.menu-open .main-nav.open { background:#020b08!important; -webkit-backdrop-filter:none!important; backdrop-filter:none!important; }
+  }
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -2293,17 +2389,36 @@ html[lang="fi"] .area-copy h2{
       var form=d.getElementById('quoteForm'),submit=d.getElementById('quoteSubmit'),text=submit.querySelector('.button-text');
       var success=d.getElementById('formSuccess'),error=d.getElementById('formError'),sending=false;
       var api=window.MALISTAN_QUOTE_API_URL||'https://malistan-quote-api.malistanpalvelu-fi.workers.dev';
+      var AudioEngine=window.AudioContext||window.webkitAudioContext,audioEngine=null;
+      function primeAudio(){
+        if(!AudioEngine)return null;
+        try{
+          if(!audioEngine)audioEngine=new AudioEngine();
+          if(audioEngine.state==='suspended')audioEngine.resume().catch(function(){});
+          return audioEngine;
+        }catch(e){return null}
+      }
+      function tone(frequency,start,duration,volume,type){
+        var ctx=primeAudio();if(!ctx)return;
+        var osc=ctx.createOscillator(),gain=ctx.createGain(),now=ctx.currentTime+start;
+        osc.type=type||'sine';osc.frequency.setValueAtTime(frequency,now);
+        gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(volume,now+.018);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
+        osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+duration+.03);
+      }
+      function playSendingSound(){tone(420,0,.12,.018,'sine');tone(560,.07,.14,.014,'sine')}
+      function playSuccessSound(){tone(523.25,0,.22,.028,'sine');tone(659.25,.075,.25,.026,'sine');tone(783.99,.15,.34,.024,'sine')}
+      function playErrorSound(){tone(220,0,.2,.022,'triangle');tone(174.61,.12,.28,.018,'triangle')}
       function hide(){success.classList.remove('visible');error.classList.remove('visible')}
       function busy(on){sending=on;submit.disabled=on;submit.setAttribute('aria-busy',String(on));text.textContent=on?(document.documentElement.lang==='en'?'Sending…':'Lähetetään…'):(document.documentElement.lang==='en'?'Send quote request':'Lähetä tarjouspyyntö')}
       form.addEventListener('submit',function(e){
         e.preventDefault();if(sending)return;if(!form.checkValidity()){form.reportValidity();return}hide();
         if(form.elements.website.value){success.classList.add('visible');form.reset();return}
         var payload={name:form.elements.name.value.trim(),phone:form.elements.phone.value.trim(),email:form.elements.email.value.trim(),projectType:form.elements.projectType.value,message:form.elements.message.value.trim(),website:'',submittedAt:new Date().toISOString()};
-        busy(true);var controller='AbortController'in window?new AbortController():null,timer=window.setTimeout(function(){if(controller)controller.abort()},15000);
+        primeAudio();busy(true);playSendingSound();var controller='AbortController'in window?new AbortController():null,timer=window.setTimeout(function(){if(controller)controller.abort()},15000);
         fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller?controller.signal:undefined})
           .then(function(r){if(!r.ok)throw new Error('failed');return r.json().catch(function(){return{}})})
-          .then(function(){form.reset();success.classList.add('visible');success.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'})})
-          .catch(function(){error.classList.add('visible');error.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'})})
+          .then(function(){form.reset();success.classList.add('visible');playSuccessSound();success.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'})})
+          .catch(function(){error.classList.add('visible');playErrorSound();error.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'})})
           .finally(function(){window.clearTimeout(timer);busy(false)})
       });
     }());
