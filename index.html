@@ -3108,6 +3108,121 @@ html[lang="fi"] .area-copy h2{
 }
 @media(prefers-reduced-motion:reduce){.service-logo-orbit,.process-grid::after{animation:none!important}}
 </style>
+
+<style id="malistan-requested-polish-20260907">
+/* Requested polish: restore globe, improve quote contrast/logo, upgrade service chooser icons. */
+
+/* Quote request kicker must separate clearly from the dark green glass background. */
+#tarjous .form-head .eyebrow{
+  color:#f1d983!important;
+  text-shadow:0 0 18px rgba(241,217,131,.22)!important;
+  letter-spacing:.17em!important;
+}
+#tarjous .form-head .eyebrow::before{
+  width:34px!important;
+  height:2px!important;
+  border-radius:999px!important;
+  background:linear-gradient(90deg,#f1d983,#70c9a8)!important;
+  box-shadow:0 0 12px rgba(241,217,131,.20)!important;
+}
+
+/* Quote-form company logo: same polished rounded-square treatment as the company card / header mark. */
+#tarjous .form-mark{
+  width:72px!important;
+  height:72px!important;
+  flex:0 0 72px!important;
+  margin:0!important;
+  padding:5px!important;
+  overflow:hidden!important;
+  border-radius:22px!important;
+  clip-path:none!important;
+  background:linear-gradient(145deg,#050706,#101512)!important;
+  border:1px solid rgba(241,217,131,.54)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    0 0 0 1px rgba(7,31,27,.82),
+    0 14px 32px rgba(0,0,0,.30),
+    0 0 24px rgba(212,166,47,.08)!important;
+}
+#tarjous .form-mark img{
+  width:100%!important;
+  height:100%!important;
+  display:block!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  padding:0!important;
+  margin:0!important;
+  border-radius:17px!important;
+  clip-path:none!important;
+  background:#050706!important;
+}
+
+/* Service chooser: replace number chips with distinctive, professional work icons. */
+.hero-services-menu button{
+  grid-template-columns:46px minmax(0,1fr) 22px!important;
+  min-height:62px!important;
+  gap:12px!important;
+  padding:8px 11px!important;
+}
+.service-menu-num{display:none!important}
+.service-menu-icon{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  color:#dff8ee;
+  background:
+    radial-gradient(circle at 30% 20%,rgba(255,255,255,.20),transparent 35%),
+    linear-gradient(145deg,rgba(38,135,108,.94),rgba(7,43,35,.98));
+  border:1px solid rgba(142,229,198,.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 -8px 18px rgba(0,0,0,.14),
+    0 8px 20px rgba(0,0,0,.22),
+    0 0 18px rgba(65,203,158,.07);
+}
+.service-menu-icon svg{
+  width:23px!important;
+  height:23px!important;
+  display:block!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.75!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+.hero-services-menu button:hover .service-menu-icon,
+.hero-services-menu button:focus-visible .service-menu-icon{
+  color:#071f1b;
+  background:linear-gradient(145deg,#f7e9a9,#75d1ad);
+  border-color:rgba(255,247,203,.66);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.78),0 10px 24px rgba(0,0,0,.23),0 0 22px rgba(241,217,131,.12);
+}
+
+/* The restored globe should win over the previous temporary logo-stage styling. */
+#serviceGlobe.area-map.globe-stage{
+  display:block!important;
+  min-height:480px!important;
+}
+
+@media(max-width:620px){
+  #tarjous .form-head{grid-template-columns:minmax(0,1fr) 60px!important;gap:12px!important}
+  #tarjous .form-mark{display:grid!important;width:60px!important;height:60px!important;flex-basis:60px!important;border-radius:19px!important;padding:4px!important}
+  #tarjous .form-mark img{border-radius:15px!important}
+  #serviceGlobe.area-map.globe-stage{min-height:430px!important}
+  .hero-services-menu button{grid-template-columns:42px minmax(0,1fr) 20px!important;min-height:58px!important;gap:10px!important}
+  .service-menu-icon{width:38px;height:38px;border-radius:13px}.service-menu-icon svg{width:21px!important;height:21px!important}
+}
+
+@media(max-width:390px){
+  /* Keep the company mark visible on small iPhones instead of hiding it. */
+  #tarjous .form-head{grid-template-columns:minmax(0,1fr) 54px!important}
+  #tarjous .form-mark{display:grid!important;width:54px!important;height:54px!important;flex-basis:54px!important;border-radius:17px!important}
+  #tarjous .form-mark img{border-radius:13px!important}
+}
+</style>
+
 </head>
 <body>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -3142,12 +3257,12 @@ html[lang="fi"] .area-copy h2{
   <svg aria-hidden="true" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </button>
 <div class="hero-services-menu glass-dark" id="heroServicesMenu" hidden>
-  <button type="button" data-target="service-kaivuutyot"><span class="service-menu-num">01</span><span data-fi="Kaivuutyöt" data-en="Excavation work">Kaivuutyöt</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-  <button type="button" data-target="service-maa-aines"><span class="service-menu-num">02</span><span data-fi="Maa-aines" data-en="Earth materials">Maa-aines</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-  <button type="button" data-target="service-pohjatyot"><span class="service-menu-num">03</span><span data-fi="Pohjatyöt" data-en="Ground works">Pohjatyöt</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-  <button type="button" data-target="service-tasaukset"><span class="service-menu-num">04</span><span data-fi="Tasaukset" data-en="Grading">Tasaukset</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-  <button type="button" data-target="service-kuljettaja"><span class="service-menu-num">05</span><span data-fi="Kaivinkoneen kuljettaja" data-en="Excavator operator">Kaivinkoneen kuljettaja</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-  <button type="button" data-target="service-kuljetus"><span class="service-menu-num">06</span><span data-fi="Kuljetuspalvelut" data-en="Transport services">Kuljetuspalvelut</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-kaivuutyot"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17h5l2-4h4l2 4h5"/><path d="M6 17v2M18 17v2M9 13l2-7h4l1.5 5"/><path d="M11 6h4"/></svg></span><span data-fi="Kaivuutyöt" data-en="Excavation work">Kaivuutyöt</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-maa-aines"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 18h18"/><path d="m5 18 5-8 3 4 2-3 4 7"/><path d="M8 18h8"/></svg></span><span data-fi="Maa-aines" data-en="Earth materials">Maa-aines</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-pohjatyot"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v4H4z"/><path d="M6 11v7h12v-7"/><path d="M9 15h6"/></svg></span><span data-fi="Pohjatyöt" data-en="Ground works">Pohjatyöt</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-tasaukset"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h16v8H4z"/><path d="M8 12h8"/><circle cx="12" cy="12" r="1.6"/></svg></span><span data-fi="Tasaukset" data-en="Grading">Tasaukset</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-kuljettaja"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 18h14"/><path d="M7 18v-4l3-3h5l2 3v4"/><path d="M9 11V8h6v3"/><circle cx="9" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/></svg></span><span data-fi="Kaivinkoneen kuljettaja" data-en="Excavator operator">Kaivinkoneen kuljettaja</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-kuljetus"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span><span data-fi="Kuljetuspalvelut" data-en="Transport services">Kuljetuspalvelut</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
 </div>
 </div>
 </div>
@@ -3224,15 +3339,17 @@ html[lang="fi"] .area-copy h2{
 <div class="area-copy"><div class="eyebrow" data-en="Service area" data-fi="Palvelualue">Palvelualue</div><h2 data-en="From Kirkkonummi across the Helsinki region." data-fi="Kirkkonummelta koko pääkaupunkiseudulle." id="areaTitle">Kirkkonummelta koko pääkaupunkiseudulle.</h2><p data-en="In addition to Kirkkonummi, we serve Helsinki, Espoo and Vantaa." data-fi="Palvelemme Kirkkonummen lisäksi Helsingissä, Espoossa ja Vantaalla.">Palvelemme Kirkkonummen lisäksi Helsingissä, Espoossa ja Vantaalla.</p>
 <a class="glass-btn compact" href="https://www.google.com/maps/search/?api=1&amp;query=Kirkkonummi%2C%20Finland" rel="noopener noreferrer" target="_blank"><span data-fi="Avaa kartta" data-en="Open map">Avaa kartta</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3Z"></path><path d="M9 3v15M15 6v15"></path></svg></a>
 </div>
-<div aria-label="Malistan Palvelu – palvelualue" class="area-map service-logo-stage" data-en-aria-label="Malistan Palvelu – service area" data-fi-aria-label="Malistan Palvelu – palvelualue" id="serviceLogoCard" role="img">
-<div class="service-logo-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
-<div class="service-logo-center">
-  <img src="https://www.malistanpalvelu.fi/assets/images/malistan-logo-square.png.jpg" alt="Malistan Palvelu logo" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-  <div class="service-logo-copy"><b>Malistan Palvelu</b><span data-fi="Kirkkonummi · Pääkaupunkiseutu" data-en="Kirkkonummi · Helsinki metropolitan area">Kirkkonummi · Pääkaupunkiseutu</span></div>
-</div>
-<div class="service-logo-cities" aria-label="Kirkkonummi, Espoo, Helsinki, Vantaa">
-  <span>Kirkkonummi</span><span>Espoo</span><span>Helsinki</span><span>Vantaa</span>
-</div>
+<div aria-label="3D-palvelualuekartta: Kirkkonummi, Espoo, Helsinki ja Vantaa" class="area-map globe-stage" data-en-aria-label="3D service-area map: Kirkkonummi, Espoo, Helsinki and Vantaa" data-fi-aria-label="3D-palvelualuekartta: Kirkkonummi, Espoo, Helsinki ja Vantaa" id="serviceGlobe" role="img" tabindex="0">
+  <div class="globe-hint" data-fi="Vedä pyörittääksesi" data-en="Drag to rotate">Vedä pyörittääksesi</div>
+  <div class="globe-canvas" id="serviceGlobeCanvas" aria-hidden="true"></div>
+  <div class="globe-fallback" aria-hidden="true"><span></span></div>
+  <div class="globe-status" data-fi="Ladataan 3D-karttaa" data-en="Loading 3D map">Ladataan 3D-karttaa</div>
+  <div class="globe-city-list" aria-label="Kirkkonummi, Espoo, Helsinki, Vantaa">
+    <span><i></i>Kirkkonummi</span>
+    <span><i></i>Espoo</span>
+    <span><i></i>Helsinki</span>
+    <span><i></i>Vantaa</span>
+  </div>
 </div>
 </div>
 </section>
