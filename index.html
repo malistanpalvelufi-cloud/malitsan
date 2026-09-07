@@ -632,6 +632,31 @@ svg{overflow:visible}
   }
 }
 
+
+/* ===== 2026-09-07 iPhone validation refinement ===== */
+#quoteForm .field select + .field-control-state{display:none!important}
+#quoteForm .field:has(select).is-invalid select,
+#quoteForm .field:has(select).is-valid select{
+  border-color:rgba(142,190,172,.30)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05)!important
+}
+#quoteForm .field:has(select) select:focus{
+  border-color:rgba(102,216,174,.46)!important;
+  box-shadow:0 0 0 3px rgba(74,202,148,.08),inset 0 1px 0 rgba(255,255,255,.06)!important
+}
+#quoteForm .field:has(select) .field-feedback{margin-top:8px!important}
+#quoteForm .field.is-editing.is-invalid input,
+#quoteForm .field.is-editing.is-invalid textarea{
+  border-color:rgba(142,190,172,.30)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05)!important
+}
+#quoteForm .field.is-editing.is-invalid .field-control-state,
+#quoteForm .field.is-editing.is-invalid .field-feedback{display:none!important}
+#quoteForm input,#quoteForm textarea,#quoteForm select{-webkit-appearance:none;appearance:none}
+#quoteForm input[type="tel"],#quoteForm input[type="email"],#quoteForm input[type="text"]{
+  -webkit-user-select:text;user-select:text;caret-color:#f1d983
+}
+
 </style>
 <style>
 /* ===== Final requested fixes: desktop logo, visible icons, simple quote form, local photos ===== */
@@ -4351,6 +4376,7 @@ html[lang="fi"] .area-copy h2{
 })();
 </script>
 
+
 <script id="malistan-final-validation-script">
 (function(){
   'use strict';
@@ -4358,6 +4384,7 @@ html[lang="fi"] .area-copy h2{
     var form=document.getElementById('quoteForm');
     var submit=document.getElementById('quoteSubmit');
     if(!form||!submit)return;
+
     var fields={
       name:document.getElementById('fName'),
       phone:document.getElementById('fPhone'),
@@ -4366,91 +4393,295 @@ html[lang="fi"] .area-copy h2{
       projectType:document.getElementById('fType'),
       message:document.getElementById('fMsg')
     };
+
     var consent=document.getElementById('quoteConsent');
     var touched=new WeakSet();
     var triedSubmit=false;
+
     function lang(){return document.documentElement.lang==='en'?'en':'fi'}
+
     function labels(key){
       var en=lang()==='en';
       var map={
-        name: en?'Enter your full name (at least 2 letters).':'Kirjoita koko nimesi (vähintään 2 kirjainta).',
-        phone: en?'Enter a valid phone number (7–15 digits).':'Kirjoita kelvollinen puhelinnumero (7–15 numeroa).',
-        email: en?'Enter a complete email address, for example name@example.com.':'Kirjoita täydellinen sähköpostiosoite, esim. nimi@esimerkki.fi.',
-        city: en?'Choose the project city.':'Valitse projektin kaupunki.',
-        projectType: en?'Choose a service.':'Valitse palvelu.',
-        message: en?'Describe the project with at least 5 characters.':'Kuvaile projektia vähintään 5 merkillä.',
-        consent: en?'Accept the data processing consent before sending.':'Hyväksy tietojen käsittely ennen lähettämistä.'
-      };return map[key]
+        name:en?'Enter your full name (at least 2 letters).':'Kirjoita koko nimesi (vähintään 2 kirjainta).',
+        phone:en?'Enter a valid phone number (7–15 digits).':'Kirjoita kelvollinen puhelinnumero (7–15 numeroa).',
+        email:en?'Enter a complete email address, for example name@example.com.':'Kirjoita täydellinen sähköpostiosoite, esim. nimi@esimerkki.fi.',
+        city:en?'Choose the project city.':'Valitse projektin kaupunki.',
+        projectType:en?'Choose a service.':'Valitse palvelu.',
+        message:en?'Describe the project with at least 5 characters.':'Kuvaile projektia vähintään 5 merkillä.',
+        consent:en?'Accept the data processing consent before sending.':'Hyväksy tietojen käsittely ennen lähettämistä.'
+      };
+      return map[key];
     }
+
     function hasLetters(value,count){
-      try{return (value.match(/\p{L}/gu)||[]).length>=count}catch(e){return (value.match(/[A-Za-zÀ-ÖØ-öø-ÿÅÄÖåäö]/g)||[]).length>=count}
+      try{return (value.match(/\p{L}/gu)||[]).length>=count}
+      catch(e){return (value.match(/[A-Za-zÀ-ÖØ-öø-ÿÅÄÖåäö]/g)||[]).length>=count}
     }
-    function validName(v){v=v.trim().replace(/\s+/g,' ');return v.length>=2&&hasLetters(v,2)}
+
+    function validName(v){
+      v=v.trim().replace(/\s+/g,' ');
+      return v.length>=2&&hasLetters(v,2);
+    }
+
     function validPhone(v){
-      v=v.trim();if(!/^[+()\d\s.-]+$/.test(v))return false;
-      var digits=v.replace(/\D/g,'');return digits.length>=7&&digits.length<=15
+      v=v.trim();
+      if(!/^[+()\d\s.-]+$/.test(v))return false;
+      var digits=v.replace(/\D/g,'');
+      return digits.length>=7&&digits.length<=15;
     }
+
     function validEmail(v){
       v=v.trim();
       if(v.length>160||v.indexOf('..')!==-1)return false;
-      return /^[^\s@]{2,64}@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z]{2,24})+$/.test(v)
+      return /^[^\s@]{2,64}@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z]{2,24})+$/.test(v);
     }
+
     function validMessage(v){return v.trim().length>=5}
+    function isSelectKey(key){return key==='city'||key==='projectType'}
+
     function isValid(key,el){
       if(!el)return false;
       var v=el.value||'';
       if(key==='name')return validName(v);
       if(key==='phone')return validPhone(v);
       if(key==='email')return validEmail(v);
-      if(key==='city'||key==='projectType')return !!v;
+      if(isSelectKey(key))return !!v;
       if(key==='message')return validMessage(v);
-      return true
+      return true;
     }
+
     function ensureUi(key,el){
-      var wrap=el.closest('.field');if(!wrap)return null;
-      var state=wrap.querySelector('.field-control-state');
-      if(!state){state=document.createElement('span');state.className='field-control-state';state.setAttribute('aria-hidden','true');state.innerHTML='<svg class="ok" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"></path></svg><svg class="bad" viewBox="0 0 24 24" style="display:none"><path d="M7 7l10 10M17 7 7 17"></path></svg>';el.insertAdjacentElement('afterend',state)}
+      var wrap=el.closest('.field');
+      if(!wrap)return null;
       var feedback=wrap.querySelector('.field-feedback');
-      if(!feedback){feedback=document.createElement('div');feedback.className='field-feedback';feedback.setAttribute('role','alert');state.insertAdjacentElement('afterend',feedback)}
-      return {wrap:wrap,state:state,feedback:feedback}
+
+      if(isSelectKey(key)){
+        var oldState=wrap.querySelector('.field-control-state');
+        if(oldState)oldState.remove();
+        if(!feedback){
+          feedback=document.createElement('div');
+          feedback.className='field-feedback';
+          feedback.setAttribute('role','status');
+          el.insertAdjacentElement('afterend',feedback);
+        }
+        return {wrap:wrap,state:null,feedback:feedback};
+      }
+
+      var state=wrap.querySelector('.field-control-state');
+      if(!state){
+        state=document.createElement('span');
+        state.className='field-control-state';
+        state.setAttribute('aria-hidden','true');
+        state.innerHTML='<svg class="ok" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"></path></svg><svg class="bad" viewBox="0 0 24 24" style="display:none"><path d="M7 7l10 10M17 7 7 17"></path></svg>';
+        el.insertAdjacentElement('afterend',state);
+      }
+
+      if(!feedback){
+        feedback=document.createElement('div');
+        feedback.className='field-feedback';
+        feedback.setAttribute('role','status');
+        state.insertAdjacentElement('afterend',feedback);
+      }
+
+      return {wrap:wrap,state:state,feedback:feedback};
     }
+
     function paint(key,force){
-      var el=fields[key];if(!el)return true;
-      var ui=ensureUi(key,el),ok=isValid(key,el),show=force||touched.has(el)||String(el.value||'').length>0;
-      el.setCustomValidity(ok?'':labels(key));
-      ui.wrap.classList.toggle('is-valid',ok&&String(el.value||'').trim().length>0);
-      ui.wrap.classList.toggle('is-invalid',!ok&&show);
-      ui.feedback.textContent=!ok?labels(key):'';
-      var okSvg=ui.state.querySelector('.ok'),badSvg=ui.state.querySelector('.bad');
-      if(okSvg)okSvg.style.display=ok?'block':'none';if(badSvg)badSvg.style.display=ok?'none':'block';
-      return ok
+      var el=fields[key];
+      if(!el)return true;
+
+      var ui=ensureUi(key,el);
+      var ok=isValid(key,el);
+      var hasValue=String(el.value||'').trim().length>0;
+      var isEditing=document.activeElement===el;
+      var showError=!ok&&(force||(touched.has(el)&&!isEditing));
+
+      try{el.setCustomValidity('')}catch(_){}
+
+      ui.wrap.classList.toggle('is-editing',isEditing);
+      ui.wrap.classList.toggle('is-valid',!isSelectKey(key)&&ok&&hasValue);
+      ui.wrap.classList.toggle('is-invalid',showError);
+
+      if(ui.feedback)ui.feedback.textContent=showError?labels(key):'';
+
+      if(ui.state){
+        var okSvg=ui.state.querySelector('.ok');
+        var badSvg=ui.state.querySelector('.bad');
+        if(okSvg)okSvg.style.display=(ok&&hasValue)?'block':'none';
+        if(badSvg)badSvg.style.display=showError?'block':'none';
+        ui.state.style.opacity=((ok&&hasValue)||showError)?'1':'0';
+        ui.state.style.transform=((ok&&hasValue)||showError)?'scale(1)':'scale(.82)';
+      }
+      return ok;
     }
+
     function paintConsent(force){
-      if(!consent)return false;var wrap=consent.closest('.quote-consent'),label=consent.closest('.consent-check');
-      var err=wrap.querySelector('.consent-error');if(!err){err=document.createElement('div');err.className='consent-error';err.setAttribute('role','alert');wrap.appendChild(err)}
-      var ok=consent.checked,show=force||touched.has(consent);
-      consent.setCustomValidity(ok?'':labels('consent'));
-      wrap.classList.toggle('has-error',!ok&&show);label.classList.toggle('validation-error',!ok&&show);label.classList.toggle('validation-ok',ok);err.textContent=labels('consent');return ok
+      if(!consent)return false;
+      var wrap=consent.closest('.quote-consent');
+      var label=consent.closest('.consent-check');
+      var err=wrap.querySelector('.consent-error');
+
+      if(!err){
+        err=document.createElement('div');
+        err.className='consent-error';
+        err.setAttribute('role','status');
+        wrap.appendChild(err);
+      }
+
+      var ok=consent.checked;
+      var show=!ok&&(force||touched.has(consent));
+
+      try{consent.setCustomValidity('')}catch(_){}
+      wrap.classList.toggle('has-error',show);
+      label.classList.toggle('validation-error',show);
+      label.classList.toggle('validation-ok',ok);
+      err.textContent=show?labels('consent'):'';
+      return ok;
     }
-    function allValid(force){var ok=true;Object.keys(fields).forEach(function(k){if(!paint(k,force))ok=false});if(!paintConsent(force))ok=false;return ok}
-    function updateButton(){var ok=allValid(false);if(submit.getAttribute('aria-busy')!=='true')submit.disabled=!ok;return ok}
+
+    function allValid(force){
+      var ok=true;
+      Object.keys(fields).forEach(function(k){if(!paint(k,force))ok=false});
+      if(!paintConsent(force))ok=false;
+      return ok;
+    }
+
+    function updateButton(){
+      var ok=true;
+      Object.keys(fields).forEach(function(k){if(!isValid(k,fields[k]))ok=false});
+      if(!consent||!consent.checked)ok=false;
+      if(submit.getAttribute('aria-busy')!=='true')submit.disabled=!ok;
+      return ok;
+    }
+
     window.MalistanUpdateQuoteSubmitState=updateButton;
-    Object.keys(fields).forEach(function(key){var el=fields[key];if(!el)return;ensureUi(key,el);['input','change'].forEach(function(evt){el.addEventListener(evt,function(){paint(key,false);updateButton()})});el.addEventListener('blur',function(){touched.add(el);paint(key,true);updateButton()})});
-    if(consent){consent.addEventListener('change',function(){touched.add(consent);paintConsent(true);updateButton()})}
+
+    Object.keys(fields).forEach(function(key){
+      var el=fields[key];
+      if(!el)return;
+      ensureUi(key,el);
+
+      el.addEventListener('focus',function(){
+        var wrap=el.closest('.field');
+        if(wrap){
+          wrap.classList.add('is-editing');
+          wrap.classList.remove('is-invalid');
+        }
+        var feedback=wrap&&wrap.querySelector('.field-feedback');
+        if(feedback)feedback.textContent='';
+      });
+
+      el.addEventListener('input',function(){
+        paint(key,false);
+        var wrap=el.closest('.field');
+        if(wrap)wrap.classList.remove('is-invalid');
+        var feedback=wrap&&wrap.querySelector('.field-feedback');
+        if(feedback)feedback.textContent='';
+        updateButton();
+      });
+
+      el.addEventListener('change',function(){
+        if(isSelectKey(key)){
+          var wrap=el.closest('.field');
+          if(wrap)wrap.classList.remove('is-invalid','is-valid');
+          var feedback=wrap&&wrap.querySelector('.field-feedback');
+          if(feedback)feedback.textContent='';
+          touched.add(el);
+        }else{
+          paint(key,false);
+        }
+        updateButton();
+      });
+
+      el.addEventListener('blur',function(){
+        touched.add(el);
+        var wrap=el.closest('.field');
+        if(wrap)wrap.classList.remove('is-editing');
+        paint(key,true);
+        updateButton();
+      });
+
+      el.addEventListener('invalid',function(e){e.preventDefault()});
+    });
+
+    if(consent){
+      consent.addEventListener('change',function(){
+        touched.add(consent);
+        paintConsent(true);
+        updateButton();
+      });
+      consent.addEventListener('invalid',function(e){e.preventDefault()});
+    }
+
     form.addEventListener('submit',function(e){
       triedSubmit=true;
       var ok=allValid(true);
-      if(!ok){e.preventDefault();e.stopImmediatePropagation();submit.disabled=true;var first=form.querySelector('.field.is-invalid input,.field.is-invalid select,.field.is-invalid textarea');if(!first&&!consent.checked)first=consent;if(first){first.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){try{first.focus({preventScroll:true})}catch(_){first.focus()}},280)}return false}
-      submit.disabled=false
+
+      if(!ok){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        submit.disabled=true;
+
+        var first=form.querySelector('.field.is-invalid input,.field.is-invalid select,.field.is-invalid textarea');
+        if(!first&&consent&&!consent.checked)first=consent;
+
+        if(first){
+          first.scrollIntoView({behavior:'smooth',block:'center'});
+          setTimeout(function(){
+            try{first.focus({preventScroll:true})}
+            catch(_){first.focus()}
+          },280);
+        }
+        return false;
+      }
+
+      submit.disabled=false;
     },true);
-    form.addEventListener('reset',function(){setTimeout(function(){touched=new WeakSet();triedSubmit=false;Object.keys(fields).forEach(function(k){var el=fields[k],w=el&&el.closest('.field');if(w)w.classList.remove('is-valid','is-invalid');if(el)el.setCustomValidity('')});if(consent){consent.setCustomValidity('');var q=consent.closest('.quote-consent');if(q)q.classList.remove('has-error');var l=consent.closest('.consent-check');if(l)l.classList.remove('validation-error','validation-ok')}updateButton()},0)});
-    /* Repaint translated error messages when FI/EN changes. */
-    document.querySelectorAll('.lang-btn').forEach(function(btn){btn.addEventListener('click',function(){setTimeout(function(){if(triedSubmit)allValid(true);else updateButton()},0)})});
+
+    form.addEventListener('reset',function(){
+      setTimeout(function(){
+        touched=new WeakSet();
+        triedSubmit=false;
+
+        Object.keys(fields).forEach(function(k){
+          var el=fields[k];
+          var w=el&&el.closest('.field');
+          if(w)w.classList.remove('is-valid','is-invalid','is-editing');
+          if(el){try{el.setCustomValidity('')}catch(_){}}
+          var feedback=w&&w.querySelector('.field-feedback');
+          if(feedback)feedback.textContent='';
+        });
+
+        if(consent){
+          try{consent.setCustomValidity('')}catch(_){}
+          var q=consent.closest('.quote-consent');
+          if(q)q.classList.remove('has-error');
+          var l=consent.closest('.consent-check');
+          if(l)l.classList.remove('validation-error','validation-ok');
+        }
+
+        updateButton();
+      },0);
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        setTimeout(function(){
+          if(triedSubmit)allValid(true);
+          else updateButton();
+        },0);
+      });
+    });
+
     updateButton();
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+  else init();
 })();
 </script>
+
 
 </body>
 </html>
