@@ -3223,6 +3223,80 @@ html[lang="fi"] .area-copy h2{
 }
 </style>
 
+
+<style id="malistan-final-mobile-validation-patch">
+/* Mobile menu: restore the restrained Malistan quote button shown in the preferred version. */
+@media(max-width:900px){
+  .main-nav.open .mobile-quote-link{
+    position:relative!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-height:62px!important;
+    margin:12px 12px 8px!important;
+    padding:0 22px!important;
+    border:2px solid transparent!important;
+    border-radius:23px!important;
+    color:#f4faf7!important;
+    font:800 .98rem/1 Manrope,Inter,sans-serif!important;
+    background:
+      linear-gradient(145deg,rgba(29,103,84,.78),rgba(7,37,30,.94)) padding-box,
+      linear-gradient(100deg,#83d9bd 0%,#9adfc4 26%,#f1d983 54%,#70cba8 76%,#47c86a 100%) border-box!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 14px 30px rgba(0,0,0,.22)!important;
+    overflow:hidden!important;
+    animation:none!important;
+    filter:none!important;
+  }
+  .main-nav.open .mobile-quote-link::before,
+  .main-nav.open .mobile-quote-link::after{display:none!important;content:none!important;animation:none!important}
+  .main-nav.open .mobile-quote-link:hover,
+  .main-nav.open .mobile-quote-link:focus-visible{background:
+      linear-gradient(145deg,rgba(34,115,94,.86),rgba(8,45,36,.96)) padding-box,
+      linear-gradient(100deg,#9de6cd,#f1d983,#4ed478) border-box!important}
+}
+
+/* Hamburger turns into a clear X while the menu is open. */
+.menu-btn .menu-open-lines{display:block}
+.menu-btn .menu-close-lines{display:none}
+.menu-btn[aria-expanded="true"] .menu-open-lines{display:none}
+.menu-btn[aria-expanded="true"] .menu-close-lines{display:block}
+.menu-btn[aria-expanded="true"]{color:#f3fff9!important;background:linear-gradient(145deg,rgba(30,105,85,.34),rgba(255,255,255,.055))!important;border-color:rgba(127,215,181,.24)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 10px 28px rgba(0,0,0,.24)!important}
+.menu-btn .menu-glyph{width:24px!important;height:24px!important}
+
+/* W RENT-inspired machinery pictograms: clean white line drawings in dark glass chips. */
+.hero-services-menu .service-menu-icon{
+  width:46px!important;height:46px!important;display:grid!important;place-items:center!important;
+  border-radius:14px!important;color:#effbf6!important;
+  background:linear-gradient(145deg,rgba(32,103,84,.62),rgba(7,30,25,.92))!important;
+  border:1px solid rgba(126,213,178,.22)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 8px 20px rgba(0,0,0,.20)!important;
+}
+.hero-services-menu .service-menu-icon svg{width:36px!important;height:26px!important;overflow:visible!important;fill:none!important;stroke:currentColor!important;stroke-width:1.55!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+.hero-services-menu button:hover .service-menu-icon,.hero-services-menu button:focus-visible .service-menu-icon{color:#071c16!important;background:linear-gradient(145deg,#e8f7f0,#8ed7bb)!important;border-color:rgba(241,217,131,.58)!important}
+
+/* Inline professional validation — no browser English speech bubbles. */
+#quoteForm .field{position:relative}
+#quoteForm .field-control-state{position:absolute;right:16px;top:37px;width:24px;height:24px;display:grid;place-items:center;border-radius:50%;opacity:0;transform:scale(.75);transition:opacity .18s ease,transform .22s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:5}
+#quoteForm .field-control-state svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+#quoteForm .field.is-valid .field-control-state{opacity:1;transform:scale(1);color:#071c16;background:linear-gradient(145deg,#a9efd0,#4aca94);box-shadow:0 0 0 4px rgba(74,202,148,.10),0 6px 15px rgba(26,140,99,.25)}
+#quoteForm .field.is-invalid .field-control-state{opacity:1;transform:scale(1);color:#fff;background:linear-gradient(145deg,#e4675b,#a82f28);box-shadow:0 0 0 4px rgba(225,83,70,.10)}
+#quoteForm .field.is-valid input,#quoteForm .field.is-valid textarea,#quoteForm .field.is-valid select{border-color:rgba(86,214,163,.72)!important;box-shadow:0 0 0 3px rgba(71,199,149,.09),inset 0 1px 0 rgba(255,255,255,.05)!important}
+#quoteForm .field.is-invalid input,#quoteForm .field.is-invalid textarea,#quoteForm .field.is-invalid select{border-color:rgba(237,105,94,.82)!important;box-shadow:0 0 0 3px rgba(225,83,70,.09)!important}
+#quoteForm .field input,#quoteForm .field select{padding-right:52px!important}
+#quoteForm .field textarea{padding-right:52px!important}
+#quoteForm .field textarea + .field-control-state{top:39px}
+#quoteForm .field-feedback{display:none;margin:7px 4px 0;color:#f19a91;font-size:.68rem;line-height:1.45;font-weight:650}
+#quoteForm .field.is-invalid .field-feedback{display:block}
+#quoteForm .field.is-valid .field-feedback{display:none}
+#quoteForm .consent-check.validation-error{border-color:rgba(237,105,94,.72)!important;box-shadow:0 0 0 3px rgba(225,83,70,.08)!important}
+#quoteForm .consent-check.validation-ok{border-color:rgba(86,214,163,.36)!important}
+#quoteForm .consent-error{display:none;margin:7px 5px 0;color:#f19a91;font-size:.68rem;font-weight:650}
+#quoteForm .quote-consent.has-error .consent-error{display:block}
+#quoteSubmit:not([aria-busy="true"]):disabled{cursor:not-allowed!important;opacity:.52!important;filter:saturate(.55)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 24px rgba(0,0,0,.18)!important}
+#quoteSubmit:not([aria-busy="true"]):disabled::before,#quoteSubmit:not([aria-busy="true"]):disabled::after{animation:none!important;opacity:.12!important}
+@media(max-width:620px){#quoteForm .field-control-state{right:14px;top:38px}.hero-services-menu .service-menu-icon{width:44px!important;height:44px!important}.hero-services-menu .service-menu-icon svg{width:34px!important;height:25px!important}}
+</style>
+
 </head>
 <body>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -3237,7 +3311,10 @@ html[lang="fi"] .area-copy h2{
 <a class="mobile-quote-link" data-en="Request a quote" data-fi="Pyydä tarjous" href="#quoteForm">Pyydä tarjous</a></nav>
 <div aria-label="Language" class="lang-switch"><button aria-pressed="true" class="lang-btn active" data-lang="fi" type="button">FI</button><button aria-pressed="false" class="lang-btn" data-lang="en" type="button">EN</button></div><a class="glass-btn primary compact header-cta" href="#quoteForm"><span data-en="Request a quote" data-fi="Pyydä tarjous">Pyydä tarjous</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
 <button aria-controls="mainNav" aria-expanded="false" aria-label="Avaa valikko" class="menu-btn" id="menuButton" type="button">
-<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4 8h16M4 16h16"></path></svg>
+<svg aria-hidden="true" class="menu-glyph" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" viewBox="0 0 24 24">
+  <g class="menu-open-lines"><path d="M4 8h16"></path><path d="M4 16h16"></path></g>
+  <g class="menu-close-lines"><path d="M5.5 5.5 18.5 18.5"></path><path d="M18.5 5.5 5.5 18.5"></path></g>
+</svg>
 </button>
 </div>
 </header>
@@ -3257,12 +3334,12 @@ html[lang="fi"] .area-copy h2{
   <svg aria-hidden="true" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
 </button>
 <div class="hero-services-menu glass-dark" id="heroServicesMenu" hidden>
-  <button type="button" data-target="service-kaivuutyot"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17h5l2-4h4l2 4h5"/><path d="M6 17v2M18 17v2M9 13l2-7h4l1.5 5"/><path d="M11 6h4"/></svg></span><span data-fi="Kaivuutyöt" data-en="Excavation work">Kaivuutyöt</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-  <button type="button" data-target="service-maa-aines"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 18h18"/><path d="m5 18 5-8 3 4 2-3 4 7"/><path d="M8 18h8"/></svg></span><span data-fi="Maa-aines" data-en="Earth materials">Maa-aines</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-  <button type="button" data-target="service-pohjatyot"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v4H4z"/><path d="M6 11v7h12v-7"/><path d="M9 15h6"/></svg></span><span data-fi="Pohjatyöt" data-en="Ground works">Pohjatyöt</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-  <button type="button" data-target="service-tasaukset"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h16v8H4z"/><path d="M8 12h8"/><circle cx="12" cy="12" r="1.6"/></svg></span><span data-fi="Tasaukset" data-en="Grading">Tasaukset</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-  <button type="button" data-target="service-kuljettaja"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 18h14"/><path d="M7 18v-4l3-3h5l2 3v4"/><path d="M9 11V8h6v3"/><circle cx="9" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/></svg></span><span data-fi="Kaivinkoneen kuljettaja" data-en="Excavator operator">Kaivinkoneen kuljettaja</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-  <button type="button" data-target="service-kuljetus"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span><span data-fi="Kuljetuspalvelut" data-en="Transport services">Kuljetuspalvelut</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-kaivuutyot"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 25h21"></path><path d="M7 25c0-3 2-5 5-5h9c3 0 5 2 5 5"></path><path d="M12 20v-8h8l5 5"></path><path d="M20 12h5l7 5"></path><path d="M31 17l5-9 4 2-4 10"></path><path d="M36 20l6 2-3 5-8-2"></path><path d="M8 28h18"></path></svg></span><span data-fi="Kaivuutyöt" data-en="Excavation work">Kaivuutyöt</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-maa-aines"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 23h25"></path><path d="M8 23v-9h12l6 5h7v4"></path><path d="M20 14l5-5h9l4 8"></path><path d="M36 17h7l1 6h-11"></path><circle cx="13" cy="25" r="3"></circle><circle cx="34" cy="25" r="3"></circle><path d="M27 9l4-5 8 3"></path></svg></span><span data-fi="Maa-aines" data-en="Earth materials">Maa-aines</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-pohjatyot"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M5 25h28"></path><path d="M8 25v-9h11l5 4"></path><path d="M19 16v-5h7l5 7"></path><path d="M30 18h7l5-7"></path><path d="M42 11l2 2-5 7"></path><path d="M7 28h25"></path><path d="M35 25l8-2"></path></svg></span><span data-fi="Pohjatyöt" data-en="Ground works">Pohjatyöt</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-tasaukset"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 48 32" aria-hidden="true"><circle cx="13" cy="23" r="6"></circle><circle cx="13" cy="23" r="3.5"></circle><path d="M19 23h17"></path><path d="M22 23v-11h10l6 6v5"></path><path d="M26 12V8h7l5 8"></path><circle cx="37" cy="24" r="3"></circle><path d="M4 29h39"></path></svg></span><span data-fi="Tasaukset" data-en="Grading">Tasaukset</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-kuljettaja"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 26h24"></path><path d="M8 26v-8h13l5 4"></path><path d="M14 18V9h10l5 8"></path><path d="M29 17l6-10 4 2-5 11"></path><path d="M34 20l8 2-2 5-10-2"></path><circle cx="19" cy="13" r="2"></circle><path d="M16 17c.5-2 1.5-3 3-3s2.5 1 3 3"></path></svg></span><span data-fi="Kaivinkoneen kuljettaja" data-en="Excavator operator">Kaivinkoneen kuljettaja</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+  <button type="button" data-target="service-kuljetus"><span class="service-menu-icon" aria-hidden="true"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 10h24v14H4z"></path><path d="M28 15h8l7 6v3H28z"></path><path d="M32 15v6h10"></path><circle cx="12" cy="25" r="3"></circle><circle cx="35" cy="25" r="3"></circle><path d="M7 14h17M7 18h17"></path></svg></span><span data-fi="Kuljetuspalvelut" data-en="Transport services">Kuljetuspalvelut</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
 </div>
 </div>
 </div>
@@ -3370,7 +3447,7 @@ html[lang="fi"] .area-copy h2{
 <div><div class="eyebrow" data-en="Contact information" data-fi="Yhteystiedot">Yhteystiedot</div><h2 data-en="Planning a project?" data-fi="Suunnitteletko projektia?">Suunnitteletko projektia?</h2><p data-en="Tell us briefly about your project. We will review your needs and contact you as soon as possible." data-fi="Kerro lyhyesti kohteestasi. Käymme tarpeesi läpi ja olemme yhteydessä mahdollisimman pian.">Kerro lyhyesti kohteestasi. Käymme tarpeesi läpi ja olemme yhteydessä mahdollisimman pian.</p></div>
 <div class="contacts"><a class="contact premium-contact" href="tel:+358405145503"><span class="contact-icon contact-phone"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M7.2 3.8 9.6 8l-2 1.8c1 2.5 3 4.5 5.5 5.5l1.8-2 4.2 2.4c.5.3.8.9.6 1.5-.5 1.8-2.1 3-4 3C9 20.2 3.8 15 3.8 8.6c0-1.9 1.2-3.5 3-4 .6-.2 1.2.1 1.5.6Z"></path></svg></span><span class="contact-copy"><b>040 514 5503</b><span data-en="Phone" data-fi="Puhelin">Puhelin</span></span></a><a class="contact premium-contact" href="mailto:malistanpalvelu.fi@gmail.com"><span class="contact-icon contact-mail"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 6.5h16v11H4z"></path><path d="m5 8 7 5 7-5"></path></svg></span><span class="contact-copy"><b>malistanpalvelu.fi@gmail.com</b><span data-en="Email · quote requests" data-fi="Sähköposti · tarjouspyynnöt">Sähköposti · tarjouspyynnöt</span></span></a><a class="contact premium-contact" href="mailto:aliqaderi00358@gmail.com"><span class="contact-icon contact-mail"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 6.5h16v11H4z"></path><path d="m5 8 7 5 7-5"></path></svg></span><span class="contact-copy"><b>aliqaderi00358@gmail.com</b><span data-en="Email · Mohammad Ali Qaderi" data-fi="Sähköposti · Mohammad Ali Qaderi">Sähköposti · Mohammad Ali Qaderi</span></span></a><div class="contact premium-contact"><span class="contact-icon contact-user"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M5.5 20a6.5 6.5 0 0 1 13 0"></path></svg></span><span class="contact-copy"><b>Mohammad Ali Qaderi</b><span data-en="Owner · Malistan Palvelu" data-fi="Omistaja · Malistan Palvelu">Omistaja · Malistan Palvelu</span></span></div><div class="contact premium-contact"><span class="contact-icon contact-pin"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 21s6-5.4 6-11a6 6 0 1 0-12 0c0 5.6 6 11 6 11Z"></path><circle cx="12" cy="10" r="2"></circle></svg></span><span class="contact-copy"><b>Kirkkonummi, Suomi</b><span data-en="Kirkkonummi · Helsinki · Espoo · Vantaa" data-fi="Kirkkonummi · Helsinki · Espoo · Vantaa">Kirkkonummi · Helsinki · Espoo · Vantaa</span></span></div></div>
 </aside>
-<form class="quote-form glass reveal" id="quoteForm">
+<form class="quote-form glass reveal" id="quoteForm" novalidate>
 <div class="form-head"><div><div class="eyebrow" data-en="Quote request" data-fi="Tarjouspyyntö">Tarjouspyyntö</div><h3 data-en="Request a quote for your project" data-fi="Pyydä tarjous projektillesi">Pyydä tarjous projektillesi</h3><p data-en="Tell us about your project. You can also attach photos, plans or other project files." data-fi="Kerro projektistasi. Voit myös liittää kuvia, suunnitelmia tai muita projektiin liittyviä tiedostoja.">Kerro projektistasi. Voit myös liittää kuvia, suunnitelmia tai muita projektiin liittyviä tiedostoja.</p></div><span aria-hidden="true" class="form-mark"><img alt="" height="52" src="https://www.malistanpalvelu.fi/assets/images/malistan-logo-square.png.jpg" width="52"/></span></div>
 <div class="fields">
 <div class="field"><label data-en="Name" data-fi="Nimi" for="fName">Nimi</label><input autocomplete="name" data-en-placeholder="Name" data-fi-placeholder="Nimi" id="fName" maxlength="100" name="name" placeholder="Nimi" required="" type="text"/></div>
@@ -4043,5 +4120,107 @@ html[lang="fi"] .area-copy h2{
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
 })();
 </script>
+
+<script id="malistan-final-validation-script">
+(function(){
+  'use strict';
+  function init(){
+    var form=document.getElementById('quoteForm');
+    var submit=document.getElementById('quoteSubmit');
+    if(!form||!submit)return;
+    var fields={
+      name:document.getElementById('fName'),
+      phone:document.getElementById('fPhone'),
+      email:document.getElementById('fEmail'),
+      city:document.getElementById('fCity'),
+      projectType:document.getElementById('fType'),
+      message:document.getElementById('fMsg')
+    };
+    var consent=document.getElementById('quoteConsent');
+    var touched=new WeakSet();
+    var triedSubmit=false;
+    function lang(){return document.documentElement.lang==='en'?'en':'fi'}
+    function labels(key){
+      var en=lang()==='en';
+      var map={
+        name: en?'Enter your full name (at least 2 letters).':'Kirjoita koko nimesi (vähintään 2 kirjainta).',
+        phone: en?'Enter a valid phone number (7–15 digits).':'Kirjoita kelvollinen puhelinnumero (7–15 numeroa).',
+        email: en?'Enter a complete email address, for example name@example.com.':'Kirjoita täydellinen sähköpostiosoite, esim. nimi@esimerkki.fi.',
+        city: en?'Choose the project city.':'Valitse projektin kaupunki.',
+        projectType: en?'Choose a service.':'Valitse palvelu.',
+        message: en?'Describe the project with at least 5 characters.':'Kuvaile projektia vähintään 5 merkillä.',
+        consent: en?'Accept the data processing consent before sending.':'Hyväksy tietojen käsittely ennen lähettämistä.'
+      };return map[key]
+    }
+    function hasLetters(value,count){
+      try{return (value.match(/\p{L}/gu)||[]).length>=count}catch(e){return (value.match(/[A-Za-zÀ-ÖØ-öø-ÿÅÄÖåäö]/g)||[]).length>=count}
+    }
+    function validName(v){v=v.trim().replace(/\s+/g,' ');return v.length>=2&&hasLetters(v,2)}
+    function validPhone(v){
+      v=v.trim();if(!/^[+()\d\s.-]+$/.test(v))return false;
+      var digits=v.replace(/\D/g,'');return digits.length>=7&&digits.length<=15
+    }
+    function validEmail(v){
+      v=v.trim();
+      if(v.length>160||v.indexOf('..')!==-1)return false;
+      return /^[^\s@]{2,64}@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z]{2,24})+$/.test(v)
+    }
+    function validMessage(v){return v.trim().length>=5}
+    function isValid(key,el){
+      if(!el)return false;
+      var v=el.value||'';
+      if(key==='name')return validName(v);
+      if(key==='phone')return validPhone(v);
+      if(key==='email')return validEmail(v);
+      if(key==='city'||key==='projectType')return !!v;
+      if(key==='message')return validMessage(v);
+      return true
+    }
+    function ensureUi(key,el){
+      var wrap=el.closest('.field');if(!wrap)return null;
+      var state=wrap.querySelector('.field-control-state');
+      if(!state){state=document.createElement('span');state.className='field-control-state';state.setAttribute('aria-hidden','true');state.innerHTML='<svg class="ok" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"></path></svg><svg class="bad" viewBox="0 0 24 24" style="display:none"><path d="M7 7l10 10M17 7 7 17"></path></svg>';el.insertAdjacentElement('afterend',state)}
+      var feedback=wrap.querySelector('.field-feedback');
+      if(!feedback){feedback=document.createElement('div');feedback.className='field-feedback';feedback.setAttribute('role','alert');state.insertAdjacentElement('afterend',feedback)}
+      return {wrap:wrap,state:state,feedback:feedback}
+    }
+    function paint(key,force){
+      var el=fields[key];if(!el)return true;
+      var ui=ensureUi(key,el),ok=isValid(key,el),show=force||touched.has(el)||String(el.value||'').length>0;
+      el.setCustomValidity(ok?'':labels(key));
+      ui.wrap.classList.toggle('is-valid',ok&&String(el.value||'').trim().length>0);
+      ui.wrap.classList.toggle('is-invalid',!ok&&show);
+      ui.feedback.textContent=!ok?labels(key):'';
+      var okSvg=ui.state.querySelector('.ok'),badSvg=ui.state.querySelector('.bad');
+      if(okSvg)okSvg.style.display=ok?'block':'none';if(badSvg)badSvg.style.display=ok?'none':'block';
+      return ok
+    }
+    function paintConsent(force){
+      if(!consent)return false;var wrap=consent.closest('.quote-consent'),label=consent.closest('.consent-check');
+      var err=wrap.querySelector('.consent-error');if(!err){err=document.createElement('div');err.className='consent-error';err.setAttribute('role','alert');wrap.appendChild(err)}
+      var ok=consent.checked,show=force||touched.has(consent);
+      consent.setCustomValidity(ok?'':labels('consent'));
+      wrap.classList.toggle('has-error',!ok&&show);label.classList.toggle('validation-error',!ok&&show);label.classList.toggle('validation-ok',ok);err.textContent=labels('consent');return ok
+    }
+    function allValid(force){var ok=true;Object.keys(fields).forEach(function(k){if(!paint(k,force))ok=false});if(!paintConsent(force))ok=false;return ok}
+    function updateButton(){var ok=allValid(false);if(submit.getAttribute('aria-busy')!=='true')submit.disabled=!ok;return ok}
+    window.MalistanUpdateQuoteSubmitState=updateButton;
+    Object.keys(fields).forEach(function(key){var el=fields[key];if(!el)return;ensureUi(key,el);['input','change'].forEach(function(evt){el.addEventListener(evt,function(){paint(key,false);updateButton()})});el.addEventListener('blur',function(){touched.add(el);paint(key,true);updateButton()})});
+    if(consent){consent.addEventListener('change',function(){touched.add(consent);paintConsent(true);updateButton()})}
+    form.addEventListener('submit',function(e){
+      triedSubmit=true;
+      var ok=allValid(true);
+      if(!ok){e.preventDefault();e.stopImmediatePropagation();submit.disabled=true;var first=form.querySelector('.field.is-invalid input,.field.is-invalid select,.field.is-invalid textarea');if(!first&&!consent.checked)first=consent;if(first){first.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){try{first.focus({preventScroll:true})}catch(_){first.focus()}},280)}return false}
+      submit.disabled=false
+    },true);
+    form.addEventListener('reset',function(){setTimeout(function(){touched=new WeakSet();triedSubmit=false;Object.keys(fields).forEach(function(k){var el=fields[k],w=el&&el.closest('.field');if(w)w.classList.remove('is-valid','is-invalid');if(el)el.setCustomValidity('')});if(consent){consent.setCustomValidity('');var q=consent.closest('.quote-consent');if(q)q.classList.remove('has-error');var l=consent.closest('.consent-check');if(l)l.classList.remove('validation-error','validation-ok')}updateButton()},0)});
+    /* Repaint translated error messages when FI/EN changes. */
+    document.querySelectorAll('.lang-btn').forEach(function(btn){btn.addEventListener('click',function(){setTimeout(function(){if(triedSubmit)allValid(true);else updateButton()},0)})});
+    updateButton();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
 </body>
 </html>
