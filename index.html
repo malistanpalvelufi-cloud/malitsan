@@ -2339,6 +2339,713 @@ html[lang="fi"] .area-copy h2{
   .globe-status::after{animation:none!important}
 }
 </style>
+
+<style id="malistan-quote-glass-final-css">
+/* Quote request — strong liquid glass, stable mobile layout */
+#tarjous.quote{
+  position:relative!important;
+  overflow:hidden!important;
+  background:
+    radial-gradient(circle at 18% 12%,rgba(23,173,132,.20),transparent 25rem),
+    radial-gradient(circle at 88% 52%,rgba(67,92,255,.11),transparent 25rem),
+    radial-gradient(circle at 67% 92%,rgba(212,166,47,.12),transparent 24rem),
+    linear-gradient(160deg,#04110e 0%,#061c17 48%,#030b09 100%)!important;
+}
+#tarjous.quote::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(circle at 60% 50%,#000,transparent 78%);opacity:.55}
+#tarjous .quote-grid{position:relative;z-index:2}
+#tarjous .quote-side,#tarjous .quote-form{
+  border:1px solid rgba(188,240,220,.17)!important;
+  background:linear-gradient(145deg,rgba(20,64,52,.43),rgba(5,20,17,.56))!important;
+  -webkit-backdrop-filter:blur(30px) saturate(1.35)!important;backdrop-filter:blur(30px) saturate(1.35)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.025),0 30px 80px rgba(0,0,0,.30),0 0 0 1px rgba(75,221,173,.03)!important;
+}
+#tarjous .quote-form{position:relative;isolation:isolate;overflow:hidden!important;color:#fff!important}
+#tarjous .quote-form::before{content:"";position:absolute;z-index:-1;width:380px;height:380px;right:-190px;top:-190px;border-radius:50%;background:radial-gradient(circle,rgba(57,232,180,.20),rgba(53,85,255,.08) 46%,transparent 70%);filter:blur(2px)}
+#tarjous .quote-form::after{content:"";position:absolute;z-index:-1;width:360px;height:260px;left:-180px;bottom:-110px;border-radius:50%;background:radial-gradient(circle,rgba(216,55,171,.10),rgba(47,206,168,.08) 46%,transparent 72%)}
+#tarjous .form-head{position:relative;z-index:1;padding:0 0 25px;margin-bottom:25px;border-bottom:1px solid rgba(255,255,255,.08)}
+#tarjous .form-head h3{color:#fff!important;text-shadow:0 1px 20px rgba(104,240,194,.08)}
+#tarjous .form-head p{color:rgba(222,239,232,.60)!important}
+#tarjous .form-mark{background:linear-gradient(145deg,rgba(28,106,85,.74),rgba(5,28,23,.88))!important;border:1px solid rgba(218,245,236,.19)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 12px 30px rgba(0,0,0,.18)!important;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+
+#tarjous .fields{column-gap:16px!important}
+#tarjous .field{min-width:0!important;margin-bottom:18px!important}
+#tarjous .field label{color:#f0f7f4!important;font-weight:700!important}
+#tarjous .field input,#tarjous .field textarea,#tarjous .field select{
+  color:#fff!important;-webkit-text-fill-color:#fff!important;
+  background:linear-gradient(145deg,rgba(34,96,79,.31),rgba(13,42,35,.38))!important;
+  border:1px solid rgba(187,233,216,.18)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.075),0 10px 28px rgba(0,0,0,.08)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);
+}
+#tarjous .field input::placeholder,#tarjous .field textarea::placeholder{color:rgba(222,239,232,.48)!important;-webkit-text-fill-color:rgba(222,239,232,.48)!important;opacity:1}
+#tarjous .field input:focus,#tarjous .field textarea:focus,#tarjous .field select:focus{border-color:rgba(84,232,180,.75)!important;background:linear-gradient(145deg,rgba(32,108,86,.44),rgba(13,52,42,.48))!important;box-shadow:0 0 0 3px rgba(74,225,174,.10),0 0 28px rgba(63,217,167,.12),inset 0 1px 0 rgba(255,255,255,.10)!important}
+#tarjous .field select option{background:#09251f!important;color:#fff!important}
+
+/* Attachment uploader: no overlapping text on small screens */
+.attachment-title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:0 3px 9px}
+.attachment-title-row label{margin:0!important}.attachment-title-row small{max-width:48%;color:rgba(220,237,230,.46);font-size:.62rem;line-height:1.35;text-align:right}
+.project-file-input{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+.project-dropzone{position:relative;min-height:150px;display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:17px;padding:20px;border-radius:24px;color:#fff;cursor:pointer;background:linear-gradient(145deg,rgba(25,96,78,.28),rgba(12,35,29,.38));border:1.5px dashed rgba(85,230,184,.62);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 16px 38px rgba(0,0,0,.12);-webkit-backdrop-filter:blur(20px) saturate(1.25);backdrop-filter:blur(20px) saturate(1.25);transition:.28s var(--ease);overflow:hidden}
+.project-dropzone::before{content:"";position:absolute;width:230px;height:230px;left:-50px;top:-50px;border-radius:50%;background:radial-gradient(circle,rgba(39,224,174,.20),transparent 67%);pointer-events:none}
+.project-dropzone:hover,.project-dropzone:focus-visible,.project-dropzone.dragging{transform:translateY(-2px);border-color:#59e5b6;box-shadow:0 0 0 1px rgba(89,229,182,.10),0 0 38px rgba(64,215,170,.13),inset 0 1px 0 rgba(255,255,255,.10)}
+.project-upload-icon{position:relative;z-index:1;width:58px;height:58px;display:grid;place-items:center;border-radius:18px;background:linear-gradient(145deg,rgba(40,170,136,.75),rgba(7,57,47,.80));border:1px solid rgba(204,246,231,.30);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 6px 0 rgba(2,32,26,.72),0 14px 28px rgba(0,0,0,.20)}
+.project-upload-icon svg{width:27px;height:27px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.project-upload-copy{position:relative;z-index:1;min-width:0;display:flex;flex-direction:column;gap:4px}.project-upload-copy strong{font:750 .88rem/1.25 Manrope,sans-serif}.project-upload-copy>span{color:rgba(224,241,234,.66);font-size:.72rem;line-height:1.4}.project-upload-copy small{color:rgba(224,241,234,.43);font-size:.61rem;line-height:1.45}
+.project-browse{position:relative;z-index:1;align-self:center;padding:10px 14px;border-radius:999px;color:#c8f8e6;background:rgba(52,214,164,.10);border:1px solid rgba(90,231,187,.22);font-size:.68rem;font-weight:800;white-space:nowrap}
+.project-file-error{display:none;margin-top:8px;padding:10px 12px;border-radius:14px;color:#ffb1b8;background:rgba(170,43,54,.12);border:1px solid rgba(231,91,103,.20);font-size:.68rem}.project-file-error.visible{display:block}
+.project-file-list{display:grid;gap:9px;margin-top:10px}.project-file-card{display:grid;grid-template-columns:52px minmax(0,1fr) 38px;align-items:center;gap:12px;padding:9px;border-radius:17px;background:rgba(255,255,255,.045);border:1px solid rgba(195,237,221,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.045)}
+.project-file-thumb{width:52px;height:48px;display:grid;place-items:center;overflow:hidden;border-radius:12px;color:#c6f3e2;background:linear-gradient(145deg,rgba(32,124,101,.64),rgba(9,47,39,.75));border:1px solid rgba(188,238,219,.16)}.project-file-thumb img{width:100%;height:100%;object-fit:cover}.project-file-thumb svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7}
+.project-file-meta{min-width:0}.project-file-meta b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff;font:700 .70rem/1.3 Manrope,sans-serif}.project-file-meta span{display:block;margin-top:3px;color:rgba(222,239,232,.48);font-size:.60rem}.project-file-remove{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;color:rgba(235,246,242,.66);cursor:pointer;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07)}.project-file-remove svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}
+
+/* Required consent */
+.quote-consent{margin:2px 0 17px!important}.consent-check{display:flex!important;align-items:flex-start;gap:12px!important;margin:0!important;padding:14px 15px!important;border-radius:18px;color:#fff!important;cursor:pointer;background:rgba(255,255,255,.045);border:1px solid rgba(193,235,219,.10);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.consent-check input{position:absolute;opacity:0;pointer-events:none}.consent-box{flex:0 0 25px;width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:rgba(255,255,255,.055);border:1px solid rgba(189,234,217,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:.22s}.consent-box svg{width:15px;height:15px;fill:none;stroke:#04110e;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.7);transition:.2s}
+.consent-check input:checked+.consent-box{background:linear-gradient(145deg,#8fe8c5,#45cf9e);border-color:#a8f0d5;box-shadow:0 0 0 4px rgba(73,212,162,.08),0 0 24px rgba(72,213,164,.15)}.consent-check input:checked+.consent-box svg{opacity:1;transform:scale(1)}
+.consent-copy{min-width:0}.consent-copy strong,.consent-copy small{display:block}.consent-copy strong{font:750 .72rem/1.35 Manrope,sans-serif}.consent-copy small{margin-top:3px;color:rgba(221,239,232,.48);font-size:.61rem;line-height:1.45}
+
+/* Main quote button — luminous glass gradient inspired by reference */
+#quoteSubmit,.main-nav.open .mobile-quote-link{
+  position:relative!important;isolation:isolate!important;overflow:hidden!important;color:#fff!important;
+  background:
+    linear-gradient(90deg,rgba(232,47,132,.88) 0%,rgba(150,46,222,.82) 28%,rgba(53,86,255,.86) 55%,rgba(28,201,224,.82) 78%,rgba(48,215,168,.82) 100%) padding-box,
+    linear-gradient(90deg,#ff6ead,#d77cff,#78a7ff,#64f2df,#f1d983) border-box!important;
+  border:1px solid transparent!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 0 1px rgba(255,255,255,.04),0 0 24px rgba(82,100,255,.22),0 0 42px rgba(48,215,168,.13),0 14px 36px rgba(0,0,0,.24)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.4)!important;backdrop-filter:blur(18px) saturate(1.4)!important;
+}
+#quoteSubmit{min-height:62px!important;border-radius:999px!important;font-size:.91rem!important}
+#quoteSubmit::before,.main-nav.open .mobile-quote-link::before{content:"";position:absolute;z-index:-1;inset:-80% -35%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.28) 49%,transparent 63%);transform:translateX(-45%) rotate(8deg);animation:quoteNeonSweep 4.4s ease-in-out infinite}
+#quoteSubmit::after{content:"";position:absolute;z-index:-2;inset:1px;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(4,16,13,.09))}
+@keyframes quoteNeonSweep{0%,60%{transform:translateX(-55%) rotate(8deg)}90%,100%{transform:translateX(55%) rotate(8deg)}}
+#quoteSubmit:hover{transform:translateY(-2px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.40),0 0 34px rgba(78,109,255,.29),0 0 50px rgba(48,215,168,.18),0 18px 42px rgba(0,0,0,.25)!important}
+#quoteSubmit[aria-busy="true"]{filter:saturate(.78) brightness(.82)!important;transform:scale(.992)!important}
+
+/* Professional non-jumping loading state */
+.quote-send-progress{height:0;overflow:hidden;opacity:0;margin:0 2px;padding:0 2px;transition:height .32s var(--ease),opacity .24s,margin .32s}.quote-send-progress.active{height:72px;opacity:1;margin-top:12px}.progress-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;color:#c8eadc;font-size:.66rem}.progress-percent{color:#74e2b8;font-weight:800;font-variant-numeric:tabular-nums}.progress-rail{height:6px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.035)}.progress-rail span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#e93791,#7d54ff,#2abce0,#4bd5a7);box-shadow:0 0 18px rgba(70,218,176,.30);transition:width .35s var(--ease)}.quote-send-progress small{display:block;margin-top:7px;color:rgba(221,239,232,.40);font-size:.58rem}
+
+/* Success state becomes glass too */
+#formSuccess.status.success{color:#dffbef!important;background:linear-gradient(145deg,rgba(33,126,95,.32),rgba(13,61,48,.30))!important;border-color:rgba(100,231,179,.26)!important;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:0 0 25px rgba(73,220,165,.10),inset 0 1px 0 rgba(255,255,255,.07)}
+#formSuccess .status-copy span{color:rgba(225,242,235,.62)!important}
+#formSuccess .status-icon{background:#63daa9!important;box-shadow:0 0 20px rgba(82,222,167,.24)}
+
+/* Mobile menu quote CTA: compact and premium, not oversized text */
+@media(max-width:1060px){.main-nav.open .mobile-quote-link{min-height:58px!important;margin:10px 8px 4px!important;border-radius:19px!important;font-size:.92rem!important;font-weight:800!important}}
+
+@media(max-width:620px){
+  #tarjous .quote-form{padding:26px 17px 24px!important}
+  #tarjous .form-head{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:12px!important;align-items:start!important}
+  #tarjous .form-head>div{min-width:0!important}
+  #tarjous .form-head h3{font-size:1.55rem!important;line-height:1.10!important;margin-right:0!important}
+  #tarjous .form-head p{font-size:.74rem!important;line-height:1.55!important}
+  #tarjous .form-mark{width:46px!important;height:46px!important;flex-basis:46px!important;margin:0!important}
+  #tarjous .fields{grid-template-columns:1fr!important}
+  .attachment-title-row{align-items:flex-start;gap:8px}.attachment-title-row small{max-width:45%;font-size:.56rem}
+  .project-dropzone{min-height:0;grid-template-columns:50px minmax(0,1fr);gap:12px;padding:16px 14px 14px;border-radius:21px}
+  .project-upload-icon{width:50px;height:50px;border-radius:16px}.project-upload-icon svg{width:24px;height:24px}
+  .project-upload-copy strong{font-size:.79rem}.project-upload-copy>span{font-size:.65rem}.project-upload-copy small{font-size:.55rem;line-height:1.42}
+  .project-browse{grid-column:1/-1;justify-self:stretch;text-align:center;margin-top:2px;padding:9px 12px}
+  #quoteSubmit{min-height:60px!important;font-size:.86rem!important}
+  .consent-check{padding:13px!important}.consent-copy strong{font-size:.68rem}.consent-copy small{font-size:.57rem}
+}
+@media(max-width:390px){
+  .attachment-title-row{display:block}.attachment-title-row small{display:block;max-width:none;margin-top:4px;text-align:left}
+  #tarjous .form-head{grid-template-columns:1fr!important}.form-mark{display:none!important}
+}
+@media(prefers-reduced-motion:reduce){#quoteSubmit::before,.main-nav.open .mobile-quote-link::before{animation:none!important}}
+</style>
+
+
+<style id="malistan-quote-last-polish">
+/* =========================================================
+   LAST POLISH — selectors, attachment spacing, Malistan CTA
+   ========================================================= */
+
+/* 1) Make BOTH selects obviously selectable with the same clear chevron */
+#tarjous .field select#fCity,
+#tarjous .field select#fType{
+  -webkit-appearance:none!important;
+  appearance:none!important;
+  cursor:pointer!important;
+  padding-right:54px!important;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #dff8ee 50%),
+    linear-gradient(135deg, #dff8ee 50%, transparent 50%),
+    linear-gradient(145deg,rgba(34,96,79,.31),rgba(13,42,35,.38))!important;
+  background-position:
+    calc(100% - 24px) 50%,
+    calc(100% - 18px) 50%,
+    0 0!important;
+  background-size:7px 7px,7px 7px,100% 100%!important;
+  background-repeat:no-repeat!important;
+}
+#tarjous .field select#fCity:hover,
+#tarjous .field select#fType:hover{
+  border-color:rgba(111,224,184,.40)!important;
+}
+#tarjous .field select#fCity:focus,
+#tarjous .field select#fType:focus{
+  background-image:
+    linear-gradient(45deg, transparent 50%, #f1d983 50%),
+    linear-gradient(135deg, #f1d983 50%, transparent 50%),
+    linear-gradient(145deg,rgba(32,108,86,.44),rgba(13,52,42,.48))!important;
+}
+
+/* 2) Attachment area — remove crowding and create clean hierarchy */
+#tarjous .attachment-field{
+  display:block!important;
+  width:100%!important;
+  margin-top:3px!important;
+}
+#tarjous .attachment-title-row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:12px!important;
+  width:100%!important;
+  margin:0 3px 11px!important;
+}
+#tarjous .attachment-title-row label{
+  min-width:0!important;
+  margin:0!important;
+  line-height:1.25!important;
+}
+#tarjous .attachment-title-row small{
+  position:static!important;
+  max-width:none!important;
+  margin:0!important;
+  color:rgba(218,238,230,.48)!important;
+  font-size:.59rem!important;
+  line-height:1.35!important;
+  white-space:nowrap!important;
+  text-align:right!important;
+}
+
+#tarjous .project-dropzone{
+  min-height:154px!important;
+  grid-template-columns:58px minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  align-items:center!important;
+  column-gap:16px!important;
+  row-gap:12px!important;
+  padding:19px!important;
+}
+#tarjous .project-upload-icon{
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:start!important;
+}
+#tarjous .project-upload-copy{
+  grid-column:2!important;
+  grid-row:1!important;
+  min-width:0!important;
+  align-self:center!important;
+}
+#tarjous .project-upload-copy strong,
+#tarjous .project-upload-copy > span,
+#tarjous .project-upload-copy small{
+  display:block!important;
+  max-width:100%!important;
+  overflow-wrap:anywhere!important;
+}
+#tarjous .project-upload-copy strong{
+  margin-bottom:4px!important;
+}
+#tarjous .project-upload-copy > span{
+  margin-bottom:3px!important;
+}
+#tarjous .project-browse{
+  grid-column:1 / -1!important;
+  grid-row:2!important;
+  justify-self:start!important;
+  margin:0!important;
+  padding:9px 15px!important;
+}
+
+/* 3) Replace rainbow CTA with the actual Malistan green + gold identity */
+#quoteSubmit,
+.main-nav.open .mobile-quote-link{
+  --cta-green-1:#27987c;
+  --cta-green-2:#176c58;
+  --cta-green-3:#0b3c31;
+  --cta-deep:#061d18;
+  --cta-gold:#f1d983;
+  --cta-gold-2:#d4a62f;
+  color:#fff!important;
+  border:1px solid transparent!important;
+  background:
+    linear-gradient(105deg,
+      rgba(41,151,124,.98) 0%,
+      rgba(25,111,91,.98) 43%,
+      rgba(10,59,48,.99) 76%,
+      rgba(113,91,31,.96) 100%) padding-box,
+    linear-gradient(95deg,
+      rgba(123,235,194,.78),
+      rgba(255,255,255,.36) 24%,
+      var(--cta-gold) 60%,
+      rgba(94,220,174,.86)) border-box!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 -12px 26px rgba(0,20,16,.20),
+    0 0 0 1px rgba(84,220,171,.08),
+    0 0 26px rgba(46,204,154,.18),
+    0 0 46px rgba(212,166,47,.10),
+    0 16px 38px rgba(0,0,0,.28)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(1.35)!important;
+  backdrop-filter:blur(20px) saturate(1.35)!important;
+}
+
+/* luminous moving glass stripe */
+#quoteSubmit::before,
+.main-nav.open .mobile-quote-link::before{
+  content:""!important;
+  position:absolute!important;
+  z-index:-1!important;
+  top:-80%!important;
+  left:-34%!important;
+  width:28%!important;
+  height:260%!important;
+  border-radius:999px!important;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.33),transparent)!important;
+  filter:blur(3px)!important;
+  transform:rotate(16deg)!important;
+  animation:malistanCtaSweep 3.8s cubic-bezier(.22,1,.36,1) infinite!important;
+}
+
+/* subtle gold element inside button */
+#quoteSubmit::after,
+.main-nav.open .mobile-quote-link::after{
+  content:""!important;
+  position:absolute!important;
+  z-index:-1!important;
+  width:130px!important;
+  height:130px!important;
+  right:-64px!important;
+  top:50%!important;
+  border-radius:50%!important;
+  transform:translateY(-50%)!important;
+  background:
+    radial-gradient(circle at 35% 35%,
+      rgba(255,250,210,.34) 0 3%,
+      rgba(241,217,131,.24) 8%,
+      rgba(212,166,47,.18) 28%,
+      transparent 68%)!important;
+  box-shadow:
+    0 0 28px rgba(241,217,131,.14),
+    0 0 64px rgba(212,166,47,.08)!important;
+  opacity:1!important;
+}
+
+#quoteSubmit{
+  min-height:64px!important;
+  border-radius:999px!important;
+  font-weight:800!important;
+  letter-spacing:-.01em!important;
+  text-shadow:0 1px 14px rgba(0,0,0,.16)!important;
+}
+#quoteSubmit > svg{
+  position:relative!important;
+  z-index:2!important;
+  filter:drop-shadow(0 0 7px rgba(241,217,131,.25))!important;
+}
+#quoteSubmit:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.34),
+    inset 0 -12px 28px rgba(0,20,16,.18),
+    0 0 0 1px rgba(111,233,188,.12),
+    0 0 34px rgba(52,215,163,.24),
+    0 0 58px rgba(212,166,47,.13),
+    0 20px 44px rgba(0,0,0,.28)!important;
+}
+#quoteSubmit:active{
+  transform:translateY(1px) scale(.992)!important;
+}
+#quoteSubmit[aria-busy="true"]{
+  filter:saturate(.84) brightness(.90)!important;
+}
+@keyframes malistanCtaSweep{
+  0%,55%{left:-34%}
+  82%,100%{left:116%}
+}
+
+/* tiny side accents to make CTA feel engineered, not generic */
+#quoteSubmit .button-text{
+  position:relative!important;
+  z-index:2!important;
+}
+#quoteSubmit .button-text::before{
+  content:""!important;
+  display:inline-block!important;
+  width:6px!important;
+  height:6px!important;
+  margin-right:10px!important;
+  border-radius:50%!important;
+  vertical-align:1px!important;
+  background:#9ce8ca!important;
+  box-shadow:0 0 0 4px rgba(106,226,181,.09),0 0 13px rgba(106,226,181,.35)!important;
+}
+
+/* Mobile-specific cleanup */
+@media(max-width:620px){
+  #tarjous .field select#fCity,
+  #tarjous .field select#fType{
+    min-height:58px!important;
+    border-radius:17px!important;
+    font-size:16px!important;
+    padding-right:50px!important;
+    background-position:
+      calc(100% - 23px) 50%,
+      calc(100% - 17px) 50%,
+      0 0!important;
+  }
+
+  #tarjous .attachment-title-row{
+    display:block!important;
+    margin-bottom:10px!important;
+  }
+  #tarjous .attachment-title-row small{
+    display:block!important;
+    margin-top:5px!important;
+    white-space:normal!important;
+    text-align:left!important;
+    font-size:.56rem!important;
+  }
+
+  #tarjous .project-dropzone{
+    min-height:0!important;
+    grid-template-columns:52px minmax(0,1fr)!important;
+    grid-template-rows:auto auto!important;
+    column-gap:13px!important;
+    row-gap:12px!important;
+    padding:16px 14px 14px!important;
+    border-radius:21px!important;
+  }
+  #tarjous .project-upload-icon{
+    width:52px!important;
+    height:52px!important;
+    border-radius:16px!important;
+  }
+  #tarjous .project-upload-copy strong{
+    font-size:.78rem!important;
+    line-height:1.28!important;
+  }
+  #tarjous .project-upload-copy > span{
+    font-size:.64rem!important;
+    line-height:1.42!important;
+  }
+  #tarjous .project-upload-copy small{
+    font-size:.54rem!important;
+    line-height:1.42!important;
+  }
+  #tarjous .project-browse{
+    justify-self:stretch!important;
+    text-align:center!important;
+    padding:9px 12px!important;
+  }
+
+  #quoteSubmit{
+    min-height:62px!important;
+    font-size:.86rem!important;
+  }
+  #quoteSubmit::after{
+    width:105px!important;
+    height:105px!important;
+    right:-54px!important;
+  }
+}
+
+@media(max-width:390px){
+  #tarjous .project-dropzone{
+    grid-template-columns:46px minmax(0,1fr)!important;
+  }
+  #tarjous .project-upload-icon{
+    width:46px!important;
+    height:46px!important;
+  }
+  #tarjous .project-upload-copy strong{font-size:.74rem!important}
+  #tarjous .project-upload-copy > span{font-size:.60rem!important}
+  #tarjous .project-upload-copy small{font-size:.51rem!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #quoteSubmit::before,
+  .main-nav.open .mobile-quote-link::before{animation:none!important}
+}
+</style>
+
+
+<style id="malistan-iphone-upload-and-cta-fix">
+/* =========================================================
+   iPhone upload alignment + exact hero CTA reuse
+   ========================================================= */
+
+/* The form submit button must be the SAME visual language as
+   the primary "Pyydä tarjous" button in the hero. */
+#quoteSubmit{
+  --angle:0deg!important;
+  position:relative!important;
+  isolation:isolate!important;
+  width:100%!important;
+  min-height:58px!important;
+  margin-top:3px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:10px!important;
+  overflow:hidden!important;
+  padding:0 22px!important;
+  border-radius:999px!important;
+
+  color:#fff!important;
+  cursor:pointer!important;
+  font:750 .9rem/1 Manrope,sans-serif!important;
+
+  background:
+    linear-gradient(145deg,rgba(28,91,77,.96),rgba(7,31,27,.93)) padding-box,
+    conic-gradient(from var(--angle),var(--forest3),var(--gold2),#fff,var(--gold),var(--forest3)) border-box!important;
+
+  border:1px solid transparent!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -14px 30px rgba(0,0,0,.16),
+    0 18px 40px rgba(7,31,27,.24)!important;
+
+  -webkit-backdrop-filter:blur(18px) saturate(1.25)!important;
+  backdrop-filter:blur(18px) saturate(1.25)!important;
+
+  transition:transform .32s var(--ease),box-shadow .32s!important;
+  animation:orbit 8s linear infinite paused!important;
+  filter:none!important;
+  text-shadow:none!important;
+}
+
+/* Restore the exact glass sheen behavior of the hero button. */
+#quoteSubmit::before{
+  content:none!important;
+  display:none!important;
+}
+#quoteSubmit::after{
+  content:""!important;
+  position:absolute!important;
+  inset:1px!important;
+  z-index:-1!important;
+  width:auto!important;
+  height:auto!important;
+  right:auto!important;
+  top:auto!important;
+  border-radius:inherit!important;
+  background:
+    linear-gradient(110deg,transparent 24%,rgba(255,255,255,.58) 48%,transparent 68%)!important;
+  box-shadow:none!important;
+  opacity:1!important;
+  transform:translateX(-125%)!important;
+  transition:transform .75s var(--ease)!important;
+}
+
+#quoteSubmit:hover,
+#quoteSubmit:focus-visible{
+  animation-play-state:running!important;
+}
+#quoteSubmit:hover::after,
+#quoteSubmit:focus-visible::after{
+  transform:translateX(125%)!important;
+}
+#quoteSubmit:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -14px 30px rgba(0,0,0,.16),
+    0 18px 42px rgba(7,31,27,.28)!important;
+}
+#quoteSubmit:active{
+  transform:translateY(1px) scale(.99)!important;
+}
+
+/* Remove the extra decorative dot that had been added only to the submit text. */
+#quoteSubmit .button-text::before{
+  content:none!important;
+  display:none!important;
+}
+
+/* Keep the existing sending state functional. */
+#quoteSubmit[aria-busy="true"]{
+  cursor:progress!important;
+  opacity:1!important;
+  transform:scale(.985)!important;
+  filter:saturate(.84) brightness(.92)!important;
+}
+#quoteSubmit[aria-busy="true"]::after{
+  transform:translateX(125%)!important;
+}
+#quoteSubmit[aria-busy="true"] .spinner{
+  display:block!important;
+}
+
+/* =========================================================
+   Attachment box: clean two-column layout on iPhone
+   Icon LEFT, copy RIGHT. No redundant Browse pill.
+   ========================================================= */
+#tarjous .attachment-field{
+  width:100%!important;
+  min-width:0!important;
+}
+
+#tarjous .attachment-title-row{
+  display:flex!important;
+  align-items:baseline!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  margin:0 3px 10px!important;
+}
+#tarjous .attachment-title-row label{
+  flex:0 1 auto!important;
+  margin:0!important;
+}
+#tarjous .attachment-title-row small{
+  flex:0 1 auto!important;
+  max-width:48%!important;
+  margin:0!important;
+  white-space:normal!important;
+  text-align:right!important;
+  color:rgba(218,238,230,.48)!important;
+  line-height:1.35!important;
+}
+
+/* Entire panel is the tap target, so no second button is needed. */
+#tarjous .project-dropzone{
+  min-height:112px!important;
+  display:grid!important;
+  grid-template-columns:58px minmax(0,1fr)!important;
+  grid-template-rows:1fr!important;
+  align-items:center!important;
+  column-gap:16px!important;
+  row-gap:0!important;
+  padding:18px!important;
+}
+
+#tarjous .project-upload-icon{
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:center!important;
+  justify-self:center!important;
+  width:58px!important;
+  height:58px!important;
+  margin:0!important;
+}
+
+#tarjous .project-upload-copy{
+  grid-column:2!important;
+  grid-row:1!important;
+  align-self:center!important;
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  gap:5px!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+#tarjous .project-upload-copy strong{
+  display:block!important;
+  margin:0!important;
+  color:#fff!important;
+  font:750 .83rem/1.3 Manrope,sans-serif!important;
+  overflow-wrap:anywhere!important;
+}
+
+#tarjous .project-upload-copy > span:empty{
+  display:none!important;
+}
+
+#tarjous .project-upload-copy small{
+  display:block!important;
+  margin:0!important;
+  color:rgba(224,241,234,.48)!important;
+  font-size:.59rem!important;
+  line-height:1.45!important;
+  overflow-wrap:anywhere!important;
+}
+
+/* The previous separate Selaa/Browse element is intentionally removed. */
+#tarjous .project-browse{
+  display:none!important;
+}
+
+/* iPhone / narrow mobile */
+@media(max-width:620px){
+  #tarjous .attachment-title-row{
+    display:block!important;
+    margin-bottom:10px!important;
+  }
+  #tarjous .attachment-title-row small{
+    display:block!important;
+    max-width:100%!important;
+    margin-top:4px!important;
+    text-align:left!important;
+    font-size:.56rem!important;
+  }
+
+  #tarjous .project-dropzone{
+    min-height:108px!important;
+    grid-template-columns:52px minmax(0,1fr)!important;
+    grid-template-rows:1fr!important;
+    align-items:center!important;
+    gap:13px!important;
+    padding:15px 14px!important;
+    border-radius:21px!important;
+  }
+
+  #tarjous .project-upload-icon{
+    width:52px!important;
+    height:52px!important;
+    align-self:center!important;
+  }
+
+  #tarjous .project-upload-copy{
+    align-self:center!important;
+    gap:4px!important;
+  }
+
+  #tarjous .project-upload-copy strong{
+    font-size:.76rem!important;
+    line-height:1.28!important;
+  }
+
+  #tarjous .project-upload-copy small{
+    font-size:.55rem!important;
+    line-height:1.4!important;
+  }
+
+  #quoteSubmit{
+    min-height:58px!important;
+    font-size:.9rem!important;
+  }
+}
+
+@media(max-width:390px){
+  #tarjous .project-dropzone{
+    grid-template-columns:48px minmax(0,1fr)!important;
+    gap:11px!important;
+    padding:14px 12px!important;
+  }
+  #tarjous .project-upload-icon{
+    width:48px!important;
+    height:48px!important;
+  }
+  #tarjous .project-upload-copy strong{
+    font-size:.72rem!important;
+  }
+  #tarjous .project-upload-copy small{
+    font-size:.52rem!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  #quoteSubmit{animation:none!important}
+}
+</style>
+
 </head>
 <body>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -2471,11 +3178,12 @@ html[lang="fi"] .area-copy h2{
 <div class="contacts"><a class="contact premium-contact" href="tel:+358405145503"><span class="contact-icon contact-phone"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M7.2 3.8 9.6 8l-2 1.8c1 2.5 3 4.5 5.5 5.5l1.8-2 4.2 2.4c.5.3.8.9.6 1.5-.5 1.8-2.1 3-4 3C9 20.2 3.8 15 3.8 8.6c0-1.9 1.2-3.5 3-4 .6-.2 1.2.1 1.5.6Z"></path></svg></span><span class="contact-copy"><b>040 514 5503</b><span data-en="Phone" data-fi="Puhelin">Puhelin</span></span></a><a class="contact premium-contact" href="mailto:malistanpalvelu.fi@gmail.com"><span class="contact-icon contact-mail"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 6.5h16v11H4z"></path><path d="m5 8 7 5 7-5"></path></svg></span><span class="contact-copy"><b>malistanpalvelu.fi@gmail.com</b><span data-en="Email · quote requests" data-fi="Sähköposti · tarjouspyynnöt">Sähköposti · tarjouspyynnöt</span></span></a><a class="contact premium-contact" href="mailto:aliqaderi00358@gmail.com"><span class="contact-icon contact-mail"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 6.5h16v11H4z"></path><path d="m5 8 7 5 7-5"></path></svg></span><span class="contact-copy"><b>aliqaderi00358@gmail.com</b><span data-en="Email · Mohammad Ali Qaderi" data-fi="Sähköposti · Mohammad Ali Qaderi">Sähköposti · Mohammad Ali Qaderi</span></span></a><div class="contact premium-contact"><span class="contact-icon contact-user"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M5.5 20a6.5 6.5 0 0 1 13 0"></path></svg></span><span class="contact-copy"><b>Mohammad Ali Qaderi</b><span data-en="Owner · Malistan Palvelu" data-fi="Omistaja · Malistan Palvelu">Omistaja · Malistan Palvelu</span></span></div><div class="contact premium-contact"><span class="contact-icon contact-pin"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 21s6-5.4 6-11a6 6 0 1 0-12 0c0 5.6 6 11 6 11Z"></path><circle cx="12" cy="10" r="2"></circle></svg></span><span class="contact-copy"><b>Kirkkonummi, Suomi</b><span data-en="Kirkkonummi · Helsinki · Espoo · Vantaa" data-fi="Kirkkonummi · Helsinki · Espoo · Vantaa">Kirkkonummi · Helsinki · Espoo · Vantaa</span></span></div></div>
 </aside>
 <form class="quote-form glass reveal" id="quoteForm">
-<div class="form-head"><div><div class="eyebrow" data-en="Quote request" data-fi="Tarjouspyyntö">Tarjouspyyntö</div><h3 data-en="Request a quote for your project" data-fi="Pyydä tarjous projektillesi">Pyydä tarjous projektillesi</h3><p data-en="All fields are required. We will contact you as soon as possible." data-fi="Kaikki kentät ovat pakollisia. Olemme sinuun yhteydessä mahdollisimman pian.">Kaikki kentät ovat pakollisia. Olemme sinuun yhteydessä mahdollisimman pian.</p></div><span aria-hidden="true" class="form-mark"><img alt="" height="52" src="data:image/webp;base64,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" width="52"/></span></div>
+<div class="form-head"><div><div class="eyebrow" data-en="Quote request" data-fi="Tarjouspyyntö">Tarjouspyyntö</div><h3 data-en="Request a quote for your project" data-fi="Pyydä tarjous projektillesi">Pyydä tarjous projektillesi</h3><p data-en="Tell us about your project. You can also attach photos, plans or other project files." data-fi="Kerro projektistasi. Voit myös liittää kuvia, suunnitelmia tai muita projektiin liittyviä tiedostoja.">Kerro projektistasi. Voit myös liittää kuvia, suunnitelmia tai muita projektiin liittyviä tiedostoja.</p></div><span aria-hidden="true" class="form-mark"><img alt="" height="52" src="data:image/webp;base64,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" width="52"/></span></div>
 <div class="fields">
 <div class="field"><label data-en="Name" data-fi="Nimi" for="fName">Nimi</label><input autocomplete="name" data-en-placeholder="Name" data-fi-placeholder="Nimi" id="fName" maxlength="100" name="name" placeholder="Nimi" required="" type="text"/></div>
 <div class="field"><label data-en="Phone number" data-fi="Puhelinnumero" for="fPhone">Puhelinnumero</label><input autocomplete="tel" data-en-placeholder="040 123 4567" data-fi-placeholder="040 123 4567" id="fPhone" inputmode="tel" maxlength="40" name="phone" placeholder="040 123 4567" required="" type="tel"/></div>
 <div class="field"><label data-en="Email" data-fi="Sähköposti" for="fEmail">Sähköposti</label><input autocomplete="email" data-en-placeholder="name@example.com" data-fi-placeholder="nimi@esimerkki.fi" id="fEmail" inputmode="email" maxlength="160" name="email" placeholder="nimi@esimerkki.fi" required="" type="email"/></div>
+<div class="field"><label data-en="Project city" data-fi="Projektin kaupunki" for="fCity">Projektin kaupunki</label><select id="fCity" name="city" required aria-label="Projektin kaupunki / Project city"><option value="" data-fi="Valitse kaupunki" data-en="Choose a city">Valitse kaupunki</option><option value="Kirkkonummi">Kirkkonummi</option><option value="Espoo">Espoo</option><option value="Helsinki">Helsinki</option><option value="Vantaa">Vantaa</option><option value="Muu" data-fi="Muu paikkakunta" data-en="Other location">Muu paikkakunta</option></select></div>
 <div class="field"><label data-en="Project type" data-fi="Projektin tyyppi" for="fType">Projektin tyyppi</label><select id="fType" name="projectType" required="" aria-label="Projektin tyyppi / Project type">
 <option data-en="Choose a service" data-fi="Valitse palvelu" value="">Valitse palvelu</option>
 <option data-en="Excavation work" data-fi="Kaivuutyöt" value="Kaivuutyöt">Kaivuutyöt</option>
@@ -2487,9 +3195,31 @@ html[lang="fi"] .area-copy h2{
 <option data-en="Other work" data-fi="Muu työ" value="Muu">Muu työ</option>
 </select></div>
 <div class="field full"><label data-en="Project description" data-fi="Projektin kuvaus" for="fMsg">Projektin kuvaus</label><textarea id="fMsg" maxlength="3000" name="message" data-fi-placeholder="Kerro kohteesta, työn sisällöstä ja toivotusta aikataulusta..." data-en-placeholder="Tell us about the site, the work required and your preferred schedule..." placeholder="Kerro kohteesta, työn sisällöstä ja toivotusta aikataulusta..." required="" rows="5"></textarea></div>
+<div class="field full attachment-field">
+  <div class="attachment-title-row">
+    <label for="projectFiles" data-fi="Projektin liitteet" data-en="Project attachments">Projektin liitteet</label>
+    <small data-fi="Valinnainen · enintään 4 tiedostoa" data-en="Optional · up to 4 files">Valinnainen · enintään 4 tiedostoa</small>
+  </div>
+  <input class="project-file-input" id="projectFiles" type="file" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.zip,.dwg,.dxf" />
+  <label class="project-dropzone" id="projectDropzone" for="projectFiles" tabindex="0">
+    <span class="project-upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15V4"></path><path d="m7.5 8.5 4.5-4.5 4.5 4.5"></path><path d="M5 13.5v4A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5v-4"></path></svg></span>
+    <span class="project-upload-copy"><strong data-fi="Lisää projektin tiedostoja" data-en="Add project files">Lisää projektin tiedostoja</strong><small data-fi="Kuvat, PDF, Office, ZIP, DWG/DXF · max 8 Mt / tiedosto" data-en="Images, PDF, Office, ZIP, DWG/DXF · max 8 MB / file">Kuvat, PDF, Office, ZIP, DWG/DXF · max 8 Mt / tiedosto</small></span>
+    
+  </label>
+  <div class="project-file-error" id="projectFileError" role="alert" aria-live="polite"></div>
+  <div class="project-file-list" id="projectFileList" aria-live="polite"></div>
+</div>
 </div>
 <div aria-hidden="true" class="honeypot"><label for="fWebsite">Jätä tämä kenttä tyhjäksi</label><input autocomplete="off" id="fWebsite" name="website" tabindex="-1" type="text"/></div>
+<div class="quote-consent field full">
+  <label class="consent-check" for="quoteConsent">
+    <input id="quoteConsent" name="consent" type="checkbox" required />
+    <span class="consent-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"></path></svg></span>
+    <span class="consent-copy"><strong data-fi="Hyväksyn tietojeni käsittelyn" data-en="I consent to the processing of my information">Hyväksyn tietojeni käsittelyn</strong><small data-fi="Tietojani käytetään vain tarjouspyyntöön vastaamiseen ja yhteydenottoon." data-en="My information will only be used to respond to this quote request and contact me.">Tietojani käytetään vain tarjouspyyntöön vastaamiseen ja yhteydenottoon.</small></span>
+  </label>
+</div>
 <button aria-busy="false" class="glass-btn primary submit" id="quoteSubmit" type="submit"><span aria-hidden="true" class="spinner"></span><span class="button-text" data-en="Send quote request" data-fi="Lähetä tarjouspyyntö">Lähetä tarjouspyyntö</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+<div class="quote-send-progress" id="quoteSendProgress" aria-hidden="true" aria-live="polite"><div class="progress-head"><span id="quoteSendStage" data-fi="Valmistellaan lähetystä…" data-en="Preparing to send…">Valmistellaan lähetystä…</span><span class="progress-percent" id="quoteSendPercent">0%</span></div><div class="progress-rail"><span id="quoteSendBar"></span></div><small data-fi="Pidä tämä sivu auki lähetyksen ajan." data-en="Keep this page open while sending.">Pidä tämä sivu auki lähetyksen ajan.</small></div>
 <div style="min-height:72px">
 <div aria-live="polite" class="status success" id="formSuccess" role="status">
   <span aria-hidden="true" class="status-icon success-check"><svg viewbox="0 0 24 24"><path d="m5 12 4 4 10-10"></path></svg></span>
@@ -2658,19 +3388,51 @@ html[lang="fi"] .area-copy h2{
       submit.addEventListener('pointerdown',function(){var ctx=primeAudio();if(ctx&&ctx.state==='suspended')ctx.resume().catch(function(){})},{passive:true});
       function hide(){success.classList.remove('visible');error.classList.remove('visible')}
       function busy(on){sending=on;submit.disabled=on;submit.setAttribute('aria-busy',String(on));text.textContent=on?(document.documentElement.lang==='en'?'Sending…':'Lähetetään…'):(document.documentElement.lang==='en'?'Send quote request':'Lähetä tarjouspyyntö')}
-      form.addEventListener('submit',function(e){
+      form.addEventListener('submit',async function(e){
         e.preventDefault();if(sending)return;if(!form.checkValidity()){form.reportValidity();return}hide();
         if(form.elements.website.value){success.classList.add('visible');form.reset();return}
-        var payload={name:form.elements.name.value.trim(),phone:form.elements.phone.value.trim(),email:form.elements.email.value.trim(),projectType:form.elements.projectType.value,message:form.elements.message.value.trim(),website:'',submittedAt:new Date().toISOString()};
-        primeAudio();busy(true);playSendingSound();var controller='AbortController'in window?new AbortController():null,timer=window.setTimeout(function(){if(controller)controller.abort()},15000);
-        fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller?controller.signal:undefined})
-          .then(function(r){if(!r.ok)throw new Error('failed');return r.json().catch(function(){return{}})})
-          .then(function(){form.reset();success.classList.add('visible');playSuccessSound();success.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'})})
-          .catch(function(){error.classList.add('visible');playErrorSound();error.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'})})
-          .finally(function(){window.clearTimeout(timer);busy(false)})
+        var progress=d.getElementById('quoteSendProgress'),stage=d.getElementById('quoteSendStage'),percent=d.getElementById('quoteSendPercent'),bar=d.getElementById('quoteSendBar');
+        function setProgress(n,fi,en){if(progress){progress.classList.add('active');progress.setAttribute('aria-hidden','false')}if(stage)stage.textContent=document.documentElement.lang==='en'?en:fi;if(percent)percent.textContent=n+'%';if(bar)bar.style.width=n+'%'}
+        function fileToAttachment(file){return new Promise(function(resolve,reject){var reader=new FileReader();reader.onload=function(){var s=String(reader.result||''),i=s.indexOf(',');resolve({filename:file.name,contentType:file.type||'application/octet-stream',size:file.size,content:i>=0?s.slice(i+1):s})};reader.onerror=reject;reader.readAsDataURL(file)})}
+        primeAudio();busy(true);playSendingSound();setProgress(12,'Valmistellaan tietoja…','Preparing details…');
+        try{
+          var chosen=(window.MalistanProjectFiles||[]).slice(),attachments=[];
+          if(chosen.length){setProgress(28,'Valmistellaan liitteitä…','Preparing attachments…');for(var i=0;i<chosen.length;i++){attachments.push(await fileToAttachment(chosen[i]));setProgress(28+Math.round(((i+1)/chosen.length)*28),'Valmistellaan liitteitä…','Preparing attachments…')}}
+          var payload={name:form.elements.name.value.trim(),phone:form.elements.phone.value.trim(),email:form.elements.email.value.trim(),city:form.elements.city.value,projectType:form.elements.projectType.value,message:form.elements.message.value.trim(),consent:!!form.elements.consent.checked,attachments:attachments,attachmentCount:attachments.length,website:'',submittedAt:new Date().toISOString()};
+          setProgress(70,'Lähetetään tarjouspyyntöä…','Sending quote request…');
+          var controller='AbortController'in window?new AbortController():null,timer=window.setTimeout(function(){if(controller)controller.abort()},30000);
+          try{var r=await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller?controller.signal:undefined});if(!r.ok)throw new Error('failed');await r.json().catch(function(){return{}})}finally{window.clearTimeout(timer)}
+          setProgress(100,'Tarjouspyyntö lähetetty','Request sent');
+          await new Promise(function(resolve){setTimeout(resolve,360)});
+          form.reset();if(window.MalistanClearProjectFiles)window.MalistanClearProjectFiles();success.classList.add('visible');playSuccessSound();success.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'});
+        }catch(err){error.classList.add('visible');playErrorSound();error.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'});}
+        finally{busy(false);setTimeout(function(){if(progress){progress.classList.remove('active');progress.setAttribute('aria-hidden','true')}if(bar)bar.style.width='0%';if(percent)percent.textContent='0%'},300)}
       });
     }());
   </script>
+
+
+<script id="malistan-project-upload-final-js">
+(function(){
+  'use strict';
+  var d=document,input=d.getElementById('projectFiles'),zone=d.getElementById('projectDropzone'),list=d.getElementById('projectFileList'),error=d.getElementById('projectFileError');
+  if(!input||!zone||!list)return;
+  var files=[],MAX_FILES=4,MAX_FILE=8*1024*1024,MAX_TOTAL=20*1024*1024;window.MalistanProjectFiles=files;
+  function t(fi,en){return d.documentElement.lang==='en'?en:fi}
+  function human(n){return n<1024?n+' B':n<1048576?(n/1024).toFixed(n<10240?1:0)+' KB':(n/1048576).toFixed(1)+' MB'}
+  function clearError(){error.textContent='';error.classList.remove('visible')}
+  function fail(msg){error.textContent=msg;error.classList.add('visible')}
+  function valid(next){clearError();if(next.length>MAX_FILES){fail(t('Voit liittää enintään 4 tiedostoa.','You can attach up to 4 files.'));return false}var total=0;for(var i=0;i<next.length;i++){if(next[i].size>MAX_FILE){fail(t('Yksi tiedosto saa olla enintään 8 Mt.','Each file can be up to 8 MB.'));return false}total+=next[i].size}if(total>MAX_TOTAL){fail(t('Liitteiden yhteiskoko saa olla enintään 20 Mt.','Total attachment size can be up to 20 MB.'));return false}return true}
+  function genericIcon(){return '<svg viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V20H7z"></path><path d="M14 3.5V8h4"></path><path d="M9.5 13h5M9.5 16h5"></path></svg>'}
+  function render(){list.innerHTML='';files.forEach(function(file,index){var card=d.createElement('div');card.className='project-file-card';var thumb=d.createElement('div');thumb.className='project-file-thumb';if(file.type.indexOf('image/')===0){var img=d.createElement('img');img.alt='';var url=URL.createObjectURL(file);img.src=url;img.onload=function(){URL.revokeObjectURL(url)};thumb.appendChild(img)}else thumb.innerHTML=genericIcon();var meta=d.createElement('div');meta.className='project-file-meta';var b=d.createElement('b');b.textContent=file.name;var s=d.createElement('span');s.textContent=human(file.size)+' · '+t('Valmis lähetettäväksi','Ready to send');meta.append(b,s);var remove=d.createElement('button');remove.type='button';remove.className='project-file-remove';remove.setAttribute('aria-label',t('Poista tiedosto','Remove file'));remove.innerHTML='<svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V4h6v3M8 10v8M12 10v8M16 10v8M7 7l1 14h8l1-14"></path></svg>';remove.onclick=function(){files.splice(index,1);window.MalistanProjectFiles=files;render()};card.append(thumb,meta,remove);list.appendChild(card)});}
+  function take(fileList,append){var next=append?files.concat(Array.from(fileList||[])):Array.from(fileList||[]);if(!valid(next))return;files=next;window.MalistanProjectFiles=files;render()}
+  input.addEventListener('change',function(){take(input.files,false);input.value=''})
+  ;['dragenter','dragover'].forEach(function(ev){zone.addEventListener(ev,function(e){e.preventDefault();zone.classList.add('dragging')})});
+  ;['dragleave','drop'].forEach(function(ev){zone.addEventListener(ev,function(e){e.preventDefault();zone.classList.remove('dragging')})});
+  zone.addEventListener('drop',function(e){take(e.dataTransfer.files,true)});zone.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();input.click()}});
+  window.MalistanClearProjectFiles=function(){files=[];window.MalistanProjectFiles=files;clearError();render()};
+})();
+</script>
 
 <script id="malistan-cookie-manager">
 (function(){
