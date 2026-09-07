@@ -459,6 +459,179 @@ svg{overflow:visible}
 /* Header brand alignment: keep logo + name safely inside the frame */
 .site-header .brand{transform:translateX(8px);}
 @media(max-width:620px){.site-header .brand{transform:translateX(6px);}}
+
+/* ===== Final refinement: move service 3D icons to number position + unify roadmap icons ===== */
+
+/* Service cards: the contextual 3D icon replaces the old 01–06 badge */
+.service-num{
+  display:none !important;
+}
+.service-3d-icon{
+  left:16px !important;
+  right:auto !important;
+  top:16px !important;
+  width:76px !important;
+  height:76px !important;
+  z-index:6 !important;
+  filter:drop-shadow(0 15px 22px rgba(0,0,0,.34)) !important;
+}
+.service-3d-icon::before{
+  inset:4px !important;
+  border-radius:24px !important;
+  background:
+    radial-gradient(circle at 28% 20%,rgba(255,255,255,.50),transparent 28%),
+    radial-gradient(circle at 68% 76%,rgba(241,217,131,.10),transparent 35%),
+    linear-gradient(145deg,rgba(31,119,96,.97),rgba(4,29,23,.98)) !important;
+  border:1px solid rgba(172,239,211,.48) !important;
+  box-shadow:
+    inset 2px 2px 0 rgba(255,255,255,.20),
+    inset -10px -12px 21px rgba(0,0,0,.30),
+    0 12px 28px rgba(0,0,0,.28),
+    0 0 0 6px rgba(109,212,173,.055),
+    0 0 28px rgba(82,205,158,.12) !important;
+}
+.service-3d-icon::after{
+  inset:-3px !important;
+  border-radius:29px !important;
+  border:1px solid rgba(241,217,131,.52) !important;
+  box-shadow:0 0 18px rgba(241,217,131,.08);
+}
+.service-3d-core{
+  width:42px !important;
+  height:42px !important;
+  border-radius:14px !important;
+  color:#ffe38a !important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.025)) !important;
+}
+.service-3d-core svg{
+  width:28px !important;
+  height:28px !important;
+  stroke-width:1.72 !important;
+}
+.service-3d-icon i{
+  width:9px !important;
+  height:9px !important;
+  background:#f5d966 !important;
+  box-shadow:
+    0 0 0 5px rgba(245,217,102,.11),
+    0 0 18px rgba(245,217,102,.72) !important;
+}
+
+/* Roadmap: make all 4 icons visually belong to the same 3D machinery family */
+.process-icon.step-num{
+  width:82px !important;
+  height:82px !important;
+  margin:5px 0 25px !important;
+  border-radius:27px !important;
+  color:#ffe596 !important;
+  background:
+    radial-gradient(circle at 27% 20%,rgba(255,255,255,.48),transparent 28%),
+    radial-gradient(circle at 72% 78%,rgba(241,217,131,.09),transparent 34%),
+    linear-gradient(145deg,rgba(31,119,96,.97),rgba(4,29,23,.99)) !important;
+  border:1px solid rgba(172,239,211,.46) !important;
+  box-shadow:
+    inset 2px 2px 0 rgba(255,255,255,.18),
+    inset -10px -12px 21px rgba(0,0,0,.30),
+    0 15px 31px rgba(0,0,0,.31),
+    0 0 0 6px rgba(109,212,173,.05),
+    0 0 30px rgba(82,205,158,.11) !important;
+  transform:perspective(700px) rotateX(7deg) rotateY(-8deg) !important;
+  animation:roadmapIconFloat 5.6s cubic-bezier(.22,1,.36,1) infinite alternate;
+}
+.process-icon::before{
+  inset:5px !important;
+  border-radius:21px !important;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.14),transparent 43%) !important;
+  border:1px solid rgba(255,255,255,.09) !important;
+}
+.process-icon::after{
+  content:"";
+  position:absolute;
+  inset:-4px;
+  border-radius:31px;
+  border:1px solid rgba(241,217,131,.50);
+  box-shadow:0 0 20px rgba(241,217,131,.07);
+  pointer-events:none;
+}
+.process-icon svg{
+  width:45px !important;
+  height:45px !important;
+  color:#ffe596 !important;
+  stroke:currentColor !important;
+  stroke-width:2.15 !important;
+  filter:drop-shadow(0 5px 7px rgba(0,0,0,.32)) !important;
+}
+.process-icon .icon-glow{
+  width:10px !important;
+  height:10px !important;
+  right:-5px !important;
+  top:12px !important;
+  background:#f5d966 !important;
+  box-shadow:
+    0 0 0 5px rgba(245,217,102,.10),
+    0 0 19px rgba(245,217,102,.72) !important;
+}
+
+/* remove variant colors so every roadmap icon follows one coherent premium style */
+.process-icon-review,
+.process-icon-quote,
+.process-icon-build,
+.process-icon-contact{
+  background:
+    radial-gradient(circle at 27% 20%,rgba(255,255,255,.48),transparent 28%),
+    radial-gradient(circle at 72% 78%,rgba(241,217,131,.09),transparent 34%),
+    linear-gradient(145deg,rgba(31,119,96,.97),rgba(4,29,23,.99)) !important;
+  border-color:rgba(172,239,211,.46) !important;
+}
+
+@keyframes roadmapIconFloat{
+  from{transform:perspective(700px) rotateX(7deg) rotateY(-8deg) translateY(0)}
+  to{transform:perspective(700px) rotateX(5deg) rotateY(-5deg) translateY(7px)}
+}
+
+@media(max-width:620px){
+  .service-3d-icon{
+    left:14px !important;
+    top:14px !important;
+    width:70px !important;
+    height:70px !important;
+  }
+  .service-3d-core{
+    width:39px !important;
+    height:39px !important;
+  }
+  .service-3d-core svg{
+    width:26px !important;
+    height:26px !important;
+  }
+
+  .process-icon.step-num{
+    width:68px !important;
+    height:68px !important;
+    left:49px !important;
+    top:26px !important;
+    margin:0 !important;
+    border-radius:22px !important;
+    transform:translateX(-50%) perspective(700px) rotateX(5deg) rotateY(-6deg) !important;
+  }
+  .process-icon::after{
+    border-radius:25px !important;
+  }
+  .process-icon svg{
+    width:37px !important;
+    height:37px !important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .service-3d-icon,
+  .process-icon.step-num{
+    animation:none !important;
+  }
+}
+
 </style>
 <style>
 /* ===== Final requested fixes: desktop logo, visible icons, simple quote form, local photos ===== */
@@ -3295,6 +3468,31 @@ html[lang="fi"] .area-copy h2{
 #quoteSubmit:not([aria-busy="true"]):disabled{cursor:not-allowed!important;opacity:.52!important;filter:saturate(.55)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 24px rgba(0,0,0,.18)!important}
 #quoteSubmit:not([aria-busy="true"]):disabled::before,#quoteSubmit:not([aria-busy="true"]):disabled::after{animation:none!important;opacity:.12!important}
 @media(max-width:620px){#quoteForm .field-control-state{right:14px;top:38px}.hero-services-menu .service-menu-icon{width:44px!important;height:44px!important}.hero-services-menu .service-menu-icon svg{width:34px!important;height:25px!important}}
+
+
+/* ===== 2026-09-07 Premium project roadmap — 3D industry icons ===== */
+.process{position:relative;isolation:isolate}
+.process::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 16% 15%,rgba(241,217,131,.09),transparent 25rem),radial-gradient(circle at 82% 62%,rgba(70,190,151,.10),transparent 30rem);opacity:.9}
+.premium-roadmap{position:relative!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important;padding-top:54px!important}
+.premium-roadmap::before{content:""!important;position:absolute!important;z-index:0!important;left:7%!important;right:7%!important;top:86px!important;height:2px!important;background:linear-gradient(90deg,rgba(241,217,131,.10),#f1d983 16%,#69cfaa 50%,#f1d983 84%,rgba(241,217,131,.10))!important;box-shadow:0 0 26px rgba(103,209,170,.28)!important}
+.premium-roadmap::after{content:""!important;position:absolute!important;z-index:1!important;top:80px!important;left:7%!important;width:14px!important;height:14px!important;border-radius:50%!important;background:#f1d983!important;box-shadow:0 0 0 6px rgba(241,217,131,.10),0 0 26px rgba(241,217,131,.85)!important;animation:roadmapPulse 5.2s ease-in-out infinite!important}
+@keyframes roadmapPulse{0%,100%{left:7%;background:#f1d983}50%{left:91%;background:#73d5b1}}
+.process-card{position:relative!important;z-index:2!important;min-height:430px!important;padding:22px 20px 19px!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;overflow:hidden!important;border-radius:30px!important;background:linear-gradient(155deg,rgba(19,46,38,.82),rgba(5,14,12,.88))!important;border:1px solid rgba(138,220,190,.13)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 24px 55px rgba(0,0,0,.24)!important;-webkit-backdrop-filter:blur(22px) saturate(1.15)!important;backdrop-filter:blur(22px) saturate(1.15)!important}
+.process-card::after{content:"";position:absolute;right:-64px;bottom:-72px;width:190px;height:190px;border-radius:50%;border:28px solid rgba(117,211,177,.035);box-shadow:0 0 0 26px rgba(241,217,131,.02);pointer-events:none}
+.process-card:hover{transform:translateY(-8px)!important;border-color:rgba(241,217,131,.24)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 30px 72px rgba(0,0,0,.34),0 0 34px rgba(75,180,143,.08)!important}
+.process-topline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.process-index{font:800 .64rem/1 Manrope,sans-serif;letter-spacing:.13em;color:#f1d983;opacity:.82}
+.process-label{padding:7px 10px;border-radius:999px;color:#95b7aa;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);font:700 .58rem/1 Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.process-icon.step-num{position:relative!important;width:88px!important;height:88px!important;display:grid!important;place-items:center!important;margin:4px 0 25px!important;border-radius:28px!important;color:#eafff6!important;background:linear-gradient(145deg,rgba(43,139,112,.86),rgba(5,36,29,.95))!important;border:1px solid rgba(157,240,207,.40)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset -10px -12px 22px rgba(0,0,0,.24),0 16px 30px rgba(0,0,0,.30),0 0 30px rgba(63,201,157,.12)!important;transform:perspective(700px) rotateX(7deg) rotateY(-8deg);overflow:visible!important}
+.process-icon::before{content:"";position:absolute;inset:7px;border-radius:22px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(135deg,rgba(255,255,255,.14),transparent 42%);pointer-events:none}
+.process-icon .icon-glow{position:absolute;width:15px;height:15px;right:-7px;top:14px;border-radius:50%;background:#f1d983;box-shadow:0 0 0 5px rgba(241,217,131,.09),0 0 24px rgba(241,217,131,.75)}
+.process-icon svg{position:relative!important;z-index:2!important;width:49px!important;height:49px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.35!important;stroke-linecap:round!important;stroke-linejoin:round!important;filter:drop-shadow(0 4px 6px rgba(0,0,0,.28))}
+.process-icon-review{background:linear-gradient(145deg,rgba(38,117,96,.92),rgba(7,31,27,.98))!important}.process-icon-quote{background:linear-gradient(145deg,rgba(116,93,24,.82),rgba(31,43,25,.98))!important;border-color:rgba(241,217,131,.42)!important}.process-icon-build{background:linear-gradient(145deg,rgba(35,121,97,.96),rgba(7,26,21,.98))!important}
+.process-copy{margin-top:auto}.process-copy h3{margin:0 0 11px!important;color:#fff!important;font-size:1.22rem!important;letter-spacing:-.03em!important}.process-copy p{margin:0!important;color:#9fb3ab!important;font-size:.82rem!important;line-height:1.62!important}
+.process-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);color:#80cdb0;font:700 .64rem/1.2 Manrope,sans-serif;letter-spacing:.02em}.process-meta svg{width:17px;height:17px;fill:none;stroke:#f1d983;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:900px){.premium-roadmap{grid-template-columns:repeat(2,minmax(0,1fr))!important}.premium-roadmap::before,.premium-roadmap::after{display:none!important}.process-card{min-height:390px!important}}
+@media(max-width:620px){.premium-roadmap{grid-template-columns:1fr!important;gap:16px!important;padding:6px 0 0!important}.premium-roadmap::before{display:block!important;left:27px!important;right:auto!important;top:34px!important;bottom:34px!important;width:2px!important;height:auto!important;background:linear-gradient(180deg,#f1d983,#67cfaa 52%,#f1d983)!important}.premium-roadmap::after{display:none!important}.process-card{min-height:0!important;padding:20px 18px 18px 84px!important;border-radius:26px!important}.process-card::before{content:"";position:absolute;left:25px;top:59px;width:8px;height:8px;border-radius:50%;background:#f1d983;box-shadow:0 0 0 6px rgba(241,217,131,.08),0 0 22px rgba(241,217,131,.62)}.process-topline{margin-bottom:10px}.process-index{display:none}.process-label{margin-left:auto}.process-icon.step-num{position:absolute!important;left:49px!important;top:26px!important;width:68px!important;height:68px!important;margin:0!important;border-radius:22px!important;transform:translateX(-50%) perspective(700px) rotateX(5deg) rotateY(-6deg)!important}.process-icon::before{inset:5px;border-radius:17px}.process-icon svg{width:37px!important;height:37px!important}.process-icon .icon-glow{width:11px;height:11px;right:-5px;top:10px}.process-copy{margin-top:50px}.process-copy h3{font-size:1.28rem!important}.process-copy p{font-size:.84rem!important}.process-meta{margin-top:17px}}
+@media(prefers-reduced-motion:reduce){.premium-roadmap::after{animation:none!important}.process-card{transition:none!important}}
 </style>
 
 </head>
@@ -3433,11 +3631,43 @@ html[lang="fi"] .area-copy h2{
 <section class="section process" id="toiminta">
 <div class="container">
 <div class="section-intro reveal"><div><div class="eyebrow" data-en="How we work" data-fi="Työskentely">Työskentely</div><h2 data-en="A clear path from contact to completion." data-fi="Selkeästi yhteydenotosta toteutukseen.">Selkeästi yhteydenotosta toteutukseen.</h2></div><p data-en="Every project starts by understanding your needs. After the quote, we agree on the plan and execution." data-fi="Jokainen kohde alkaa tarpeen ymmärtämisestä. Tarjouksen jälkeen sovitaan etenemisestä ja toteutuksesta.">Jokainen kohde alkaa tarpeen ymmärtämisestä. Tarjouksen jälkeen sovitaan etenemisestä ja toteutuksesta.</p></div>
-<div class="process-grid">
-<article class="step glass-dark reveal"><span class="step-num">01</span><div><h3 data-en="Contact" data-fi="Yhteydenotto">Yhteydenotto</h3><p data-en="Send the basic project details using the quote form." data-fi="Lähetä kohteen perustiedot tarjouslomakkeella.">Lähetä kohteen perustiedot tarjouslomakkeella.</p></div></article>
-<article class="step glass-dark reveal"><span class="step-num">02</span><div><h3 data-en="Project review" data-fi="Tarpeen kartoitus">Tarpeen kartoitus</h3><p data-en="We review the work scope, site and schedule." data-fi="Käymme läpi työn sisällön, kohteen ja aikataulun.">Käymme läpi työn sisällön, kohteen ja aikataulun.</p></div></article>
-<article class="step glass-dark reveal"><span class="step-num">03</span><div><h3 data-en="Quote" data-fi="Tarjous">Tarjous</h3><p data-en="You receive a quote tailored to the agreed project details." data-fi="Saat projektiin sopivan tarjouksen sovituilla tiedoilla.">Saat projektiin sopivan tarjouksen sovituilla tiedoilla.</p></div></article>
-<article class="step glass-dark reveal"><span class="step-num">04</span><div><h3 data-en="Execution" data-fi="Toteutus">Toteutus</h3><p data-en="The work proceeds according to the agreed scope and schedule." data-fi="Työ etenee sovitun sisällön ja aikataulun mukaisesti.">Työ etenee sovitun sisällön ja aikataulun mukaisesti.</p></div></article>
+<div class="process-grid premium-roadmap">
+<article class="step glass-dark reveal process-card">
+  <div class="process-topline"><span class="process-index">01</span><span class="process-label" data-fi="Aloitus" data-en="Start">Aloitus</span></div>
+  <span class="step-num process-icon process-icon-contact" aria-hidden="true">
+    <span class="icon-glow"></span>
+    <svg viewBox="0 0 64 64"><path d="M19 18h26a7 7 0 0 1 7 7v15a7 7 0 0 1-7 7H31l-10 8v-8h-2a7 7 0 0 1-7-7V25a7 7 0 0 1 7-7Z"/><path d="M22 29h20M22 36h13"/></svg>
+  </span>
+  <div class="process-copy"><h3 data-en="Contact" data-fi="Yhteydenotto">Yhteydenotto</h3><p data-en="Tell us the essentials: location, work type, scope and preferred schedule." data-fi="Kerro kohteen sijainti, työn tyyppi, laajuus ja toivottu aikataulu.">Kerro kohteen sijainti, työn tyyppi, laajuus ja toivottu aikataulu.</p></div>
+  <div class="process-meta"><span data-fi="Tarjouslomake" data-en="Quote form">Tarjouslomake</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+</article>
+<article class="step glass-dark reveal process-card">
+  <div class="process-topline"><span class="process-index">02</span><span class="process-label" data-fi="Kartoitus" data-en="Review">Kartoitus</span></div>
+  <span class="step-num process-icon process-icon-review" aria-hidden="true">
+    <span class="icon-glow"></span>
+    <svg viewBox="0 0 64 64"><path d="M10 47h13l5-18h13l5 18h8"/><path d="M24 29l5-13h12l7 13"/><path d="M41 16l9 5 4 11"/><path d="M16 47v5M48 47v5"/><circle cx="21" cy="47" r="5"/><circle cx="49" cy="47" r="5"/></svg>
+  </span>
+  <div class="process-copy"><h3 data-en="Project review" data-fi="Tarpeen kartoitus">Tarpeen kartoitus</h3><p data-en="We review access, ground conditions, required machinery and the practical scope of work." data-fi="Kartoitamme pääsyn kohteeseen, maaperän, tarvittavan kaluston ja työn käytännön laajuuden.">Kartoitamme pääsyn kohteeseen, maaperän, tarvittavan kaluston ja työn käytännön laajuuden.</p></div>
+  <div class="process-meta"><span data-fi="Kohde + kalusto" data-en="Site + machinery">Kohde + kalusto</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+</article>
+<article class="step glass-dark reveal process-card">
+  <div class="process-topline"><span class="process-index">03</span><span class="process-label" data-fi="Tarjous" data-en="Quote">Tarjous</span></div>
+  <span class="step-num process-icon process-icon-quote" aria-hidden="true">
+    <span class="icon-glow"></span>
+    <svg viewBox="0 0 64 64"><path d="M17 12h24l8 8v32H17z"/><path d="M41 12v10h8M24 31h18M24 38h18M24 45h11"/><path d="M10 20v32h29"/></svg>
+  </span>
+  <div class="process-copy"><h3 data-en="Quote" data-fi="Tarjous">Tarjous</h3><p data-en="You receive a clear proposal based on the agreed scope, resources and schedule." data-fi="Saat selkeän tarjouksen sovitun työn laajuuden, resurssien ja aikataulun perusteella.">Saat selkeän tarjouksen sovitun työn laajuuden, resurssien ja aikataulun perusteella.</p></div>
+  <div class="process-meta"><span data-fi="Selkeä kokonaisuus" data-en="Clear proposal">Selkeä kokonaisuus</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+</article>
+<article class="step glass-dark reveal process-card">
+  <div class="process-topline"><span class="process-index">04</span><span class="process-label" data-fi="Toteutus" data-en="Execution">Toteutus</span></div>
+  <span class="step-num process-icon process-icon-build" aria-hidden="true">
+    <span class="icon-glow"></span>
+    <svg viewBox="0 0 64 64"><path d="M8 45h29l6-12h9l4 12"/><path d="M18 45V26h17l8 7"/><path d="M22 26V16h12v10"/><path d="M43 33l8-12h5l-4 12"/><circle cx="20" cy="47" r="6"/><circle cx="47" cy="47" r="6"/><path d="M11 53h45"/></svg>
+  </span>
+  <div class="process-copy"><h3 data-en="Execution" data-fi="Toteutus">Toteutus</h3><p data-en="Work starts as agreed, progresses in controlled phases and is finished cleanly and professionally." data-fi="Työ käynnistyy sovitusti, etenee hallituissa vaiheissa ja viimeistellään siististi sekä ammattimaisesti.">Työ käynnistyy sovitusti, etenee hallituissa vaiheissa ja viimeistellään siististi sekä ammattimaisesti.</p></div>
+  <div class="process-meta"><span data-fi="Työmaa valmiiksi" data-en="Project completed">Työmaa valmiiksi</span><svg viewBox="0 0 24 24"><path d="m6 12 4 4 8-9"/></svg></div>
+</article>
 </div>
 </div>
 </section>
