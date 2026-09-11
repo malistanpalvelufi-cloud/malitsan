@@ -4948,13 +4948,13 @@ const host=document.getElementById('excavatorViewport'),fallback=document.getEle
 if(!host)return;
 try{
 const T=window.THREE,scene=new T.Scene(),camera=new T.PerspectiveCamera(36,1,.1,100);
-const renderer=new T.WebGLRenderer({antialias:true,alpha:true,powerPreference:'low-power'});
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;
+const renderer=new T.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;renderer.useLegacyLights=false;
 host.appendChild(renderer.domElement);renderer.domElement.setAttribute('aria-hidden','true');
 scene.add(new T.HemisphereLight(0xdcefe7,0x393025,2.5));
 const sun=new T.DirectionalLight(0xffedce,4);sun.position.set(-3,9,6);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8,near:1,far:25});sun.shadow.normalBias=.04;scene.add(sun);
 const rim=new T.DirectionalLight(0x88d9c0,2.5);rim.position.set(4,5,-5);scene.add(rim);
-const yellow=new T.MeshStandardMaterial({color:0xe6ae28,metalness:.42,roughness:.32}),dark=new T.MeshStandardMaterial({color:0x232b2b,metalness:.65,roughness:.4}),steel=new T.MeshStandardMaterial({color:0x899597,metalness:.85,roughness:.22}),rubber=new T.MeshStandardMaterial({color:0x171c1c,roughness:.9}),glass=new T.MeshStandardMaterial({color:0x345d68,metalness:.65,roughness:.12}),ground=new T.MeshStandardMaterial({color:0x344e43,roughness:.95});
+const yellow=new T.MeshPhysicalMaterial({color:0xe4aa17,metalness:.34,roughness:.31,clearcoat:.5,clearcoatRoughness:.28}),dark=new T.MeshPhysicalMaterial({color:0x1b2222,metalness:.68,roughness:.34,clearcoat:.18}),steel=new T.MeshPhysicalMaterial({color:0x879195,metalness:.92,roughness:.2}),rubber=new T.MeshStandardMaterial({color:0x101414,roughness:.96}),glass=new T.MeshPhysicalMaterial({color:0x224c57,metalness:.05,roughness:.08,transmission:.28,transparent:true,opacity:.78,clearcoat:.8,clearcoatRoughness:.08}),ground=new T.MeshStandardMaterial({color:0x344e43,roughness:.95});
 function mesh(g,m,p,x=0,y=0,z=0){const a=new T.Mesh(g,m);a.position.set(x,y,z);a.castShadow=true;a.receiveShadow=true;p.add(a);return a;}
 function box(p,w,h,d,x,y,z,m=yellow){return mesh(new T.BoxGeometry(w,h,d),m,p,x,y,z);}
 function cylinder(p,r,h,x,y,z,m=dark){return mesh(new T.CylinderGeometry(r,r,h,24),m,p,x,y,z);}
@@ -4982,9 +4982,38 @@ for(const x of [-.16,.84])for(const z of [.08,.94])bar(body,[x,.33,z],[x,1.58,z]
 bar(body,[-.16,.9,.957],[.84,.9,.957],.025,dark);box(body,.16,.035,.035,.63,.73,.98,steel);
 const lamp=new T.MeshStandardMaterial({color:0xfff1cd,emissive:0xffe4a3,emissiveIntensity:1.6});for(const z of [.17,.84])box(body,.06,.13,.18,.91,1.59,z,lamp);
 cylinder(body,.09,.15,.05,1.76,.5,new T.MeshStandardMaterial({color:0xffa511,emissive:0xff7500,emissiveIntensity:.6}));
+// Premium detail pass: exhaust, mirrors, rails, work lights, vents and branded side decals.
+const blackMetal=new T.MeshPhysicalMaterial({color:0x090d0d,metalness:.78,roughness:.3,clearcoat:.25});
+const chrome=new T.MeshPhysicalMaterial({color:0xb9c2c3,metalness:1,roughness:.14});
+const red=new T.MeshStandardMaterial({color:0xb3261e,emissive:0x3b0603,emissiveIntensity:.15,roughness:.55});
+const whiteLamp=new T.MeshStandardMaterial({color:0xfff7dd,emissive:0xffe8a2,emissiveIntensity:2.4,roughness:.2});
+// exhaust + intake
+cylinder(body,.075,.92,-1.02,1.45,-.46,blackMetal);cylinder(body,.11,.12,-1.02,1.94,-.46,dark);
+cylinder(body,.06,.72,-.78,1.48,-.46,dark);box(body,.18,.14,.18,-.78,1.88,-.46,dark);
+// rear vents and counterweight seams
+for(let i=0;i<7;i++)box(body,.035,.42,.018,-1.07+i*.11,.66,-.887,blackMetal);
+box(body,1.18,.035,.035,-.66,.93,-.9,chrome);box(body,.035,.52,.035,-1.24,.67,-.9,chrome);
+// mirrors
+bar(body,[.84,1.47,.82],[1.12,1.64,.98],.025,blackMetal);box(body,.16,.24,.035,1.16,1.69,1.01,blackMetal);
+bar(body,[.84,1.47,.17],[1.10,1.64,.04],.025,blackMetal);box(body,.16,.24,.035,1.14,1.69,.01,blackMetal);
+// handrails and steps
+for(const z of [-.82,.82]){bar(body,[-.7,.24,z],[-.7,.9,z],.022,chrome);bar(body,[-.7,.9,z],[-.15,.9,z],.022,chrome);}
+for(let i=0;i<3;i++)box(body,.48,.045,.24,-.87,.17+i*.16,.72,steel);
+// additional work lamps
+for(const z of [.16,.86]){box(body,.17,.10,.12,.36,1.68,z,blackMetal);box(body,.13,.065,.125,.36,1.68,z+.005,whiteLamp);}
+// warning reflectors
+box(body,.22,.08,.025,-1.18,.42,.89,red);box(body,.22,.08,.025,-1.18,.42,-.89,red);
+// Branded decal generated locally on canvas; no extra image request/download.
+function brandTexture(){const c=document.createElement('canvas');c.width=1024;c.height=256;const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='rgba(8,12,11,.92)';x.roundRect(8,8,1008,240,34);x.fill();x.strokeStyle='#d4a62f';x.lineWidth=10;x.stroke();x.fillStyle='#f1d983';x.font='900 92px Manrope,Arial,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('MALISTAN PALVELU',512,128);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return tex;}
+const decalMat=new T.MeshBasicMaterial({map:brandTexture(),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-4});
+for(const z of [-.926,.926]){const d=mesh(new T.PlaneGeometry(1.35,.34),decalMat,body,-.64,.72,z);if(z<0)d.rotation.y=Math.PI;}
+// small MALISTAN plate on boom
+const boomBrandMat=new T.MeshBasicMaterial({map:brandTexture(),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-5});
+
 // Articulated boom, stick and bucket use local pivots in three dimensions.
 const boom=new T.Group();boom.position.set(.65,.47,-.43);body.add(boom);
 profile(boom,[[0,-.16],[.28,-.2],[1.65,1.04],[2.26,1.31],[2.23,1.59],[1.6,1.42],[.13,.23]],.34,yellow);
+const bd=mesh(new T.PlaneGeometry(.96,.18),boomBrandMat,boom,1.25,.92,.178);bd.rotation.z=.57;
 const stick=new T.Group();stick.position.set(2.23,1.44,0);boom.add(stick);
 profile(stick,[[-.14,.14],[.15,.12],[.72,-1.65],[.48,-1.81],[.28,-1.08]],.25,yellow);
 const bucket=new T.Group();bucket.position.set(.6,-1.68,0);stick.add(bucket);
@@ -5058,5 +5087,59 @@ function install(group,selector,selected){
 install(theme,'button',el=>el.dataset.themeChoice===root.dataset.theme);
 install(language,'.lang-btn',el=>el.classList.contains('active'));
 install(nav,'a',el=>el.getAttribute('aria-current')==='location');
-})();</script></body>
+})();</script>
+<style id="malistan-final-hero-quote-polish">
+/* Hero typography: tactile 3D depth without sacrificing readability. */
+#etusivu .hero-kicker,#etusivu h1,#etusivu .hero-lead,#etusivu .hero-facts{transform-style:preserve-3d;will-change:transform;transition:transform .34s cubic-bezier(.2,.8,.2,1),filter .34s ease;text-wrap:balance}
+#etusivu h1{perspective:900px;cursor:pointer;filter:drop-shadow(0 12px 20px rgba(0,0,0,.12))}
+#etusivu h1 span{display:inline-block;position:relative;transform:translateZ(24px);text-shadow:0 1px 0 rgba(255,255,255,.15),0 4px 0 rgba(7,31,27,.06),0 10px 24px rgba(5,18,14,.18);transition:transform .24s cubic-bezier(.2,.8,.2,1),filter .24s ease}
+#etusivu h1 span::after{content:"";position:absolute;inset:8% -1% 0;z-index:-1;border-radius:.16em;background:linear-gradient(180deg,rgba(241,217,131,.13),rgba(28,91,77,.06));filter:blur(16px);transform:translate3d(0,14px,-30px);opacity:.7;pointer-events:none}
+#etusivu .hero-lead{cursor:pointer;text-shadow:0 1px 0 rgba(255,255,255,.08)}
+#etusivu .hero-kicker{cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,.06)}
+#etusivu .hero-text-react.is-pressed{transform:perspective(900px) translate3d(0,3px,0) scale(.985)!important;filter:brightness(1.08) saturate(1.08)}
+#etusivu h1.hero-text-react.is-pressed span{transform:translateZ(4px) scale(.99);filter:brightness(1.12)}
+#etusivu .hero-text-react.ripple-flash::before{content:"";position:absolute;inset:-10px;border-radius:24px;pointer-events:none;border:1px solid rgba(241,217,131,.62);animation:heroTextPulse .52s ease-out both}
+@keyframes heroTextPulse{0%{opacity:.9;transform:scale(.96)}100%{opacity:0;transform:scale(1.08)}}
+
+/* Quote/contact icons: premium light-mode contrast + physical press reaction on every device. */
+#tarjous :is(.contact-icon,.form-mark,.project-upload-icon){position:relative;isolation:isolate;overflow:hidden;transform:translateZ(0);transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease,filter .22s ease,border-color .22s ease}
+#tarjous :is(.contact-icon,.form-mark,.project-upload-icon)::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(120deg,rgba(255,255,255,.7),transparent 38%,rgba(255,255,255,.12) 60%,transparent 78%);transform:translateX(-120%);transition:transform .55s ease;pointer-events:none}
+#tarjous .premium-contact:hover .contact-icon,#tarjous :is(.form-mark,.project-upload-icon):hover{transform:translateY(-3px) rotateX(6deg) rotateY(-5deg) scale(1.04);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 14px 28px rgba(0,0,0,.22)}
+#tarjous .premium-contact:hover .contact-icon::before,#tarjous :is(.form-mark,.project-upload-icon):hover::before{transform:translateX(120%)}
+#tarjous .premium-contact:active .contact-icon,#tarjous :is(.form-mark,.project-upload-icon):active{transform:translateY(1px) scale(.92);filter:saturate(1.15) brightness(.98)}
+#malistanPage[data-theme="light"] #tarjous .contact-icon{color:#103e2d!important;background:linear-gradient(145deg,#fffef5 0%,#f2df96 48%,#cf9d20 100%)!important;border:1px solid rgba(113,80,8,.34)!important;box-shadow:inset 0 1px 0 #fff,0 8px 20px rgba(62,51,18,.16)!important}
+#malistanPage[data-theme="light"] #tarjous .contact-mail{background:linear-gradient(145deg,#ffffff,#bdebd9 54%,#5da889)!important}
+#malistanPage[data-theme="light"] #tarjous .contact-user{background:linear-gradient(145deg,#fffbea,#f0d070 52%,#bd8720)!important}
+#malistanPage[data-theme="light"] #tarjous .contact-pin{background:linear-gradient(145deg,#ffffff,#c4eadb 54%,#6aae93)!important}
+#malistanPage[data-theme="light"] #tarjous .contact-icon svg{stroke:#103e2d!important;filter:drop-shadow(0 1px 0 rgba(255,255,255,.7))}
+#malistanPage[data-theme="light"] #tarjous .form-mark{background:linear-gradient(145deg,#163f31,#071f1b)!important;border:1px solid rgba(212,166,47,.65)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 10px 24px rgba(14,55,40,.2)!important}
+
+/* The service icon depth now uses two clean layers instead of the old busy four-card stack. */
+#palvelut .service-3d-icon::after,#palvelut .service-3d-icon i{opacity:.34!important;filter:none!important}
+#palvelut .service-3d-icon::before{opacity:.72!important}
+
+/* More photographic presentation around the WebGL machine. */
+#earthwork3d::before{content:"";position:absolute;left:9%;right:4%;bottom:9%;height:22%;z-index:-1;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.23),rgba(0,0,0,.08) 44%,transparent 74%);filter:blur(18px);pointer-events:none}
+#excavatorViewport canvas{filter:saturate(1.03) contrast(1.03);}
+@media(max-width:620px){#etusivu h1 span{transform:translateZ(14px);text-shadow:0 2px 0 rgba(7,31,27,.05),0 8px 18px rgba(5,18,14,.15)}#tarjous .premium-contact:hover .contact-icon{transform:none}}
+@media(prefers-reduced-motion:reduce){#etusivu .hero-text-react,#etusivu h1 span,#tarjous :is(.contact-icon,.form-mark,.project-upload-icon){transition:none!important}#etusivu .hero-text-react.ripple-flash::before{animation:none!important}}
+</style>
+<script id="malistan-tactile-hero-text">
+(function(){
+  const hero=document.getElementById('etusivu');if(!hero)return;
+  const items=[hero.querySelector('.hero-kicker'),hero.querySelector('h1'),hero.querySelector('.hero-lead')].filter(Boolean);
+  items.forEach(el=>{
+    el.classList.add('hero-text-react');
+    el.style.position=el.style.position||'relative';
+    const press=()=>{el.classList.add('is-pressed','ripple-flash');if(navigator.vibrate)try{navigator.vibrate(8)}catch(e){};clearTimeout(el._flash);el._flash=setTimeout(()=>el.classList.remove('ripple-flash'),560)};
+    const release=()=>el.classList.remove('is-pressed');
+    el.addEventListener('pointerdown',press,{passive:true});
+    ['pointerup','pointercancel','pointerleave'].forEach(ev=>el.addEventListener(ev,release,{passive:true}));
+    el.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||matchMedia('(prefers-reduced-motion: reduce)').matches)return;const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(900px) rotateX(${(-y*3.5).toFixed(2)}deg) rotateY(${(x*5).toFixed(2)}deg) translateZ(0)`});
+    el.addEventListener('pointerleave',()=>{el.style.transform=''});
+  });
+})();
+</script>
+
+</body>
 </html>
