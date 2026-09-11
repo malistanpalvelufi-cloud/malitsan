@@ -3643,6 +3643,29 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 @media(max-width:390px){#malistanPage #siteHeader .brand-copy{display:none!important}}
 @media(prefers-reduced-motion:reduce){#malistanPage #themeSwitch .theme-thumb{transition:none!important}}
 @media(prefers-reduced-transparency:reduce){#malistanPage{--surface-glass:#102c21}#malistanPage[data-theme="light"]{--surface-glass:#f2f8f4}}
+</style><style id="day-controls-and-validation-polish">
+#malistanPage #siteHeader .language-thumb{position:absolute;left:3px;top:3px;height:34px;border-radius:999px;background:var(--field-fill);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 3px 8px rgba(8,45,28,.18);pointer-events:none}
+#malistanPage #siteHeader :is(.language-thumb,.theme-thumb){transition:transform .32s cubic-bezier(.22,1,.36,1),width .2s ease!important;will-change:transform}
+#malistanPage #siteHeader .lang-btn.active{background:transparent!important;box-shadow:none!important}
+#malistanPage[data-theme="light"] .area-copy a.glass-btn,
+#malistanPage[data-theme="light"] #excavatorControls button{color:#123c2b!important;-webkit-text-fill-color:#123c2b!important;background:linear-gradient(145deg,#fff,#dfebe3)!important;border:1.5px solid #567f67!important;box-shadow:inset 0 1px 0 #fff,0 6px 18px rgba(21,60,40,.18)!important;opacity:1!important;text-shadow:none!important;min-height:44px}
+#malistanPage[data-theme="light"] #excavatorControls button{min-width:44px;font-size:20px!important}
+#malistanPage[data-theme="light"] .area-copy a.glass-btn:hover,
+#malistanPage[data-theme="light"] #excavatorControls button:hover{background:#cee3d5!important}
+#malistanPage[data-theme="light"] #tarjous{background:linear-gradient(135deg,rgba(249,250,253,.9),rgba(237,242,248,.92))!important}
+#malistanPage[data-theme="light"] #tarjous::before,
+#malistanPage[data-theme="light"] #tarjous::after,
+#malistanPage[data-theme="light"] #tarjous .quote-grid::before,
+#malistanPage[data-theme="light"] #tarjous #quoteForm::before,
+#malistanPage[data-theme="light"] #tarjous #quoteForm::after{background:none!important;box-shadow:none!important}
+#malistanPage[data-theme="light"] #tarjous :is(.quote-side,#quoteForm){background:linear-gradient(145deg,rgba(255,255,255,.85),rgba(243,246,251,.78))!important;border:1px solid rgba(255,255,255,.96)!important;box-shadow:inset 0 1px 0 #fff,0 18px 50px rgba(35,49,68,.10)!important}
+#malistanPage[data-theme="light"] #tarjous :is(.premium-contact,.project-dropzone,.consent-check){background:rgba(255,255,255,.52)!important}
+#malistanPage[data-theme="light"] #tarjous #quoteForm :is(.field-feedback,.consent-error,.project-file-error){color:#9d202a!important;-webkit-text-fill-color:#9d202a!important;font-size:14px!important;font-weight:600!important;line-height:1.5!important}
+#malistanPage[data-theme="light"] #tarjous #quoteForm .field.is-invalid :is(input,textarea,select){border-color:#ab2836!important;box-shadow:0 0 0 2px rgba(171,40,54,.12)!important}
+#malistanPage[data-theme="light"] :is(.service-3d-core,.service-menu-icon,.process-icon,.contact-icon,.project-upload-icon){color:#20553d!important;background:linear-gradient(140deg,#fff,#deebe2)!important;border-color:#88a894!important;box-shadow:inset 0 1px 0 #fff,0 6px 16px rgba(34,71,49,.13)!important}
+#malistanPage[data-theme="light"] :is(.service-3d-core,.service-menu-icon,.process-icon,.contact-icon,.project-upload-icon) svg{color:#20553d!important;stroke:#20553d!important;filter:none!important}
+#malistanPage[data-theme="light"] .about-point svg{stroke:#20553d!important;color:#20553d!important}
+@media(prefers-reduced-motion:reduce){#malistanPage #siteHeader :is(.language-thumb,.theme-thumb){transition:none!important}}
 </style></head>
 <body>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -4524,6 +4547,7 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 
     var consent=document.getElementById('quoteConsent');
     var touched=new WeakSet();
+    var edited=new WeakSet();
     var triedSubmit=false;
 
     function lang(){return document.documentElement.lang==='en'?'en':'fi'}
@@ -4623,7 +4647,7 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
       var ok=isValid(key,el);
       var hasValue=String(el.value||'').trim().length>0;
       var isEditing=document.activeElement===el;
-      var showError=!ok&&(force||(touched.has(el)&&!isEditing));
+      var showError=!ok&&(triedSubmit||(edited.has(el)&&!isEditing));
 
       try{el.setCustomValidity('')}catch(_){}
 
@@ -4701,6 +4725,7 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
       });
 
       el.addEventListener('input',function(){
+        edited.add(el);
         paint(key,false);
         var wrap=el.closest('.field');
         if(wrap)wrap.classList.remove('is-invalid');
@@ -4770,6 +4795,7 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
     form.addEventListener('reset',function(){
       setTimeout(function(){
         touched=new WeakSet();
+        edited=new WeakSet();
         triedSubmit=false;
 
         Object.keys(fields).forEach(function(k){
@@ -4873,6 +4899,8 @@ for(const [p,x,y] of [[boom,0,0],[boom,2.23,1.44],[stick,.6,-1.68]]){const pin=c
 bar(boom,[.22,.21,.24],[1.36,1.47,.24],.065,dark);bar(boom,[.77,.81,.24],[1.6,1.64,.24],.035,steel);
 bar(stick,[-.05,.02,.19],[.45,-1.24,.19],.05,dark);bar(stick,[.21,-.58,.19],[.57,-1.57,.19],.027,steel);
 const hose=new T.CatmullRomCurve3([new T.Vector3(.1,.3,-.22),new T.Vector3(.65,1,-.22),new T.Vector3(1.7,1.7,-.22),new T.Vector3(2.26,1.5,-.22)]);mesh(new T.TubeGeometry(hose,32,.025,6,false),rubber,boom);
+body.name='machine-body';boom.name='machine-boom';stick.name='machine-stick';bucket.name='machine-bucket';
+window.MalistanCloneExcavator=function(){return rig.clone(true)};
 // Small material piles stay inside the ground disc.
 let yaw=.7,pitch=.38,zoom=10.8,t=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,visible=true,drag=false,lastX=0,lastY=0,last=0,frame=0;
 const motion=document.getElementById('excavatorMotion'),reset=document.getElementById('excavatorReset');
@@ -4927,10 +4955,24 @@ scene.add(new T.HemisphereLight(0xffffff,0x356951,2));const light=new T.Directio
 const materials=[0x7bbf9e,0xd8bd71,0x8baacb].map(c=>new T.MeshPhysicalMaterial({color:c,metalness:.22,roughness:.18,transparent:true,opacity:.28,clearcoat:1,depthWrite:false}));
 const geometries=[new T.TorusGeometry(1,.22,12,42),new T.IcosahedronGeometry(.85,0),new T.TorusGeometry(.7,.13,10,32)];
 const meshes=geometries.map((g,i)=>{const m=new T.Mesh(g,materials[i]);scene.add(m);return m});
-function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();const w=14*Math.tan(20*Math.PI/180)*camera.aspect;meshes[0].position.set(-w*.8,2,0);meshes[1].position.set(w*.82,-1,0);meshes[2].position.set(w*.58,3,-2);}
+const machines=[];
+if(window.MalistanCloneExcavator){for(let i=0;i<2;i++){const m=window.MalistanCloneExcavator();m.scale.setScalar(.52);m.rotation.y=i?-.8:.6;m.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;o.material=o.material.clone();o.material.transparent=true;o.material.opacity=.28;o.material.depthWrite=false;}});scene.add(m);machines.push(m);}}
+function themeScene(){const day=document.documentElement.dataset.theme==='light';meshes.forEach(m=>m.visible=!day);machines.forEach(m=>m.visible=day);}
+new MutationObserver(()=>{themeScene();start()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});themeScene();
+function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();const w=14*Math.tan(20*Math.PI/180)*camera.aspect;meshes[0].position.set(-w*.8,2,0);meshes[1].position.set(w*.82,-1,0);meshes[2].position.set(w*.58,3,-2);machines.forEach((m,i)=>m.position.set(i?w*.65:-w*.85,i?-2.4:1.7,-1));}
 const reduce=matchMedia('(prefers-reduced-motion: reduce)');let frame=0,last=0,time=0;
-function draw(ts){frame=0;if(document.hidden)return;if(ts-last>=33){time+=Math.min((ts-last)/1000,.05);last=ts;meshes.forEach((m,i)=>{m.rotation.x=.3+time*(.07+i*.015);m.rotation.y=time*.10+i;m.position.y=[2,-1,3][i]+Math.sin(time*.25+i)*.45});renderer.render(scene,camera)}if(!reduce.matches)frame=requestAnimationFrame(draw);}
+function draw(ts){frame=0;if(document.hidden)return;if(ts-last>=33){time+=Math.min((ts-last)/1000,.05);last=ts;meshes.forEach((m,i)=>{m.rotation.x=.3+time*(.07+i*.015);m.rotation.y=time*.10+i;m.position.y=[2,-1,3][i]+Math.sin(time*.25+i)*.45});machines.forEach((m,i)=>{const t=time+i*2; m.getObjectByName('machine-body').rotation.y=Math.sin(t*.3)*.25;m.getObjectByName('machine-boom').rotation.z=.12+Math.sin(t*.7)*.17;m.getObjectByName('machine-stick').rotation.z=-.14+Math.sin(t*.7-.8)*.26;m.getObjectByName('machine-bucket').rotation.z=-.2+Math.sin(t*.7-1.5)*.45;});renderer.render(scene,camera)}if(!reduce.matches)frame=requestAnimationFrame(draw);}
 function start(){cancelAnimationFrame(frame);last=performance.now()-34;frame=requestAnimationFrame(draw)}
 window.addEventListener('resize',()=>{resize();start()});document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(frame);else start()});reduce.addEventListener('change',start);resize();start();
+})();</script><script id="sliding-preferences">(function(){
+const root=document.documentElement,lang=document.querySelector('#siteHeader .lang-switch'),theme=document.getElementById('themeSwitch');
+const thumb=document.createElement('span');thumb.className='language-thumb';thumb.setAttribute('aria-hidden','true');lang.prepend(thumb);
+function slide(group,indicator,button){if(!button)return;indicator.style.width=button.offsetWidth+'px';indicator.style.transform='translateX('+(button.offsetLeft-3)+'px)';}
+function sync(){slide(lang,thumb,lang.querySelector('.lang-btn.active'));slide(theme,theme.querySelector('.theme-thumb'),theme.querySelector('[data-theme-choice="'+root.dataset.theme+'"]'));}
+new MutationObserver(sync).observe(root,{attributes:true,attributeFilter:['lang','data-theme']});
+new ResizeObserver(sync).observe(lang);new ResizeObserver(sync).observe(theme);
+let start=null;lang.addEventListener('pointerdown',e=>{start=e.clientX});lang.addEventListener('pointerup',e=>{if(start===null)return;const dx=e.clientX-start;start=null;if(Math.abs(dx)>14){lang.querySelector('[data-lang="'+(dx>0?'en':'fi')+'"]').click()}});lang.addEventListener('pointercancel',()=>start=null);
+lang.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const b=lang.querySelector('[data-lang="'+(e.key==='ArrowRight'?'en':'fi')+'"]');b.click();b.focus()}});
+requestAnimationFrame(sync);
 })();</script></body>
 </html>
