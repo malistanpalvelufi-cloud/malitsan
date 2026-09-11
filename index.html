@@ -3877,7 +3877,7 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 <section aria-labelledby="areaTitle" class="section area">
 <div class="container area-panel glass reveal">
 <div class="area-copy"><div class="eyebrow" data-en="Service area" data-fi="Palvelualue">Palvelualue</div><h2 data-en="From Kirkkonummi across the Helsinki region." data-fi="Kirkkonummelta koko pääkaupunkiseudulle." id="areaTitle">Kirkkonummelta koko pääkaupunkiseudulle.</h2><p data-en="In addition to Kirkkonummi, we serve Helsinki, Espoo and Vantaa." data-fi="Palvelemme Kirkkonummen lisäksi Helsingissä, Espoossa ja Vantaalla.">Palvelemme Kirkkonummen lisäksi Helsingissä, Espoossa ja Vantaalla.</p>
-<a class="glass-btn compact" href="https://www.google.com/maps/search/?api=1&amp;query=Kirkkonummi%2C%20Finland" rel="noopener noreferrer" target="_blank"><span data-fi="Avaa kartta" data-en="Open map">Avaa kartta</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3Z"></path><path d="M9 3v15M15 6v15"></path></svg></a>
+<a class="glass-btn compact area-map-button" href="https://www.google.com/maps/search/?api=1&amp;query=Kirkkonummi%2C%20Finland" rel="noopener noreferrer" target="_blank"><span data-fi="Avaa kartta" data-en="Open map">Avaa kartta</span><svg class="area-map-button-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3.5 6.2 9 3.6l6 2.8 5.5-2.6v13.9L15 20.4l-6-2.8-5.5 2.6Z"></path><path d="M9 3.6v14M15 6.4v14"></path><path d="M17.8 8.2c0 2.3-3 5.4-3 5.4s-3-3.1-3-5.4a3 3 0 1 1 6 0Z"></path><circle cx="14.8" cy="8.2" r="1"></circle></svg></a>
 </div>
 <div aria-label="3D-palvelualuekartta: Kirkkonummi, Espoo, Helsinki ja Vantaa" class="area-map globe-stage" data-en-aria-label="3D service-area map: Kirkkonummi, Espoo, Helsinki and Vantaa" data-fi-aria-label="3D-palvelualuekartta: Kirkkonummi, Espoo, Helsinki ja Vantaa" id="serviceGlobe" role="img" tabindex="0">
   <div class="globe-hint" data-fi="Vedä pyörittääksesi" data-en="Drag to rotate">Vedä pyörittääksesi</div>
@@ -5001,12 +5001,23 @@ for(const z of [-.82,.82]){bar(body,[-.7,.24,z],[-.7,.9,z],.022,chrome);bar(body
 for(let i=0;i<3;i++)box(body,.48,.045,.24,-.87,.17+i*.16,.72,steel);
 // additional work lamps
 for(const z of [.16,.86]){box(body,.17,.10,.12,.36,1.68,z,blackMetal);box(body,.13,.065,.125,.36,1.68,z+.005,whiteLamp);}
+// Functional work lights: visible light pools, not just emissive rectangles.
+const workLights=[];
+for(const z of [.18,.84]){
+  const light=new T.PointLight(0xffefc5,2.15,7.4,2.0);
+  light.position.set(.72,1.72,z);body.add(light);workLights.push(light);
+}
+const beaconGlow=new T.PointLight(0xffa000,1.25,4.2,2.0);beaconGlow.position.set(.05,1.92,.5);body.add(beaconGlow);
 // warning reflectors
 box(body,.22,.08,.025,-1.18,.42,.89,red);box(body,.22,.08,.025,-1.18,.42,-.89,red);
 // Branded decal generated locally on canvas; no extra image request/download.
 function brandTexture(){const c=document.createElement('canvas');c.width=1024;c.height=256;const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='rgba(8,12,11,.92)';x.roundRect(8,8,1008,240,34);x.fill();x.strokeStyle='#d4a62f';x.lineWidth=10;x.stroke();x.fillStyle='#f1d983';x.font='900 92px Manrope,Arial,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('MALISTAN PALVELU',512,128);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return tex;}
 const decalMat=new T.MeshBasicMaterial({map:brandTexture(),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-4});
-for(const z of [-.926,.926]){const d=mesh(new T.PlaneGeometry(1.35,.34),decalMat,body,-.64,.72,z);if(z<0)d.rotation.y=Math.PI;}
+const brandGlass=new T.MeshPhysicalMaterial({color:0xdff8ef,transparent:true,opacity:.16,roughness:.08,metalness:0,transmission:.35,clearcoat:1,clearcoatRoughness:.06,side:T.DoubleSide,depthWrite:false});
+for(const z of [-.926,.926]){
+  const d=mesh(new T.PlaneGeometry(1.40,.36),decalMat,body,-.64,.74,z);if(z<0)d.rotation.y=Math.PI;
+  const cover=mesh(new T.PlaneGeometry(1.46,.41),brandGlass,body,-.64,.74,z+(z<0?-.012:.012));if(z<0)cover.rotation.y=Math.PI;
+}
 // small MALISTAN plate on boom
 const boomBrandMat=new T.MeshBasicMaterial({map:brandTexture(),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-5});
 
@@ -5031,7 +5042,17 @@ let yaw=.7,pitch=.38,zoom=10.8,t=0,paused=matchMedia('(prefers-reduced-motion: r
 const motion=document.getElementById('excavatorMotion'),reset=document.getElementById('excavatorReset');
 function sync(){motion.setAttribute('aria-pressed',String(paused));motion.textContent=paused?'▶':'Ⅱ';}sync();
 function draw(){const rect=host.getBoundingClientRect();if(!rect.width||!rect.height)return;renderer.setSize(rect.width,rect.height,false);camera.aspect=rect.width/rect.height;camera.updateProjectionMatrix();const radius=zoom*(camera.aspect<1?1.25:1);camera.position.set(Math.sin(yaw)*radius,2+Math.sin(pitch)*radius,Math.cos(yaw)*radius);camera.lookAt(.55,1.5,0);renderer.render(scene,camera);}
-function tick(now){frame=0;const dt=Math.min((now-last)/1000,.05)||0;last=now;if(!paused){t+=dt;boom.rotation.z=.12+Math.sin(t*.72)*.17;stick.rotation.z=-.14+Math.sin(t*.72-.8)*.26;bucket.rotation.z=-.2+Math.sin(t*.72-1.5)*.45;body.rotation.y=Math.sin(t*.32)*.18;}draw();if(visible&&!document.hidden&&!paused)frame=requestAnimationFrame(tick);}
+function tick(now){frame=0;const dt=Math.min((now-last)/1000,.05)||0;last=now;if(!paused){t+=dt;
+  // Continuous showroom rotation: the whole excavator turns around its own vertical axis.
+  rig.rotation.y=(t*.20)%(Math.PI*2);
+  // Working cycle for boom, stick and bucket.
+  boom.rotation.z=.12+Math.sin(t*.72)*.17;
+  stick.rotation.z=-.14+Math.sin(t*.72-.8)*.26;
+  bucket.rotation.z=-.2+Math.sin(t*.72-1.5)*.45;
+  body.rotation.y=Math.sin(t*.45)*.035;
+  // Slightly living work lights + rotating amber beacon glow.
+  const pulse=.92+Math.sin(t*2.1)*.08;workLights.forEach(l=>l.intensity=2.15*pulse);beaconGlow.intensity=.9+Math.max(0,Math.sin(t*4.6))*1.25;
+}draw();if(visible&&!document.hidden&&!paused)frame=requestAnimationFrame(tick);}
 function wake(){if(!frame&&visible&&!document.hidden){last=performance.now();frame=requestAnimationFrame(tick);}}
 motion.addEventListener('click',()=>{paused=!paused;sync();wake();});reset.addEventListener('click',()=>{yaw=.7;pitch=.38;zoom=10.8;draw();});
 host.addEventListener('pointerdown',e=>{drag=true;lastX=e.clientX;lastY=e.clientY;host.setPointerCapture(e.pointerId);});
@@ -5136,6 +5157,93 @@ install(nav,'a',el=>el.getAttribute('aria-current')==='location');
     el.addEventListener('pointerdown',press,{passive:true});
     ['pointerup','pointercancel','pointerleave'].forEach(ev=>el.addEventListener(ev,release,{passive:true}));
     el.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||matchMedia('(prefers-reduced-motion: reduce)').matches)return;const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(900px) rotateX(${(-y*3.5).toFixed(2)}deg) rotateY(${(x*5).toFixed(2)}deg) translateZ(0)`});
+    el.addEventListener('pointerleave',()=>{el.style.transform=''});
+  });
+})();
+</script>
+
+
+<style id="malistan-v2-visual-fixes">
+/* 1) Service-photo icons: no square/card stack. Only a small glass halo behind the pictogram. */
+#palvelut .service-3d-icon{
+  width:64px!important;height:64px!important;left:17px!important;top:17px!important;
+  filter:drop-shadow(0 9px 16px rgba(5,26,19,.16))!important;animation:serviceIconFloat 6.5s ease-in-out infinite alternate!important;
+}
+#palvelut .service-3d-icon::before,
+#palvelut .service-3d-icon::after,
+#palvelut .service-3d-icon>i{display:none!important;content:none!important}
+#palvelut .service-3d-core{
+  width:52px!important;height:52px!important;border-radius:18px!important;
+  color:#f6df83!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.055))!important;
+  border:1px solid rgba(255,255,255,.28)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 8px 18px rgba(0,0,0,.14)!important;
+  -webkit-backdrop-filter:blur(10px) saturate(1.08)!important;backdrop-filter:blur(10px) saturate(1.08)!important;
+  transform:none!important;
+}
+#palvelut .service-3d-core svg{width:31px!important;height:31px!important;stroke-width:1.72!important;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}
+#palvelut .service-card:hover .service-3d-core{transform:translateY(-2px) scale(1.055)!important;border-color:rgba(241,217,131,.55)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 12px 23px rgba(0,0,0,.18)!important}
+#malistanPage[data-theme="light"] #palvelut .service-3d-core{
+  color:#176149!important;background:rgba(255,255,255,.57)!important;border-color:rgba(45,104,78,.18)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.94),0 7px 18px rgba(26,75,55,.10)!important;
+}
+
+/* 2) Open-map icon: clearly visible in both themes and visually different from the text. */
+.area-map-button{gap:13px!important}
+.area-map-button-icon{width:34px!important;height:34px!important;padding:7px!important;border-radius:11px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.75!important;stroke-linecap:round!important;stroke-linejoin:round!important;background:rgba(241,217,131,.12)!important;border:1px solid rgba(241,217,131,.30)!important;transition:transform .25s ease,background .25s ease,box-shadow .25s ease!important}
+.area-map-button:hover .area-map-button-icon{transform:translateY(-2px) rotate(-4deg) scale(1.06);background:rgba(241,217,131,.22)!important;box-shadow:0 8px 18px rgba(0,0,0,.12)}
+.area-map-button:active .area-map-button-icon{transform:scale(.92)}
+#malistanPage[data-theme="light"] .area-map-button-icon{color:#17543e!important;background:linear-gradient(145deg,#fff,#dcebe4)!important;border-color:#9bbbaa!important;box-shadow:inset 0 1px 0 #fff,0 5px 12px rgba(35,84,60,.10)!important}
+
+/* 3) Hero + large headings: brighter premium gradient, real depth and tactile response. */
+#etusivu h1 span,
+.section h2,
+.company-card h3,
+.quote-side h2{
+  -webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;
+  background-image:linear-gradient(102deg,#f6e59b 0%,#78d8b6 54%,#e9bf50 100%)!important;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.16));
+}
+#malistanPage[data-theme="light"] #etusivu h1 span,
+#malistanPage[data-theme="light"] .section h2,
+#malistanPage[data-theme="light"] .company-card h3,
+#malistanPage[data-theme="light"] .quote-side h2{
+  background-image:linear-gradient(102deg,#165f49 0%,#31886a 55%,#a77d18 100%)!important;
+  filter:drop-shadow(0 7px 14px rgba(31,91,67,.10));
+}
+#etusivu .hero-lead{font-weight:500;letter-spacing:-.01em}
+#malistanPage[data-theme="light"] #etusivu .hero-lead{color:#365f50!important}
+
+.big-text-react{position:relative;cursor:pointer;transform-style:preserve-3d;will-change:transform;transition:transform .32s cubic-bezier(.22,1,.36,1),filter .32s ease,text-shadow .32s ease!important}
+.big-text-react:hover{filter:brightness(1.07) saturate(1.06) drop-shadow(0 10px 20px rgba(0,0,0,.12))}
+.big-text-react.is-pressed{transform:perspective(900px) translate3d(0,3px,0) scale(.985)!important;filter:brightness(1.12) saturate(1.08)!important}
+.big-text-react.text-pulse::after{content:"";position:absolute;inset:-9px -12px;z-index:-1;border-radius:24px;border:1px solid rgba(241,217,131,.48);pointer-events:none;animation:bigTextPulse .5s ease-out both}
+@keyframes bigTextPulse{0%{opacity:.85;transform:scale(.97)}100%{opacity:0;transform:scale(1.045)}}
+
+/* 4) Excavator visual punch: stronger canvas rendering and subtle grounded shadow. */
+#excavatorViewport canvas{filter:saturate(1.08) contrast(1.06) brightness(1.03)!important}
+#earthwork3d::before{opacity:.9}
+
+@media(max-width:620px){
+  #palvelut .service-3d-icon{width:58px!important;height:58px!important;left:13px!important;top:13px!important}
+  #palvelut .service-3d-core{width:47px!important;height:47px!important;border-radius:16px!important}
+  #palvelut .service-3d-core svg{width:28px!important;height:28px!important}
+  .area-map-button-icon{width:32px!important;height:32px!important}
+}
+@media(prefers-reduced-motion:reduce){.big-text-react,.area-map-button-icon,#palvelut .service-3d-core{transition:none!important}.big-text-react.text-pulse::after{animation:none!important}}
+</style>
+<script id="malistan-v2-heading-interactions">
+(function(){
+  const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const selectors=['#etusivu h1','#etusivu .hero-lead','.section h2','.company-card h3','.quote-side h2'];
+  const items=[...new Set(selectors.flatMap(sel=>Array.from(document.querySelectorAll(sel))))];
+  items.forEach(el=>{
+    el.classList.add('big-text-react');
+    const press=()=>{el.classList.add('is-pressed','text-pulse');if(navigator.vibrate)try{navigator.vibrate(7)}catch(e){};clearTimeout(el._textPulse);el._textPulse=setTimeout(()=>el.classList.remove('text-pulse'),520)};
+    const release=()=>el.classList.remove('is-pressed');
+    el.addEventListener('pointerdown',press,{passive:true});
+    ['pointerup','pointercancel','pointerleave'].forEach(ev=>el.addEventListener(ev,release,{passive:true}));
+    el.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||reduced())return;const r=el.getBoundingClientRect();if(!r.width||!r.height)return;const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(950px) rotateX(${(-y*2.6).toFixed(2)}deg) rotateY(${(x*3.8).toFixed(2)}deg) translateZ(0)`});
     el.addEventListener('pointerleave',()=>{el.style.transform=''});
   });
 })();
