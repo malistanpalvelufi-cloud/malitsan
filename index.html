@@ -3764,7 +3764,148 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 @keyframes calmCellFill{0%{transform:scaleY(.12);opacity:.45}60%,80%{transform:scaleY(1);opacity:1}100%{transform:scaleY(.12);opacity:.45}}
 @media(max-width:480px){#malistanPage #yrityksesta .company-facts{padding-inline:12px!important}#malistanPage #yrityksesta .company-fact{grid-template-columns:minmax(0,1fr)!important;gap:5px!important}#malistanPage #yrityksesta .company-fact b{text-align:left!important}}
 @media(prefers-reduced-motion:reduce){#malistanPage #quoteSubmit[aria-busy="true"] .spinner::after{animation:none!important;transform:scaleY(.65)!important}}
-</style></head>
+</style>
+<style id="light-quote-glow-v3">
+/* Light mode: make quote CTAs feel illuminated like dark mode, but cleaner/subtler. */
+#malistanPage[data-theme="light"] .glass-btn.primary,
+#malistanPage[data-theme="light"] #quoteSubmit,
+#malistanPage[data-theme="light"] #siteHeader #mainNav .mobile-quote-link{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  background:
+    radial-gradient(circle at 26% 15%,rgba(154,255,214,.30),transparent 34%),
+    linear-gradient(135deg,#1d7f60 0%,#17664f 48%,#0f4d3c 100%)!important;
+  border:1px solid rgba(100,225,177,.76)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.42),
+    inset 0 -12px 26px rgba(3,55,39,.20),
+    0 9px 24px rgba(22,105,77,.20),
+    0 0 0 1px rgba(91,210,161,.13),
+    0 0 20px rgba(74,215,159,.18)!important;
+  text-shadow:0 1px 8px rgba(0,0,0,.18)!important;
+  transition:
+    transform .24s cubic-bezier(.22,1,.36,1),
+    box-shadow .28s ease,
+    filter .28s ease!important;
+}
+
+/* restore the soft moving light that was disabled in the previous light-mode rules */
+#malistanPage[data-theme="light"] .glass-btn.primary::before,
+#malistanPage[data-theme="light"] #quoteSubmit::before,
+#malistanPage[data-theme="light"] #siteHeader #mainNav .mobile-quote-link::before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  z-index:-1!important;
+  width:42%!important;
+  height:220%!important;
+  top:-60%!important;
+  left:-55%!important;
+  border-radius:50%!important;
+  background:linear-gradient(
+    105deg,
+    transparent 10%,
+    rgba(255,255,255,.04) 30%,
+    rgba(224,255,242,.58) 50%,
+    rgba(255,255,255,.06) 70%,
+    transparent 90%
+  )!important;
+  filter:blur(8px)!important;
+  transform:rotate(10deg)!important;
+  animation:lightQuoteSweep 5.2s ease-in-out infinite!important;
+  pointer-events:none!important;
+}
+
+#malistanPage[data-theme="light"] .glass-btn.primary::after,
+#malistanPage[data-theme="light"] #quoteSubmit::after,
+#malistanPage[data-theme="light"] #siteHeader #mainNav .mobile-quote-link::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  z-index:-2!important;
+  inset:0!important;
+  border-radius:inherit!important;
+  background:
+    radial-gradient(circle at 78% 50%,rgba(241,217,131,.18),transparent 34%),
+    radial-gradient(circle at 22% 50%,rgba(98,236,183,.16),transparent 38%)!important;
+  opacity:.82!important;
+  pointer-events:none!important;
+}
+
+#malistanPage[data-theme="light"] .glass-btn.primary span,
+#malistanPage[data-theme="light"] #quoteSubmit .button-text,
+#malistanPage[data-theme="light"] #siteHeader #mainNav .mobile-quote-link{
+  color:#fff!important;
+  -webkit-text-fill-color:#fff!important;
+}
+
+#malistanPage[data-theme="light"] .glass-btn.primary svg,
+#malistanPage[data-theme="light"] #quoteSubmit svg{
+  stroke:#ffffff!important;
+  color:#ffffff!important;
+  filter:drop-shadow(0 0 6px rgba(223,255,244,.42))!important;
+}
+
+@media(hover:hover){
+  #malistanPage[data-theme="light"] .glass-btn.primary:hover,
+  #malistanPage[data-theme="light"] #quoteSubmit:hover,
+  #malistanPage[data-theme="light"] #siteHeader #mainNav .mobile-quote-link:hover{
+    transform:translateY(-2px)!important;
+    filter:saturate(1.06) brightness(1.025)!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.52),
+      inset 0 -13px 28px rgba(3,55,39,.19),
+      0 13px 30px rgba(22,105,77,.23),
+      0 0 0 1px rgba(112,232,185,.18),
+      0 0 25px rgba(74,215,159,.23)!important;
+  }
+}
+
+#malistanPage[data-theme="light"] .glass-btn.primary:active,
+#malistanPage[data-theme="light"] #quoteSubmit:active,
+#malistanPage[data-theme="light"] #siteHeader #mainNav .mobile-quote-link:active{
+  transform:translateY(1px) scale(.985)!important;
+  box-shadow:
+    inset 0 2px 9px rgba(0,0,0,.18),
+    0 5px 13px rgba(22,105,77,.18),
+    0 0 15px rgba(74,215,159,.16)!important;
+}
+
+@keyframes lightQuoteSweep{
+  0%,18%{left:-58%;opacity:0}
+  30%{opacity:.70}
+  55%{left:116%;opacity:.38}
+  68%,100%{left:116%;opacity:0}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #malistanPage[data-theme="light"] .glass-btn.primary::before,
+  #malistanPage[data-theme="light"] #quoteSubmit::before,
+  #malistanPage[data-theme="light"] #siteHeader #mainNav .mobile-quote-link::before{
+    animation:none!important;
+    opacity:.18!important;
+    left:30%!important;
+  }
+}
+</style>
+
+
+<style id="excavator-real-work-feedback">
+#excavatorViewport{cursor:grab}
+#excavatorViewport:active{cursor:grabbing}
+#excavatorViewport.excavator-lights-on::after{
+  content:"";position:absolute;inset:7% 4% 14%;pointer-events:none;
+  background:radial-gradient(circle at 54% 35%,rgba(255,231,151,.10),transparent 22%);
+  filter:blur(8px);opacity:.8
+}
+#excavatorControls>span{max-width:70%;line-height:1.35}
+@media(max-width:620px){#excavatorControls>span{max-width:62%;font-size:11px}}
+</style>
+
+</head>
 <body><div id="designedBackdrop" aria-hidden="true"><i class="light-field light-field-a"></i><i class="light-field light-field-b"></i><i class="contour contour-a"></i><i class="contour contour-b"></i><i class="draft-grid"></i></div>
 <a class="skip" href="#main">Siirry sisältöön</a>
 <header class="site-header" id="siteHeader">
@@ -3821,7 +3962,7 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 <div class="excavator-heading"><span>MALISTAN PALVELU</span><span data-fi="Maanrakennus" data-en="Earthworks">Maanrakennus</span></div>
 <div id="excavatorFallback" role="status"><p data-fi="Avaa sivu selaimessa nähdäksesi liikkuvan 3D-kaivinkoneen." data-en="Open this page in a browser to view the animated 3D excavator.">Avaa sivu selaimessa nähdäksesi liikkuvan 3D-kaivinkoneen.</p><noscript>JavaScript tarvitaan 3D-esittelyyn. / JavaScript is required for the 3D scene.</noscript></div>
 <div id="excavatorViewport" tabindex="0" role="group" aria-label="3D-kaivinkone. Kierrä vetämällä tai nuolinäppäimillä." data-fi-aria-label="3D-kaivinkone. Kierrä vetämällä tai nuolinäppäimillä." data-en-aria-label="3D excavator. Drag or use arrow keys to rotate."></div>
-<div class="excavator-bottom" id="excavatorControls" hidden><span data-fi="Vedä ja tutustu kalustoon" data-en="Drag to explore the equipment">Vedä ja tutustu kalustoon</span><div><button id="excavatorMotion" type="button" aria-pressed="false" aria-label="Tauko / jatka animaatiota" data-fi-aria-label="Tauko / jatka animaatiota" data-en-aria-label="Pause / resume animation">Ⅱ</button><button id="excavatorReset" type="button" aria-label="Palauta näkymä" data-fi-aria-label="Palauta näkymä" data-en-aria-label="Reset view">↺</button></div></div>
+<div class="excavator-bottom" id="excavatorControls" hidden><span data-fi="Vedä ylävaunua · paina runkoa: valot · paina kauhaa: kaivu" data-en="Drag upper body · tap body: lights · tap bucket: dig">Vedä ylävaunua · paina runkoa: valot · paina kauhaa: kaivu</span><div><button id="excavatorMotion" type="button" aria-pressed="false" aria-label="Tauko / jatka animaatiota" data-fi-aria-label="Tauko / jatka animaatiota" data-en-aria-label="Pause / resume animation">Ⅱ</button><button id="excavatorReset" type="button" aria-label="Palauta näkymä" data-fi-aria-label="Palauta näkymä" data-en-aria-label="Reset view">↺</button></div></div>
 </div></div></div>
 </section>
 <section class="section services" id="palvelut">
@@ -4971,7 +5112,9 @@ for(let i=0;i<18;i++){for(const y of [.1,.78])box(rig,.15,.075,.65,-1.92+i*.154,
 for(const x of [-1.99,.79])for(let i=0;i<7;i++){const angle=-Math.PI/2+i*Math.PI/6;const tread=box(rig,.16,.08,.65,x+(x<0?-1:1)*.28*Math.cos(angle),.44+.32*Math.sin(angle),z,dark);tread.rotation.z=(x<0?-1:1)*angle;}
 }
 box(rig,2.3,.24,1.5,-.6,.79,0,dark);cylinder(rig,.66,.26,-.6,1,0,steel);
-const body=new T.Group();body.position.set(-.6,1.15,0);rig.add(body);
+// Real excavator hierarchy: tracks/undercarriage stay fixed; only the upper carriage slews.
+const upper=new T.Group();upper.position.set(-.6,0,0);rig.add(upper);
+const body=new T.Group();body.position.set(0,1.15,0);upper.add(body);
 box(body,2.5,.24,1.85,0,.03,0,dark);
 box(body,1.2,.87,1.72,-.65,.55,0);box(body,.12,.56,1.76,-1.29,.56,0,dark);
 for(let i=0;i<8;i++)box(body,.045,.39,.018,-1.06+i*.083,.65,.872,dark);
@@ -5011,12 +5154,13 @@ const beaconGlow=new T.PointLight(0xffa000,1.25,4.2,2.0);beaconGlow.position.set
 // warning reflectors
 box(body,.22,.08,.025,-1.18,.42,.89,red);box(body,.22,.08,.025,-1.18,.42,-.89,red);
 // Branded decal generated locally on canvas; no extra image request/download.
-function brandTexture(){const c=document.createElement('canvas');c.width=1024;c.height=256;const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='rgba(8,12,11,.92)';x.roundRect(8,8,1008,240,34);x.fill();x.strokeStyle='#d4a62f';x.lineWidth=10;x.stroke();x.fillStyle='#f1d983';x.font='900 92px Manrope,Arial,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('MALISTAN PALVELU',512,128);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return tex;}
+function brandTexture(){const c=document.createElement('canvas');c.width=1200;c.height=260;const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='rgba(8,12,11,.94)';x.roundRect(8,8,1184,244,30);x.fill();x.strokeStyle='#d4a62f';x.lineWidth=9;x.stroke();x.fillStyle='#f5df78';x.font='900 78px Manrope,Arial,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('MALISTAN PALVELU',600,132);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return tex;}
 const decalMat=new T.MeshBasicMaterial({map:brandTexture(),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-4});
 const brandGlass=new T.MeshPhysicalMaterial({color:0xdff8ef,transparent:true,opacity:.16,roughness:.08,metalness:0,transmission:.35,clearcoat:1,clearcoatRoughness:.06,side:T.DoubleSide,depthWrite:false});
-for(const z of [-.926,.926]){
-  const d=mesh(new T.PlaneGeometry(1.40,.36),decalMat,body,-.64,.74,z);if(z<0)d.rotation.y=Math.PI;
-  const cover=mesh(new T.PlaneGeometry(1.46,.41),brandGlass,body,-.64,.74,z+(z<0?-.012:.012));if(z<0)cover.rotation.y=Math.PI;
+for(const z of [-.966,.966]){
+  // Company plate is integrated into the yellow sill directly beneath the cabin glazing.
+  const d=mesh(new T.PlaneGeometry(1.34,.235),decalMat,body,.18,.315,z);if(z<0)d.rotation.y=Math.PI;
+  const cover=mesh(new T.PlaneGeometry(1.39,.275),brandGlass,body,.18,.315,z+(z<0?-.012:.012));if(z<0)cover.rotation.y=Math.PI;
 }
 // small MALISTAN plate on boom
 const boomBrandMat=new T.MeshBasicMaterial({map:brandTexture(),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-5});
@@ -5036,33 +5180,177 @@ bar(boom,[.22,.21,.24],[1.36,1.47,.24],.065,dark);bar(boom,[.77,.81,.24],[1.6,1.
 bar(stick,[-.05,.02,.19],[.45,-1.24,.19],.05,dark);bar(stick,[.21,-.58,.19],[.57,-1.57,.19],.027,steel);
 const hose=new T.CatmullRomCurve3([new T.Vector3(.1,.3,-.22),new T.Vector3(.65,1,-.22),new T.Vector3(1.7,1.7,-.22),new T.Vector3(2.26,1.5,-.22)]);mesh(new T.TubeGeometry(hose,32,.025,6,false),rubber,boom);
 body.name='machine-body';boom.name='machine-boom';stick.name='machine-stick';bucket.name='machine-bucket';
+upper.name='machine-upper';rig.name='machine-undercarriage';
 
-// Small material piles stay inside the ground disc.
-let yaw=.7,pitch=.38,zoom=10.8,t=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,visible=true,drag=false,lastX=0,lastY=0,last=0,frame=0;
+// Part tags for precise click/touch reactions.
+body.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='body';});
+boom.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='body';});
+stick.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='body';});
+bucket.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='bucket';});
+
+// Real work-state variables.
+let yaw=.7,pitch=.38,zoom=10.8,t=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,
+    visible=true,drag=false,lastX=0,lastY=0,last=0,frame=0;
+let slewCenter=.06, slewDirection=1, manualSlew=0, lightsOn=true;
+let bucketPunch=0, bucketPunchStart=0, pointerDownPart=null, pointerDownX=0, pointerDownY=0, pointerMoved=false;
+
 const motion=document.getElementById('excavatorMotion'),reset=document.getElementById('excavatorReset');
+const raycaster=new T.Raycaster(),pointerNdc=new T.Vector2();
+
+function setLights(on){
+  lightsOn=!!on;
+  workLights.forEach(l=>l.intensity=lightsOn?2.35:0);
+  beaconGlow.intensity=lightsOn?1.3:0;
+  whiteLamp.emissiveIntensity=lightsOn?2.4:.05;
+  lamp.emissiveIntensity=lightsOn?1.6:.04;
+  host.classList.toggle('excavator-lights-on',lightsOn);
+}
+setLights(true);
+
 function sync(){motion.setAttribute('aria-pressed',String(paused));motion.textContent=paused?'▶':'Ⅱ';}sync();
-function draw(){const rect=host.getBoundingClientRect();if(!rect.width||!rect.height)return;renderer.setSize(rect.width,rect.height,false);camera.aspect=rect.width/rect.height;camera.updateProjectionMatrix();const radius=zoom*(camera.aspect<1?1.25:1);camera.position.set(Math.sin(yaw)*radius,2+Math.sin(pitch)*radius,Math.cos(yaw)*radius);camera.lookAt(.55,1.5,0);renderer.render(scene,camera);}
-function tick(now){frame=0;const dt=Math.min((now-last)/1000,.05)||0;last=now;if(!paused){t+=dt;
-  // Continuous showroom rotation: the whole excavator turns around its own vertical axis.
-  rig.rotation.y=(t*.20)%(Math.PI*2);
-  // Working cycle for boom, stick and bucket.
-  boom.rotation.z=.12+Math.sin(t*.72)*.17;
-  stick.rotation.z=-.14+Math.sin(t*.72-.8)*.26;
-  bucket.rotation.z=-.2+Math.sin(t*.72-1.5)*.45;
-  body.rotation.y=Math.sin(t*.45)*.035;
-  // Slightly living work lights + rotating amber beacon glow.
-  const pulse=.92+Math.sin(t*2.1)*.08;workLights.forEach(l=>l.intensity=2.15*pulse);beaconGlow.intensity=.9+Math.max(0,Math.sin(t*4.6))*1.25;
-}draw();if(visible&&!document.hidden&&!paused)frame=requestAnimationFrame(tick);}
+
+function draw(){
+  const rect=host.getBoundingClientRect();if(!rect.width||!rect.height)return;
+  renderer.setSize(rect.width,rect.height,false);
+  camera.aspect=rect.width/rect.height;camera.updateProjectionMatrix();
+  const radius=zoom*(camera.aspect<1?1.25:1);
+  camera.position.set(Math.sin(yaw)*radius,2+Math.sin(pitch)*radius,Math.cos(yaw)*radius);
+  camera.lookAt(.15,1.48,0);
+  renderer.render(scene,camera);
+}
+
+function smoothstep01(v){v=Math.max(0,Math.min(1,v));return v*v*(3-2*v);}
+
+function animateWork(){
+  // One work cycle: reach -> dig/curl -> lift -> swing/load -> return.
+  const cycle=(t*.23)%1;
+  const a=cycle*Math.PI*2;
+
+  // Upper carriage swings in a realistic working arc. Tracks remain completely fixed.
+  const workSwing=Math.sin(a)*.63 + Math.sin(a*2-.6)*.07;
+  upper.rotation.y=slewCenter + slewDirection*workSwing + manualSlew;
+
+  // Coordinated hydraulics. Bucket closes during the digging half and opens during dumping.
+  const dig=Math.max(0,Math.sin(a-.35));
+  const lift=Math.max(0,Math.sin(a+1.15));
+  boom.rotation.z=.08 + Math.sin(a-.1)*.115 + lift*.055;
+  stick.rotation.z=-.17 + Math.sin(a-.82)*.22 - dig*.08;
+  bucket.rotation.z=-.28 + Math.sin(a-1.38)*.34 - dig*.22;
+
+  // A direct bucket tap temporarily overrides the automatic cycle with a strong inward curl.
+  if(bucketPunch>0){
+    const elapsed=(performance.now()-bucketPunchStart)/1000;
+    const p=Math.min(1,elapsed/1.05);
+    const curl=Math.sin(Math.PI*p);
+    bucket.rotation.z-=curl*.82;
+    stick.rotation.z-=curl*.08;
+    bucketPunch=1-p;
+  }
+
+  // Tiny engine vibration only on the upper carriage, never on the tracks.
+  body.position.y=1.15 + Math.sin(t*9.5)*.0025;
+
+  if(lightsOn){
+    const pulse=.94+Math.sin(t*2.1)*.06;
+    workLights.forEach(l=>l.intensity=2.35*pulse);
+    beaconGlow.intensity=.65+Math.max(0,Math.sin(t*5.2))*1.8;
+  }else{
+    workLights.forEach(l=>l.intensity=0);beaconGlow.intensity=0;
+  }
+}
+
+function tick(now){
+  frame=0;const dt=Math.min((now-last)/1000,.05)||0;last=now;
+  if(!paused){t+=dt;animateWork();}
+  draw();
+  if(visible&&!document.hidden&&!paused)frame=requestAnimationFrame(tick);
+}
 function wake(){if(!frame&&visible&&!document.hidden){last=performance.now();frame=requestAnimationFrame(tick);}}
-motion.addEventListener('click',()=>{paused=!paused;sync();wake();});reset.addEventListener('click',()=>{yaw=.7;pitch=.38;zoom=10.8;draw();});
-host.addEventListener('pointerdown',e=>{drag=true;lastX=e.clientX;lastY=e.clientY;host.setPointerCapture(e.pointerId);});
-host.addEventListener('pointermove',e=>{if(!drag)return;yaw-=(e.clientX-lastX)*.009;if(e.pointerType==='mouse')pitch=Math.max(.12,Math.min(.85,pitch+(e.clientY-lastY)*.006));lastX=e.clientX;lastY=e.clientY;draw();});
-for(const event of ['pointerup','pointercancel','lostpointercapture'])host.addEventListener(event,()=>drag=false);
-host.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home'].includes(e.key))return;e.preventDefault();if(e.key==='ArrowLeft')yaw-=.15;if(e.key==='ArrowRight')yaw+=.15;if(e.key==='ArrowUp')pitch=Math.min(.85,pitch+.08);if(e.key==='ArrowDown')pitch=Math.max(.12,pitch-.08);if(e.key==='Home'){yaw=.7;pitch=.38;}draw();});
-new ResizeObserver(()=>draw()).observe(host);new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible&&frame){cancelAnimationFrame(frame);frame=0;}wake();},{rootMargin:'80px'}).observe(host);
+
+function hitPart(e){
+  const r=renderer.domElement.getBoundingClientRect();
+  if(!r.width||!r.height)return null;
+  pointerNdc.x=((e.clientX-r.left)/r.width)*2-1;
+  pointerNdc.y=-((e.clientY-r.top)/r.height)*2+1;
+  raycaster.setFromCamera(pointerNdc,camera);
+  const hits=raycaster.intersectObjects([bucket,body],true);
+  if(!hits.length)return null;
+  return hits[0].object.userData.excavatorPart||null;
+}
+
+motion.addEventListener('click',()=>{paused=!paused;sync();wake();});
+reset.addEventListener('click',()=>{
+  yaw=.7;pitch=.38;zoom=10.8;slewCenter=.06;manualSlew=0;slewDirection=1;
+  boom.rotation.z=.08;stick.rotation.z=-.17;bucket.rotation.z=-.28;setLights(true);draw();
+});
+
+host.addEventListener('pointerdown',e=>{
+  drag=true;lastX=e.clientX;lastY=e.clientY;pointerDownX=e.clientX;pointerDownY=e.clientY;pointerMoved=false;
+  pointerDownPart=hitPart(e);
+  host.setPointerCapture(e.pointerId);
+});
+
+host.addEventListener('pointermove',e=>{
+  if(!drag)return;
+  const dx=e.clientX-lastX,dy=e.clientY-lastY;
+  if(Math.hypot(e.clientX-pointerDownX,e.clientY-pointerDownY)>7)pointerMoved=true;
+
+  // Dragging the machine rotates ONLY the upper carriage.
+  // The sign of the drag reverses the automatic swing direction immediately.
+  if(Math.abs(dx)>.2){
+    manualSlew+=dx*.0105;
+    if(Math.abs(dx)>1.2)slewDirection=dx>0?1:-1;
+  }
+  // Gentle vertical camera inspection on mouse, without moving the tracks.
+  if(e.pointerType==='mouse'&&Math.abs(dy)>.3)pitch=Math.max(.12,Math.min(.85,pitch+dy*.0032));
+  lastX=e.clientX;lastY=e.clientY;draw();
+});
+
+function finishPointer(e){
+  if(!drag)return;
+  drag=false;
+  const part=pointerDownPart;
+  if(!pointerMoved&&part==='bucket'){
+    bucketPunch=1;bucketPunchStart=performance.now();
+    if(paused){paused=false;sync();}
+    wake();
+    if(navigator.vibrate)navigator.vibrate(18);
+  }else if(!pointerMoved&&part==='body'){
+    setLights(!lightsOn);
+    if(navigator.vibrate)navigator.vibrate(12);
+    draw();
+  }
+  pointerDownPart=null;
+}
+for(const event of ['pointerup','pointercancel','lostpointercapture'])host.addEventListener(event,finishPointer);
+
+host.addEventListener('dblclick',e=>{
+  // Double-click/tap reverses the work swing, useful as a quick direction control.
+  slewDirection*=-1;
+  if(navigator.vibrate)navigator.vibrate([12,30,12]);
+  wake();
+});
+
+host.addEventListener('keydown',e=>{
+  if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','Enter',' '].includes(e.key))return;
+  e.preventDefault();
+  if(e.key==='ArrowLeft'){manualSlew-=.16;slewDirection=-1;}
+  if(e.key==='ArrowRight'){manualSlew+=.16;slewDirection=1;}
+  if(e.key==='ArrowUp')pitch=Math.min(.85,pitch+.08);
+  if(e.key==='ArrowDown')pitch=Math.max(.12,pitch-.08);
+  if(e.key==='Enter'){setLights(!lightsOn);}
+  if(e.key===' '){bucketPunch=1;bucketPunchStart=performance.now();if(paused){paused=false;sync();}wake();}
+  if(e.key==='Home'){yaw=.7;pitch=.38;manualSlew=0;slewDirection=1;setLights(true);}
+  draw();
+});
+
+new ResizeObserver(()=>draw()).observe(host);
+new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible&&frame){cancelAnimationFrame(frame);frame=0;}wake();},{rootMargin:'80px'}).observe(host);
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&frame){cancelAnimationFrame(frame);frame=0;}wake();});
 matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{paused=e.matches;sync();wake();});
-renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();paused=true;sync();fallback.hidden=false;host.style.opacity='0';});renderer.domElement.addEventListener('webglcontextrestored',()=>{fallback.hidden=true;host.style.opacity='1';draw();});
+renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();paused=true;sync();fallback.hidden=false;host.style.opacity='0';});
+renderer.domElement.addEventListener('webglcontextrestored',()=>{fallback.hidden=true;host.style.opacity='1';draw();});
+
 fallback.hidden=true;document.getElementById('excavatorControls').hidden=false;draw();wake();host.dataset.renderer='webgl';
 }catch(e){host.hidden=true;fallback.hidden=false;fallback.querySelector('p').textContent=document.documentElement.lang==='en'?'The 3D scene could not start. Open the website in Safari or Chrome with WebGL enabled.':'3D-näkymä ei käynnistynyt. Avaa verkkosivu Safarissa tai Chromessa, jossa WebGL on käytössä.';console.warn('Excavator WebGL unavailable',e);}
 })();
@@ -5249,5 +5537,53 @@ install(nav,'a',el=>el.getAttribute('aria-current')==='location');
 })();
 </script>
 
+
+<style id="malistan-icon-square-kill-final">
+/* FINAL FIX: remove every rectangular backing layer from service-photo icons. */
+#malistanPage #palvelut .service-photo .service-3d-icon,
+#malistanPage[data-theme="light"] #palvelut .service-photo .service-3d-icon,
+#malistanPage[data-theme="dark"] #palvelut .service-photo .service-3d-icon{
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  overflow:visible!important;
+}
+#malistanPage #palvelut .service-photo .service-3d-icon::before,
+#malistanPage #palvelut .service-photo .service-3d-icon::after,
+#malistanPage #palvelut .service-photo .service-3d-icon>i{
+  display:none!important;content:none!important;opacity:0!important;box-shadow:none!important;background:none!important;border:0!important;
+}
+/* Only a small soft circular glass halo directly behind the line icon. */
+#malistanPage #palvelut .service-photo .service-3d-core,
+#malistanPage[data-theme="light"] #palvelut .service-photo .service-3d-core,
+#malistanPage[data-theme="dark"] #palvelut .service-photo .service-3d-core{
+  width:48px!important;height:48px!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.12)!important;
+  background-image:linear-gradient(145deg,rgba(255,255,255,.20),rgba(255,255,255,.045))!important;
+  border:1px solid rgba(255,255,255,.20)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 5px 13px rgba(0,0,0,.10)!important;
+  -webkit-backdrop-filter:blur(8px) saturate(1.08)!important;
+  backdrop-filter:blur(8px) saturate(1.08)!important;
+}
+#malistanPage[data-theme="light"] #palvelut .service-photo .service-3d-core{
+  background:rgba(255,255,255,.28)!important;
+  background-image:linear-gradient(145deg,rgba(255,255,255,.45),rgba(255,255,255,.12))!important;
+  border-color:rgba(37,103,76,.15)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.70),0 4px 12px rgba(27,76,56,.08)!important;
+}
+#malistanPage #palvelut .service-photo .service-3d-core svg{
+  width:30px!important;height:30px!important;filter:none!important;
+}
+@media(max-width:620px){
+  #malistanPage #palvelut .service-photo .service-3d-icon{width:54px!important;height:54px!important;left:13px!important;top:13px!important}
+  #malistanPage #palvelut .service-photo .service-3d-core{width:44px!important;height:44px!important}
+  #malistanPage #palvelut .service-photo .service-3d-core svg{width:27px!important;height:27px!important}
+}
+</style>
 </body>
 </html>
