@@ -3940,6 +3940,31 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 }
 </style>
 
+
+<style id="malistan-excavator-final-v5">
+#excavatorControls,.excavator-bottom{display:none!important}
+#excavatorViewport{inset:-18px -5% -8px -5%!important}
+#earthwork3d.excavator-scene{height:650px!important}
+#excavatorViewport canvas{
+  filter:saturate(1.10) contrast(1.055) brightness(1.055)
+    drop-shadow(0 28px 30px rgba(0,0,0,.24))!important;
+}
+#excavatorViewport.excavator-lights-on::after{
+  content:"";position:absolute;inset:6% -2% 7%;z-index:5;pointer-events:none;
+  background:radial-gradient(ellipse at 58% 34%,rgba(255,250,210,.32) 0 2.3%,rgba(255,229,145,.15) 4%,transparent 17%);
+  filter:blur(5px);mix-blend-mode:screen;
+}
+@media(max-width:1120px){
+  #earthwork3d.excavator-scene{height:600px!important}
+}
+@media(max-width:620px){
+  #etusivu #realHeroArt{min-height:470px!important}
+  #earthwork3d.excavator-scene{width:145%!important;height:470px!important;margin-left:-22.5%!important}
+  #excavatorViewport{inset:-35px -11% -18px -11%!important}
+  #excavatorViewport canvas{transform:scale(1.22);transform-origin:50% 52%}
+}
+</style>
+
 </head>
 <body><div id="designedBackdrop" aria-hidden="true"><i class="light-field light-field-a"></i><i class="light-field light-field-b"></i><i class="contour contour-a"></i><i class="contour contour-b"></i><i class="draft-grid"></i></div>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -3997,7 +4022,7 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 <div class="excavator-heading"><span>MALISTAN PALVELU</span><span data-fi="Maanrakennus" data-en="Earthworks">Maanrakennus</span></div>
 <div id="excavatorFallback" role="status"><p data-fi="Avaa sivu selaimessa nähdäksesi liikkuvan 3D-kaivinkoneen." data-en="Open this page in a browser to view the animated 3D excavator.">Avaa sivu selaimessa nähdäksesi liikkuvan 3D-kaivinkoneen.</p><noscript>JavaScript tarvitaan 3D-esittelyyn. / JavaScript is required for the 3D scene.</noscript></div>
 <div id="excavatorViewport" tabindex="0" role="group" aria-label="3D-kaivinkone. Kierrä vetämällä tai nuolinäppäimillä." data-fi-aria-label="3D-kaivinkone. Kierrä vetämällä tai nuolinäppäimillä." data-en-aria-label="3D excavator. Drag or use arrow keys to rotate."></div>
-<div class="excavator-bottom" id="excavatorControls" hidden><span data-fi="Vedä ylävaunua · paina runkoa: valot · paina kauhaa: kaivu" data-en="Drag upper body · tap body: lights · tap bucket: dig">Vedä ylävaunua · paina runkoa: valot · paina kauhaa: kaivu</span><div><button id="excavatorMotion" type="button" aria-pressed="false" aria-label="Tauko / jatka animaatiota" data-fi-aria-label="Tauko / jatka animaatiota" data-en-aria-label="Pause / resume animation">Ⅱ</button><button id="excavatorReset" type="button" aria-label="Palauta näkymä" data-fi-aria-label="Palauta näkymä" data-en-aria-label="Reset view">↺</button></div></div>
+</div>
 </div></div></div>
 </section>
 <section class="section services" id="palvelut">
@@ -5130,7 +5155,7 @@ host.appendChild(renderer.domElement);renderer.domElement.setAttribute('aria-hid
 scene.add(new T.HemisphereLight(0xdcefe7,0x393025,2.5));
 const sun=new T.DirectionalLight(0xffedce,4);sun.position.set(-3,9,6);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8,near:1,far:25});sun.shadow.normalBias=.04;scene.add(sun);
 const rim=new T.DirectionalLight(0x88d9c0,2.5);rim.position.set(4,5,-5);scene.add(rim);
-const yellow=new T.MeshPhysicalMaterial({color:0xe96a1a,metalness:.32,roughness:.30,clearcoat:.58,clearcoatRoughness:.24}),dark=new T.MeshPhysicalMaterial({color:0x1b2222,metalness:.68,roughness:.34,clearcoat:.18}),steel=new T.MeshPhysicalMaterial({color:0x879195,metalness:.92,roughness:.2}),rubber=new T.MeshStandardMaterial({color:0x101414,roughness:.96}),glass=new T.MeshPhysicalMaterial({color:0x224c57,metalness:.05,roughness:.08,transmission:.28,transparent:true,opacity:.78,clearcoat:.8,clearcoatRoughness:.08}),ground=new T.MeshStandardMaterial({color:0x344e43,roughness:.95});
+const yellow=new T.MeshPhysicalMaterial({color:0xd94a32,metalness:.30,roughness:.27,clearcoat:.72,clearcoatRoughness:.18}),dark=new T.MeshPhysicalMaterial({color:0x1b2222,metalness:.68,roughness:.34,clearcoat:.18}),steel=new T.MeshPhysicalMaterial({color:0x879195,metalness:.92,roughness:.2}),rubber=new T.MeshStandardMaterial({color:0x101414,roughness:.96}),glass=new T.MeshPhysicalMaterial({color:0xcceff5,metalness:0,roughness:.045,transmission:.48,transparent:true,opacity:.68,clearcoat:1,clearcoatRoughness:.035,ior:1.46,thickness:.08,side:T.DoubleSide}),ground=new T.MeshStandardMaterial({color:0x344e43,roughness:.95});
 function mesh(g,m,p,x=0,y=0,z=0){const a=new T.Mesh(g,m);a.position.set(x,y,z);a.castShadow=true;a.receiveShadow=true;p.add(a);return a;}
 function box(p,w,h,d,x,y,z,m=yellow){return mesh(new T.BoxGeometry(w,h,d),m,p,x,y,z);}
 function cylinder(p,r,h,x,y,z,m=dark){return mesh(new T.CylinderGeometry(r,r,h,24),m,p,x,y,z);}
@@ -5189,7 +5214,7 @@ const beaconGlow=new T.PointLight(0xffa000,1.25,4.2,2.0);beaconGlow.position.set
 // warning reflectors
 box(body,.22,.08,.025,-1.18,.42,.89,red);box(body,.22,.08,.025,-1.18,.42,-.89,red);
 // Branded decal generated locally on canvas; no extra image request/download.
-function brandTexture(){const c=document.createElement('canvas');c.width=1400;c.height=300;const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='rgba(10,14,13,.96)';x.roundRect(10,10,1380,280,36);x.fill();x.strokeStyle='rgba(255,255,255,.9)';x.lineWidth=7;x.stroke();x.fillStyle='#ffffff';x.font='900 92px Manrope,Arial,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('MALISTAN PALVELU',700,150);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return tex;}
+function brandTexture(){const c=document.createElement('canvas');c.width=1400;c.height=300;const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='rgba(10,14,13,.96)';x.roundRect(10,10,1380,280,36);x.fill();x.strokeStyle='rgba(255,255,255,.9)';x.lineWidth=7;x.stroke();x.fillStyle='#ffffff';x.font='900 92px Manrope,Arial,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('MALISTANPALVELU',700,150);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return tex;}
 const decalMat=new T.MeshBasicMaterial({map:brandTexture(),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-4});
 const brandGlass=new T.MeshPhysicalMaterial({color:0xdff8ef,transparent:true,opacity:.16,roughness:.08,metalness:0,transmission:.35,clearcoat:1,clearcoatRoughness:.06,side:T.DoubleSide,depthWrite:false});
 for(const z of [-.966,.966]){
@@ -5199,6 +5224,11 @@ for(const z of [-.966,.966]){
 }
 // small MALISTAN plate on boom
 const boomBrandMat=new T.MeshBasicMaterial({map:brandTexture(),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-5});
+for(const z of [-.905,.905]){
+  const rearBrand=mesh(new T.PlaneGeometry(1.02,.19),decalMat,body,-.70,.72,z);
+  if(z<0)rearBrand.rotation.y=Math.PI;
+}
+
 
 // Articulated boom, stick and bucket use local pivots in three dimensions.
 const boom=new T.Group();boom.position.set(.65,.47,-.43);body.add(boom);
@@ -5219,17 +5249,16 @@ upper.name='machine-upper';rig.name='machine-undercarriage';
 
 // Part tags for precise click/touch reactions.
 body.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='body';});
-boom.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='body';});
-stick.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='body';});
-bucket.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='bucket';});
+boom.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='work';});
+stick.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='work';});
+bucket.traverse(o=>{if(o.isMesh)o.userData.excavatorPart='work';});
 
 // Real work-state variables.
 let yaw=.7,pitch=.38,zoom=10.8,t=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,
     visible=true,drag=false,lastX=0,lastY=0,last=0,frame=0;
-let slewCenter=.06, slewDirection=1, manualSlew=0, lightsOn=true;
-let bucketPunch=0, bucketPunchStart=0, pointerDownPart=null, pointerDownX=0, pointerDownY=0, pointerMoved=false;
-
-const motion=document.getElementById('excavatorMotion'),reset=document.getElementById('excavatorReset');
+let manualSlew=0, lightsOn=false;
+let workActive=false, workStart=0, workDuration=5200;
+let pointerDownPart=null, pointerDownX=0, pointerDownY=0, pointerMoved=false;
 const raycaster=new T.Raycaster(),pointerNdc=new T.Vector2();
 
 function setLights(on){
@@ -5242,7 +5271,7 @@ function setLights(on){
 }
 setLights(false);
 
-function sync(){if(motion){motion.setAttribute('aria-pressed',String(paused));motion.textContent=paused?'▶':'Ⅱ';}}sync();
+
 
 function draw(){
   const rect=host.getBoundingClientRect();if(!rect.width||!rect.height)return;
@@ -5251,54 +5280,66 @@ function draw(){
   const radius=zoom*(camera.aspect<1?1.25:1);
   camera.position.set(Math.sin(yaw)*radius,2+Math.sin(pitch)*radius,Math.cos(yaw)*radius);
   camera.lookAt(.15,1.48,0);
+  upper.rotation.y=manualSlew;
   renderer.render(scene,camera);
 }
 
 function smoothstep01(v){v=Math.max(0,Math.min(1,v));return v*v*(3-2*v);}
 
-function animateWork(){
-  // One work cycle: reach -> dig/curl -> lift -> swing/load -> return.
-  const cycle=(t*.23)%1;
-  const a=cycle*Math.PI*2;
+function ease(v){v=Math.max(0,Math.min(1,v));return v*v*(3-2*v);}
+function mix(a,b,t){return a+(b-a)*t;}
 
-  // Upper carriage swings in a realistic working arc. Tracks remain completely fixed.
-  const workSwing=Math.sin(a)*.63 + Math.sin(a*2-.6)*.07;
-  upper.rotation.y=slewCenter + slewDirection*workSwing + manualSlew;
-
-  // Coordinated hydraulics. Bucket closes during the digging half and opens during dumping.
-  const dig=Math.max(0,Math.sin(a-.35));
-  const lift=Math.max(0,Math.sin(a+1.15));
-  boom.rotation.z=.08 + Math.sin(a-.1)*.115 + lift*.055;
-  stick.rotation.z=-.17 + Math.sin(a-.82)*.22 - dig*.08;
-  bucket.rotation.z=-.28 + Math.sin(a-1.38)*.34 - dig*.22;
-
-  // A direct bucket tap temporarily overrides the automatic cycle with a strong inward curl.
-  if(bucketPunch>0){
-    const elapsed=(performance.now()-bucketPunchStart)/1000;
-    const p=Math.min(1,elapsed/1.05);
-    const curl=Math.sin(Math.PI*p);
-    bucket.rotation.z-=curl*.82;
-    stick.rotation.z-=curl*.08;
-    bucketPunch=1-p;
-  }
-
-  // Tiny engine vibration only on the upper carriage, never on the tracks.
-  body.position.y=1.15 + Math.sin(t*9.5)*.0025;
-
-  if(lightsOn){
-    const pulse=.94+Math.sin(t*2.1)*.06;
-    workLights.forEach(l=>l.intensity=2.35*pulse);
-    beaconGlow.intensity=.65+Math.max(0,Math.sin(t*5.2))*1.8;
-  }else{
-    workLights.forEach(l=>l.intensity=0);beaconGlow.intensity=0;
-  }
+function startWork(){
+  workActive=true;
+  workStart=performance.now();
+  paused=false;
+  wake();
 }
 
+function animateWork(now){
+  if(!workActive){
+    boom.rotation.z=.08;
+    stick.rotation.z=-.17;
+    bucket.rotation.z=-.28;
+    body.position.y=1.15;
+    return;
+  }
+
+  const p=Math.min(1,(now-workStart)/workDuration);
+  let br=.08,sr=-.17,kr=-.28;
+
+  if(p<.24){
+    const q=ease(p/.24);
+    br=mix(.08,-.035,q); sr=mix(-.17,-.42,q); kr=mix(-.28,-.10,q);
+  }else if(p<.48){
+    const q=ease((p-.24)/.24);
+    br=mix(-.035,-.105,q); sr=mix(-.42,-.56,q); kr=mix(-.10,-.82,q);
+  }else if(p<.72){
+    const q=ease((p-.48)/.24);
+    br=mix(-.105,.21,q); sr=mix(-.56,-.31,q); kr=mix(-.82,-.72,q);
+  }else{
+    const q=ease((p-.72)/.28);
+    br=mix(.21,.08,q); sr=mix(-.31,-.17,q); kr=mix(-.72,-.28,q);
+  }
+
+  boom.rotation.z=br;
+  stick.rotation.z=sr;
+  bucket.rotation.z=kr;
+  body.position.y=1.15+Math.sin((now-workStart)*.018)*.0018;
+
+  if(p>=1){
+    workActive=false;
+    boom.rotation.z=.08;
+    stick.rotation.z=-.17;
+    bucket.rotation.z=-.28;
+    body.position.y=1.15;
+  }
+}
 function tick(now){
   frame=0;const dt=Math.min((now-last)/1000,.05)||0;last=now;
-  if(!paused){t+=dt;animateWork();}
+  if(!paused){t+=dt;animateWork(now);}
   draw();
-  if(visible&&!document.hidden&&!paused)frame=requestAnimationFrame(tick);
+  if(visible&&!document.hidden&&(!paused||workActive))frame=requestAnimationFrame(tick);
 }
 function wake(){if(!frame&&visible&&!document.hidden){last=performance.now();frame=requestAnimationFrame(tick);}}
 
@@ -5308,16 +5349,11 @@ function hitPart(e){
   pointerNdc.x=((e.clientX-r.left)/r.width)*2-1;
   pointerNdc.y=-((e.clientY-r.top)/r.height)*2+1;
   raycaster.setFromCamera(pointerNdc,camera);
-  const hits=raycaster.intersectObjects([bucket,body],true);
+  const hits=raycaster.intersectObjects([body],true);
   if(!hits.length)return null;
   return hits[0].object.userData.excavatorPart||null;
 }
 
-motion?.addEventListener('click',()=>{paused=!paused;sync();wake();});
-reset?.addEventListener('click',()=>{
-  yaw=.7;pitch=.38;zoom=10.8;slewCenter=.06;manualSlew=0;slewDirection=1;
-  boom.rotation.z=.08;stick.rotation.z=-.17;bucket.rotation.z=-.28;setLights(true);draw();
-});
 
 host.addEventListener('pointerdown',e=>{
   drag=true;lastX=e.clientX;lastY=e.clientY;pointerDownX=e.clientX;pointerDownY=e.clientY;pointerMoved=false;
@@ -5333,8 +5369,7 @@ host.addEventListener('pointermove',e=>{
   // Dragging the machine rotates ONLY the upper carriage.
   // The sign of the drag reverses the automatic swing direction immediately.
   if(Math.abs(dx)>.2){
-    manualSlew+=dx*.0105;
-    if(Math.abs(dx)>1.2)slewDirection=dx>0?1:-1;
+    manualSlew+=dx*.0092;
   }
   // Gentle vertical camera inspection on mouse, without moving the tracks.
   if(e.pointerType==='mouse'&&Math.abs(dy)>.3)pitch=Math.max(.12,Math.min(.85,pitch+dy*.0032));
@@ -5345,48 +5380,37 @@ function finishPointer(e){
   if(!drag)return;
   drag=false;
   const part=pointerDownPart;
-  if(!pointerMoved&&part==='bucket'){
-    bucketPunch=1;bucketPunchStart=performance.now();
-    if(paused){paused=false;sync();}
-    wake();
-    if(navigator.vibrate)navigator.vibrate(18);
+
+  if(!pointerMoved&&part==='work'){
+    startWork();
+    if(navigator.vibrate)navigator.vibrate(16);
   }else if(!pointerMoved&&part==='body'){
     setLights(!lightsOn);
-    if(navigator.vibrate)navigator.vibrate(12);
+    if(navigator.vibrate)navigator.vibrate(10);
     draw();
   }
   pointerDownPart=null;
 }
 for(const event of ['pointerup','pointercancel','lostpointercapture'])host.addEventListener(event,finishPointer);
 
-host.addEventListener('dblclick',e=>{
-  // Double-click/tap reverses the work swing, useful as a quick direction control.
-  slewDirection*=-1;
-  if(navigator.vibrate)navigator.vibrate([12,30,12]);
-  wake();
-});
 
 host.addEventListener('keydown',e=>{
-  if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','Enter',' '].includes(e.key))return;
+  if(!['ArrowLeft','ArrowRight','Enter',' '].includes(e.key))return;
   e.preventDefault();
-  if(e.key==='ArrowLeft'){manualSlew-=.16;slewDirection=-1;}
-  if(e.key==='ArrowRight'){manualSlew+=.16;slewDirection=1;}
-  if(e.key==='ArrowUp')pitch=Math.min(.85,pitch+.08);
-  if(e.key==='ArrowDown')pitch=Math.max(.12,pitch-.08);
-  if(e.key==='Enter'){setLights(!lightsOn);}
-  if(e.key===' '){bucketPunch=1;bucketPunchStart=performance.now();if(paused){paused=false;sync();}wake();}
-  if(e.key==='Home'){yaw=.7;pitch=.38;manualSlew=0;slewDirection=1;setLights(true);}
+  if(e.key==='ArrowLeft')manualSlew-=.14;
+  if(e.key==='ArrowRight')manualSlew+=.14;
+  if(e.key==='Enter')setLights(!lightsOn);
+  if(e.key===' ')startWork();
   draw();
 });
-
 new ResizeObserver(()=>draw()).observe(host);
 new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible&&frame){cancelAnimationFrame(frame);frame=0;}wake();},{rootMargin:'80px'}).observe(host);
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&frame){cancelAnimationFrame(frame);frame=0;}wake();});
-matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{paused=e.matches;sync();wake();});
-renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();paused=true;sync();fallback.hidden=false;host.style.opacity='0';});
+matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{paused=e.matches;wake();});
+renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();paused=true;fallback.hidden=false;host.style.opacity='0';});
 renderer.domElement.addEventListener('webglcontextrestored',()=>{fallback.hidden=true;host.style.opacity='1';draw();});
 
-fallback.hidden=true;const ctl=document.getElementById('excavatorControls');if(ctl)ctl.hidden=true;draw();wake();host.dataset.renderer='webgl';
+fallback.hidden=true;draw();wake();host.dataset.renderer='webgl';
 }catch(e){host.hidden=true;fallback.hidden=false;fallback.querySelector('p').textContent=document.documentElement.lang==='en'?'The 3D scene could not start. Open the website in Safari or Chrome with WebGL enabled.':'3D-näkymä ei käynnistynyt. Avaa verkkosivu Safarissa tai Chromessa, jossa WebGL on käytössä.';console.warn('Excavator WebGL unavailable',e);}
 })();
 </script>
