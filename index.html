@@ -3941,27 +3941,36 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 </style>
 
 
-<style id="malistan-excavator-final-v5">
+<style id="malistan-excavator-mobile-fix-v6">
 #excavatorControls,.excavator-bottom{display:none!important}
-#excavatorViewport{inset:-18px -5% -8px -5%!important}
-#earthwork3d.excavator-scene{height:650px!important}
-#excavatorViewport canvas{
-  filter:saturate(1.10) contrast(1.055) brightness(1.055)
-    drop-shadow(0 28px 30px rgba(0,0,0,.24))!important;
+
+/* Keep desktop look from the version the user approved. */
+#earthwork3d.excavator-scene{
+  width:min(116%,860px)!important;
+  height:640px!important;
+  margin-left:-6%!important;
 }
-#excavatorViewport.excavator-lights-on::after{
-  content:"";position:absolute;inset:6% -2% 7%;z-index:5;pointer-events:none;
-  background:radial-gradient(ellipse at 58% 34%,rgba(255,250,210,.32) 0 2.3%,rgba(255,229,145,.15) 4%,transparent 17%);
-  filter:blur(5px);mix-blend-mode:screen;
+#excavatorViewport{
+  inset:-18px -5% 0 -5%!important;
 }
-@media(max-width:1120px){
-  #earthwork3d.excavator-scene{height:600px!important}
-}
+
+/* Phone: normal size, fully visible, no 145% zoom. */
 @media(max-width:620px){
-  #etusivu #realHeroArt{min-height:470px!important}
-  #earthwork3d.excavator-scene{width:145%!important;height:470px!important;margin-left:-22.5%!important}
-  #excavatorViewport{inset:-35px -11% -18px -11%!important}
-  #excavatorViewport canvas{transform:scale(1.22);transform-origin:50% 52%}
+  #etusivu #realHeroArt{
+    min-height:420px!important;
+    margin-top:4px!important;
+  }
+  #earthwork3d.excavator-scene{
+    width:102%!important;
+    height:405px!important;
+    margin-left:-1%!important;
+  }
+  #excavatorViewport{
+    inset:-4px 0 0 0!important;
+  }
+  #excavatorViewport canvas{
+    transform:none!important;
+  }
 }
 </style>
 
@@ -4019,7 +4028,7 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 </div>
 <div class="hero-art reveal" id="realHeroArt">
 <div id="earthwork3d" class="excavator-scene">
-<div class="excavator-heading"><span>MALISTAN PALVELU</span><span data-fi="Maanrakennus" data-en="Earthworks">Maanrakennus</span></div>
+<div class="excavator-heading"><span>MALISTANPALVELU</span><span data-fi="Maanrakennus" data-en="Earthworks">Maanrakennus</span></div>
 <div id="excavatorFallback" role="status"><p data-fi="Avaa sivu selaimessa nähdäksesi liikkuvan 3D-kaivinkoneen." data-en="Open this page in a browser to view the animated 3D excavator.">Avaa sivu selaimessa nähdäksesi liikkuvan 3D-kaivinkoneen.</p><noscript>JavaScript tarvitaan 3D-esittelyyn. / JavaScript is required for the 3D scene.</noscript></div>
 <div id="excavatorViewport" tabindex="0" role="group" aria-label="3D-kaivinkone. Kierrä vetämällä tai nuolinäppäimillä." data-fi-aria-label="3D-kaivinkone. Kierrä vetämällä tai nuolinäppäimillä." data-en-aria-label="3D excavator. Drag or use arrow keys to rotate."></div>
 </div>
@@ -5155,7 +5164,7 @@ host.appendChild(renderer.domElement);renderer.domElement.setAttribute('aria-hid
 scene.add(new T.HemisphereLight(0xdcefe7,0x393025,2.5));
 const sun=new T.DirectionalLight(0xffedce,4);sun.position.set(-3,9,6);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8,near:1,far:25});sun.shadow.normalBias=.04;scene.add(sun);
 const rim=new T.DirectionalLight(0x88d9c0,2.5);rim.position.set(4,5,-5);scene.add(rim);
-const yellow=new T.MeshPhysicalMaterial({color:0xd94a32,metalness:.30,roughness:.27,clearcoat:.72,clearcoatRoughness:.18}),dark=new T.MeshPhysicalMaterial({color:0x1b2222,metalness:.68,roughness:.34,clearcoat:.18}),steel=new T.MeshPhysicalMaterial({color:0x879195,metalness:.92,roughness:.2}),rubber=new T.MeshStandardMaterial({color:0x101414,roughness:.96}),glass=new T.MeshPhysicalMaterial({color:0xcceff5,metalness:0,roughness:.045,transmission:.48,transparent:true,opacity:.68,clearcoat:1,clearcoatRoughness:.035,ior:1.46,thickness:.08,side:T.DoubleSide}),ground=new T.MeshStandardMaterial({color:0x344e43,roughness:.95});
+const yellow=new T.MeshPhysicalMaterial({color:0xe96a1a,metalness:.32,roughness:.30,clearcoat:.58,clearcoatRoughness:.24}),dark=new T.MeshPhysicalMaterial({color:0x1b2222,metalness:.68,roughness:.34,clearcoat:.18}),steel=new T.MeshPhysicalMaterial({color:0x879195,metalness:.92,roughness:.2}),rubber=new T.MeshStandardMaterial({color:0x101414,roughness:.96}),glass=new T.MeshPhysicalMaterial({color:0x224c57,metalness:.05,roughness:.08,transmission:.28,transparent:true,opacity:.78,clearcoat:.8,clearcoatRoughness:.08}),ground=new T.MeshStandardMaterial({color:0x344e43,roughness:.95});
 function mesh(g,m,p,x=0,y=0,z=0){const a=new T.Mesh(g,m);a.position.set(x,y,z);a.castShadow=true;a.receiveShadow=true;p.add(a);return a;}
 function box(p,w,h,d,x,y,z,m=yellow){return mesh(new T.BoxGeometry(w,h,d),m,p,x,y,z);}
 function cylinder(p,r,h,x,y,z,m=dark){return mesh(new T.CylinderGeometry(r,r,h,24),m,p,x,y,z);}
@@ -5224,11 +5233,6 @@ for(const z of [-.966,.966]){
 }
 // small MALISTAN plate on boom
 const boomBrandMat=new T.MeshBasicMaterial({map:brandTexture(),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-5});
-for(const z of [-.905,.905]){
-  const rearBrand=mesh(new T.PlaneGeometry(1.02,.19),decalMat,body,-.70,.72,z);
-  if(z<0)rearBrand.rotation.y=Math.PI;
-}
-
 
 // Articulated boom, stick and bucket use local pivots in three dimensions.
 const boom=new T.Group();boom.position.set(.65,.47,-.43);body.add(boom);
@@ -5301,38 +5305,43 @@ function animateWork(now){
     boom.rotation.z=.08;
     stick.rotation.z=-.17;
     bucket.rotation.z=-.28;
-    body.position.y=1.15;
     return;
   }
 
   const p=Math.min(1,(now-workStart)/workDuration);
-  let br=.08,sr=-.17,kr=-.28;
+  let br=.08, sr=-.17, kr=-.28;
 
-  if(p<.24){
-    const q=ease(p/.24);
-    br=mix(.08,-.035,q); sr=mix(-.17,-.42,q); kr=mix(-.28,-.10,q);
-  }else if(p<.48){
-    const q=ease((p-.24)/.24);
-    br=mix(-.035,-.105,q); sr=mix(-.42,-.56,q); kr=mix(-.10,-.82,q);
-  }else if(p<.72){
-    const q=ease((p-.48)/.24);
-    br=mix(-.105,.21,q); sr=mix(-.56,-.31,q); kr=mix(-.82,-.72,q);
+  if(p<.25){
+    const q=ease(p/.25);
+    br=mix(.08,-.02,q);
+    sr=mix(-.17,-.40,q);
+    kr=mix(-.28,-.12,q);
+  }else if(p<.50){
+    const q=ease((p-.25)/.25);
+    br=mix(-.02,-.09,q);
+    sr=mix(-.40,-.54,q);
+    kr=mix(-.12,-.78,q);
+  }else if(p<.75){
+    const q=ease((p-.50)/.25);
+    br=mix(-.09,.18,q);
+    sr=mix(-.54,-.30,q);
+    kr=mix(-.78,-.68,q);
   }else{
-    const q=ease((p-.72)/.28);
-    br=mix(.21,.08,q); sr=mix(-.31,-.17,q); kr=mix(-.72,-.28,q);
+    const q=ease((p-.75)/.25);
+    br=mix(.18,.08,q);
+    sr=mix(-.30,-.17,q);
+    kr=mix(-.68,-.28,q);
   }
 
   boom.rotation.z=br;
   stick.rotation.z=sr;
   bucket.rotation.z=kr;
-  body.position.y=1.15+Math.sin((now-workStart)*.018)*.0018;
 
   if(p>=1){
     workActive=false;
     boom.rotation.z=.08;
     stick.rotation.z=-.17;
     bucket.rotation.z=-.28;
-    body.position.y=1.15;
   }
 }
 function tick(now){
@@ -5349,7 +5358,7 @@ function hitPart(e){
   pointerNdc.x=((e.clientX-r.left)/r.width)*2-1;
   pointerNdc.y=-((e.clientY-r.top)/r.height)*2+1;
   raycaster.setFromCamera(pointerNdc,camera);
-  const hits=raycaster.intersectObjects([body],true);
+  const hits=raycaster.intersectObjects([bucket,body],true);
   if(!hits.length)return null;
   return hits[0].object.userData.excavatorPart||null;
 }
@@ -5381,14 +5390,15 @@ function finishPointer(e){
   drag=false;
   const part=pointerDownPart;
 
-  if(!pointerMoved&&part==='work'){
-    startWork();
-    if(navigator.vibrate)navigator.vibrate(16);
-  }else if(!pointerMoved&&part==='body'){
+  if(!pointerMoved&&part==='body'){
     setLights(!lightsOn);
     if(navigator.vibrate)navigator.vibrate(10);
     draw();
+  }else if(!pointerMoved&&part==='work'){
+    startWork();
+    if(navigator.vibrate)navigator.vibrate(14);
   }
+
   pointerDownPart=null;
 }
 for(const event of ['pointerup','pointercancel','lostpointercapture'])host.addEventListener(event,finishPointer);
