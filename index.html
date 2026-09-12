@@ -3997,6 +3997,17 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 }
 </style>
 
+
+<style id="malistan-final-excavator-fixes">
+.excavator-bottom{display:none!important}
+#excavatorViewport{inset:0!important;touch-action:pan-y!important}
+#earthwork3d.excavator-scene{min-height:0}
+@media(max-width:620px){
+  #earthwork3d.excavator-scene{height:390px!important}
+  #etusivu #realHeroArt{min-height:390px!important}
+  #excavatorViewport{inset:0!important}
+}
+</style>
 </head>
 <body><div id="designedBackdrop" aria-hidden="true"><i class="light-field light-field-a"></i><i class="light-field light-field-b"></i><i class="contour contour-a"></i><i class="contour contour-b"></i><i class="draft-grid"></i></div>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -5430,27 +5441,49 @@ renderer.localClippingEnabled=true;
 host.replaceChildren(renderer.domElement);
 
 scene.add(new THREE.HemisphereLight(0xe9f3ef,0x34322f,2.25));
-const key=new THREE.DirectionalLight(0xfff2d8,3.4);key.position.set(-5,8,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);scene.add(key);
+const key=new THREE.DirectionalLight(0xfff2d8,3.4);
+key.position.set(-5,8,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);scene.add(key);
 const fill=new THREE.DirectionalLight(0xb8d7ff,1.2);fill.position.set(5,4,-5);scene.add(fill);
 const rim=new THREE.DirectionalLight(0xff8b69,1.15);rim.position.set(-5,3,-7);scene.add(rim);
 
-const ground=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.ShadowMaterial({opacity:.20}));
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.ShadowMaterial({opacity:.18}));
 ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;scene.add(ground);
 
-let upperRoot=null,lowerRoot=null,mixer=null,workAction=null;
-let modelSize=new THREE.Vector3(6,4,3),cutY=1,drag=null,upperYaw=0,lightsOn=false,bodyLights=[];
+let upperRoot=null;
+let lowerRoot=null;
+let turntable=null;
+let mixer=null;
+let workAction=null;
+let modelSize=new THREE.Vector3(6,4,3);
+let cutY=1;
+let drag=null;
+let upperYaw=0;
+let lightsOn=false;
+const bodyLights=[];
 
 function tuneMaterials(root){
   root.traverse(obj=>{
     if(!obj.isMesh)return;
-    obj.castShadow=true;obj.receiveShadow=true;
+    obj.castShadow=true;
+    obj.receiveShadow=true;
+
     const mats=Array.isArray(obj.material)?obj.material:[obj.material];
     mats.forEach(mat=>{
       if(!mat)return;
       const n=String(mat.name||'').toLowerCase();
+
       if(n.includes('유리')||n.includes('glass')||n.includes('window')){
-        mat.transparent=true;mat.opacity=.60;mat.depthWrite=false;mat.roughness=Math.min(mat.roughness??.2,.10);mat.metalness=0;
-        if(mat.color)mat.color.set(0xbfe9f2);
+        mat.transparent=true;
+        mat.opacity=.67;
+        mat.depthWrite=false;
+        mat.roughness=Math.min(mat.roughness??.2,.08);
+        mat.metalness=0;
+        if(mat.color)mat.color.set(0xd8f5ff);
+      }
+
+      if(mat.map){
+        mat.map.colorSpace=THREE.SRGBColorSpace;
+        mat.map.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
       }
       mat.needsUpdate=true;
     });
@@ -5460,37 +5493,85 @@ function tuneMaterials(root){
 function applyClip(root,plane){
   root.traverse(obj=>{
     if(!obj.isMesh)return;
+
+    const cloneMaterial=m=>{
+      const c=m.clone();
+      c.clippingPlanes=[plane];
+      c.clipShadows=true;
+      c.needsUpdate=true;
+      return c;
+    };
+
     if(Array.isArray(obj.material)){
-      obj.material=obj.material.map(m=>{const c=m.clone();c.clippingPlanes=[plane];c.clipShadows=true;c.needsUpdate=true;return c});
+      obj.material=obj.material.map(cloneMaterial);
     }else if(obj.material){
-      obj.material=obj.material.clone();obj.material.clippingPlanes=[plane];obj.material.clipShadows=true;obj.material.needsUpdate=true;
+      obj.material=cloneMaterial(obj.material);
     }
   });
 }
 
 function normalizeModel(root){
   root.updateMatrixWorld(true);
-  let b=new THREE.Box3().setFromObject(root),s=b.getSize(new THREE.Vector3());
-  const scale=5.6/Math.max(s.x,s.y,s.z,.001);
-  root.scale.multiplyScalar(scale);root.updateMatrixWorld(true);
-  b=new THREE.Box3().setFromObject(root);
-  const c=b.getCenter(new THREE.Vector3());
-  root.position.x-=c.x;root.position.z-=c.z;root.position.y-=b.min.y;root.updateMatrixWorld(true);
+  let box=new THREE.Box3().setFromObject(root);
+  const size=box.getSize(new THREE.Vector3());
+  const scale=5.65/Math.max(size.x,size.y,size.z,.001);
+
+  root.scale.multiplyScalar(scale);
+  root.updateMatrixWorld(true);
+
+  box=new THREE.Box3().setFromObject(root);
+  const center=box.getCenter(new THREE.Vector3());
+
+  root.position.x-=center.x;
+  root.position.z-=center.z;
+  root.position.y-=box.min.y;
+  root.updateMatrixWorld(true);
 }
 
 function makeBrandTexture(){
-  const c=document.createElement('canvas');c.width=1800;c.height=300;const x=c.getContext('2d');
-  x.fillStyle='rgba(12,15,15,.94)';x.roundRect(10,10,1780,280,40);x.fill();
-  x.strokeStyle='rgba(255,255,255,.88)';x.lineWidth=8;x.stroke();
-  x.fillStyle='#fff';x.font='900 112px Arial,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('MALISTANPALVELU',900,153);
-  const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;return tex;
+  const c=document.createElement('canvas');
+  c.width=1800;c.height=300;
+  const x=c.getContext('2d');
+
+  x.fillStyle='rgba(12,15,15,.94)';
+  if(typeof x.roundRect==='function'){
+    x.beginPath();x.roundRect(10,10,1780,280,40);x.fill();
+  }else{
+    x.fillRect(10,10,1780,280);
+  }
+
+  x.strokeStyle='rgba(255,255,255,.88)';
+  x.lineWidth=8;
+  x.strokeRect(14,14,1772,272);
+
+  x.fillStyle='#fff';
+  x.font='900 112px Arial,sans-serif';
+  x.textAlign='center';
+  x.textBaseline='middle';
+  x.fillText('MALISTANPALVELU',900,153);
+
+  const tex=new THREE.CanvasTexture(c);
+  tex.colorSpace=THREE.SRGBColorSpace;
+  return tex;
 }
 
 function addBranding(){
-  const mat=new THREE.MeshBasicMaterial({map:makeBrandTexture(),transparent:true,side:THREE.DoubleSide,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-4});
-  const pw=Math.min(Math.max(modelSize.x,modelSize.z)*.34,1.55),ph=pw*.17;
+  if(!upperRoot)return;
+
+  const baseMat=new THREE.MeshBasicMaterial({
+    map:makeBrandTexture(),
+    transparent:true,
+    side:THREE.DoubleSide,
+    depthWrite:false,
+    polygonOffset:true,
+    polygonOffsetFactor:-4
+  });
+
+  const pw=Math.min(Math.max(modelSize.x,modelSize.z)*.30,1.45);
+  const ph=pw*.17;
+
   for(const side of [-1,1]){
-    const p=new THREE.Mesh(new THREE.PlaneGeometry(pw,ph),mat.clone());
+    const p=new THREE.Mesh(new THREE.PlaneGeometry(pw,ph),baseMat.clone());
     p.position.set(0,cutY+modelSize.y*.20,side*(modelSize.z*.50+.018));
     if(side<0)p.rotation.y=Math.PI;
     upperRoot.add(p);
@@ -5498,85 +5579,282 @@ function addBranding(){
 }
 
 function addLights(){
-  const z=modelSize.z*.45;
+  if(!upperRoot)return;
+
+  const z=modelSize.z*.42;
   for(const side of [-1,1]){
-    const bulb=new THREE.Mesh(new THREE.SphereGeometry(.035,14,10),new THREE.MeshBasicMaterial({color:0xfff3be}));
-    bulb.position.set(modelSize.x*.09,cutY+modelSize.y*.34,side*z);bulb.visible=false;upperRoot.add(bulb);
-    const spot=new THREE.SpotLight(0xfff0bd,0,10,Math.PI/8,.55,1.2);spot.position.copy(bulb.position);
-    const target=new THREE.Object3D();target.position.set(modelSize.x*.72,cutY+modelSize.y*.12,side*z*.92);upperRoot.add(target);spot.target=target;upperRoot.add(spot);
+    const bulb=new THREE.Mesh(
+      new THREE.SphereGeometry(.038,14,10),
+      new THREE.MeshBasicMaterial({color:0xfff4c7})
+    );
+    bulb.position.set(modelSize.x*.08,cutY+modelSize.y*.34,side*z);
+    bulb.visible=false;
+    upperRoot.add(bulb);
+
+    const spot=new THREE.SpotLight(0xffefbd,0,10,Math.PI/8,.55,1.2);
+    spot.position.copy(bulb.position);
+
+    const target=new THREE.Object3D();
+    target.position.set(modelSize.x*.72,cutY+modelSize.y*.10,side*z*.92);
+
+    upperRoot.add(target);
+    spot.target=target;
+    upperRoot.add(spot);
+
     bodyLights.push({bulb,spot});
   }
 }
-function setLights(on){lightsOn=on;bodyLights.forEach(({bulb,spot})=>{bulb.visible=on;spot.intensity=on?18:0});host.classList.toggle('excavator-lights-on',on)}
 
-function frameCamera(){
-  const r=host.getBoundingClientRect();if(!r.width||!r.height)return;
-  renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();
-  const pad=r.width<620?1.55:1.30,fov=THREE.MathUtils.degToRad(camera.fov);
-  const targetH=modelSize.y*pad,targetW=Math.max(modelSize.x,modelSize.z)*pad;
-  const distV=(targetH*.5)/Math.tan(fov*.5),distH=(targetW*.5)/(Math.tan(fov*.5)*camera.aspect),d=Math.max(distV,distH);
-  camera.position.set(d*.72,modelSize.y*.56,d*.92);camera.lookAt(0,modelSize.y*.43,0);
+function setLights(on){
+  lightsOn=on;
+  bodyLights.forEach(({bulb,spot})=>{
+    bulb.visible=on;
+    spot.intensity=on?18:0;
+  });
+  host.classList.toggle('excavator-lights-on',on);
 }
 
-function work(){
+function frameCamera(){
+  const r=host.getBoundingClientRect();
+  if(!r.width||!r.height)return;
+
+  renderer.setSize(r.width,r.height,false);
+  camera.aspect=r.width/r.height;
+  camera.updateProjectionMatrix();
+
+  const mobile=r.width<620;
+  const pad=mobile?1.55:1.28;
+  const fov=THREE.MathUtils.degToRad(camera.fov);
+  const targetH=modelSize.y*pad;
+  const targetW=Math.max(modelSize.x,modelSize.z)*pad;
+  const distV=(targetH*.5)/Math.tan(fov*.5);
+  const distH=(targetW*.5)/(Math.tan(fov*.5)*camera.aspect);
+  const d=Math.max(distV,distH);
+
+  camera.position.set(d*.72,modelSize.y*.56,d*.92);
+  camera.lookAt(0,modelSize.y*.43,0);
+}
+
+function playWorkMotion(){
   if(!workAction)return;
-  workAction.stop();workAction.reset();workAction.setLoop(THREE.LoopOnce,1);workAction.clampWhenFinished=true;workAction.timeScale=.68;workAction.play();
+  workAction.stop();
+  workAction.reset();
+  workAction.enabled=true;
+  workAction.setLoop(THREE.LoopOnce,1);
+  workAction.clampWhenFinished=true;
+  workAction.timeScale=.62;
+  workAction.play();
 }
 
 function ndc(e){
   const r=host.getBoundingClientRect();
-  return new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);
+  return new THREE.Vector2(
+    ((e.clientX-r.left)/r.width)*2-1,
+    -((e.clientY-r.top)/r.height)*2+1
+  );
 }
+
 function hitType(e){
   if(!upperRoot)return null;
-  const ray=new THREE.Raycaster();ray.setFromCamera(ndc(e),camera);
-  const hits=ray.intersectObject(upperRoot,true).filter(h=>h.object.isMesh);if(!hits.length)return null;
-  const p=upperRoot.worldToLocal(hits[0].point.clone());
-  const longX=modelSize.x>=modelSize.z,longCoord=Math.abs(longX?p.x:p.z),longSize=longX?modelSize.x:modelSize.z;
-  if(longCoord>longSize*.25||p.y>cutY+modelSize.y*.47)return 'work';
+
+  const ray=new THREE.Raycaster();
+  ray.setFromCamera(ndc(e),camera);
+
+  const hits=ray.intersectObject(upperRoot,true).filter(h=>h.object.isMesh);
+  if(!hits.length)return null;
+
+  const local=upperRoot.worldToLocal(hits[0].point.clone());
+  const longX=modelSize.x>=modelSize.z;
+  const longCoord=Math.abs(longX?local.x:local.z);
+  const longSize=longX?modelSize.x:modelSize.z;
+
+  if(longCoord>longSize*.26 || local.y>cutY+modelSize.y*.46)return 'work';
   return 'body';
 }
 
+function findTurntablePivot(source){
+  /*
+    The old version rotated the upper clone around the centre of the entire
+    excavator bounding box. Because the boom is long, that centre is NOT the
+    real slewing-ring pivot and the machine appeared to orbit incorrectly.
+
+    This file uses the real rig root ("Bone") as the preferred pivot. If that
+    node is unavailable, it falls back to the excavator armature/null root.
+  */
+  source.updateMatrixWorld(true);
+
+  const candidate=
+    source.getObjectByName('Bone') ||
+    source.getObjectByName('Excavators') ||
+    null;
+
+  if(candidate){
+    const p=new THREE.Vector3();
+    candidate.getWorldPosition(p);
+    return p;
+  }
+
+  return new THREE.Vector3(0,cutY,0);
+}
+
+function mountUpperOnRealPivot(source){
+  const pivot=findTurntablePivot(source);
+
+  turntable=new THREE.Group();
+  turntable.name='MalistanUpperTurntable';
+  turntable.position.set(pivot.x,0,pivot.z);
+
+  /*
+    Preserve the upper clone's current world position while moving it under
+    the new pivot group. Y is untouched because a Y-axis turn does not need a
+    vertical offset; only X/Z define the slewing axis.
+  */
+  upperRoot.position.x-=pivot.x;
+  upperRoot.position.z-=pivot.z;
+
+  turntable.add(upperRoot);
+  scene.add(turntable);
+}
+
 host.addEventListener('pointerdown',e=>{
-  drag={id:e.pointerId,x:e.clientX,y:e.clientY,yaw:upperYaw,moved:false};host.setPointerCapture?.(e.pointerId);
+  if(e.pointerType==='mouse' && e.button!==0)return;
+
+  drag={
+    id:e.pointerId,
+    x:e.clientX,
+    y:e.clientY,
+    yaw:upperYaw,
+    moved:false
+  };
+
+  host.setPointerCapture?.(e.pointerId);
 },{passive:true});
+
 host.addEventListener('pointermove',e=>{
-  if(!drag||drag.id!==e.pointerId||!upperRoot)return;
-  const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+  if(!drag||drag.id!==e.pointerId||!turntable)return;
+
+  const dx=e.clientX-drag.x;
+  const dy=e.clientY-drag.y;
+
   if(Math.hypot(dx,dy)>5)drag.moved=true;
-  if(drag.moved){upperYaw=drag.yaw+dx*.0085;upperRoot.rotation.y=upperYaw}
-},{passive:true});
+
+  if(drag.moved && Math.abs(dx)>=Math.abs(dy)*.55){
+    e.preventDefault?.();
+    upperYaw=drag.yaw+dx*.008;
+    turntable.rotation.y=upperYaw;
+  }
+},{passive:false});
+
 host.addEventListener('pointerup',e=>{
   if(!drag||drag.id!==e.pointerId)return;
-  const moved=drag.moved;drag=null;if(moved)return;
+
+  const moved=drag.moved;
+  drag=null;
+
+  if(moved)return;
+
   const type=hitType(e);
-  if(type==='body'){setLights(!lightsOn);if(navigator.vibrate)navigator.vibrate(9)}
-  else if(type==='work'){work();if(navigator.vibrate)navigator.vibrate(14)}
-},{passive:true});
-host.addEventListener('pointercancel',()=>drag=null,{passive:true});
 
-const loader=new FBXLoader();
-loader.load('./excavator-rig.fbx',source=>{
-  tuneMaterials(source);normalizeModel(source);source.updateMatrixWorld(true);
-  const box=new THREE.Box3().setFromObject(source);modelSize=box.getSize(new THREE.Vector3());cutY=box.min.y+modelSize.y*.275;
-  lowerRoot=cloneSkeleton(source);upperRoot=cloneSkeleton(source);
-  applyClip(lowerRoot,new THREE.Plane(new THREE.Vector3(0,1,0),-cutY));
-  applyClip(upperRoot,new THREE.Plane(new THREE.Vector3(0,-1,0),cutY));
-  scene.add(lowerRoot);scene.add(upperRoot);
-
-  if(source.animations?.length){
-    mixer=new THREE.AnimationMixer(upperRoot);workAction=mixer.clipAction(source.animations[0]);workAction.stop();
+  if(type==='body'){
+    setLights(!lightsOn);
+    if(navigator.vibrate)navigator.vibrate(9);
+  }else if(type==='work'){
+    playWorkMotion();
+    if(navigator.vibrate)navigator.vibrate(14);
   }
-  addBranding();addLights();setLights(false);frameCamera();
-  if(fallback)fallback.hidden=true;
-},undefined,err=>{
-  console.error(err);
-  if(fallback){fallback.hidden=false;fallback.innerHTML='<p>3D-mallin lataus epäonnistui. / 3D model could not be loaded.</p>'}
+},{passive:true});
+
+host.addEventListener('pointercancel',()=>{
+  drag=null;
+},{passive:true});
+
+host.addEventListener('keydown',e=>{
+  if(!turntable)return;
+
+  if(e.key==='ArrowLeft'){
+    e.preventDefault();
+    upperYaw-=.12;
+    turntable.rotation.y=upperYaw;
+  }else if(e.key==='ArrowRight'){
+    e.preventDefault();
+    upperYaw+=.12;
+    turntable.rotation.y=upperYaw;
+  }else if(e.key==='Enter'||e.key===' '){
+    e.preventDefault();
+    playWorkMotion();
+  }
 });
 
+const loader=new FBXLoader();
+
+loader.load(
+  './excavator-rig.fbx',
+  source=>{
+    tuneMaterials(source);
+    normalizeModel(source);
+    source.updateMatrixWorld(true);
+
+    const box=new THREE.Box3().setFromObject(source);
+    modelSize=box.getSize(new THREE.Vector3());
+
+    /*
+      Keep the complete wheeled undercarriage/static lower chassis below this
+      plane. Only the superstructure above it is in the rotating clone.
+    */
+    cutY=box.min.y+modelSize.y*.275;
+
+    lowerRoot=cloneSkeleton(source);
+    upperRoot=cloneSkeleton(source);
+
+    /* lowerRoot keeps everything BELOW the slewing deck */
+    applyClip(
+      lowerRoot,
+      new THREE.Plane(new THREE.Vector3(0,1,0),-cutY)
+    );
+
+    /* upperRoot keeps everything ABOVE the slewing deck */
+    applyClip(
+      upperRoot,
+      new THREE.Plane(new THREE.Vector3(0,-1,0),cutY)
+    );
+
+    scene.add(lowerRoot);
+    mountUpperOnRealPivot(source);
+
+    if(source.animations?.length){
+      mixer=new THREE.AnimationMixer(upperRoot);
+      workAction=mixer.clipAction(source.animations[0]);
+      workAction.stop();
+    }
+
+    addBranding();
+    addLights();
+    setLights(false);
+    frameCamera();
+
+    if(fallback)fallback.hidden=true;
+  },
+  undefined,
+  err=>{
+    console.error('Excavator FBX load failed:',err);
+    if(fallback){
+      fallback.hidden=false;
+      fallback.innerHTML='<p>3D-mallin lataus epäonnistui. / 3D model could not be loaded.</p>';
+    }
+  }
+);
+
 const clock=new THREE.Clock();
-function render(){const dt=Math.min(clock.getDelta(),.05);if(mixer)mixer.update(dt);renderer.render(scene,camera);requestAnimationFrame(render)}
+
+function render(){
+  const dt=Math.min(clock.getDelta(),.05);
+  if(mixer)mixer.update(dt);
+  renderer.render(scene,camera);
+  requestAnimationFrame(render);
+}
+
 render();
+
 new ResizeObserver(frameCamera).observe(host);
 </script>
 
