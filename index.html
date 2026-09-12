@@ -3906,49 +3906,37 @@ html[data-theme="light"] :is(.contact-copy,.contact-copy strong,.contact-copy sp
 </style>
 
 
-<style id="malistan-direct-excavator-v4">
+<style id="malistan-clean-direct-control">
 #excavatorControls{display:none!important}
 #earthwork3d.excavator-scene{
-  width:min(120%,900px)!important;
-  height:680px!important;
-  margin-left:-8%!important;
+  width:min(116%,860px)!important;
+  height:640px!important;
+  margin-left:-6%!important;
   overflow:visible!important;
 }
 #excavatorViewport{
-  inset:-28px -7% 0 -7%!important;
-  cursor:grab!important;
+  inset:-18px -5% 0 -5%!important;
   overflow:visible!important;
+  cursor:grab!important;
 }
 #excavatorViewport:active{cursor:grabbing!important}
 #excavatorViewport canvas{
   width:100%!important;height:100%!important;max-width:none!important;
-  filter:saturate(1.14) contrast(1.075) brightness(1.035) drop-shadow(0 30px 32px rgba(0,0,0,.28))!important;
+  filter:saturate(1.08) contrast(1.06) brightness(1.025) drop-shadow(0 28px 30px rgba(0,0,0,.25))!important;
 }
-#earthwork3d::after{
-  content:"Vedä yläosaa • napauta konetta: valot • napauta kauhaa: työ";
-  position:absolute;left:50%;bottom:5px;transform:translateX(-50%);
-  z-index:6;max-width:90%;white-space:nowrap;
-  padding:8px 13px;border-radius:999px;
-  color:rgba(235,245,239,.68);font:600 10px/1.2 Inter,sans-serif;letter-spacing:.02em;
-  background:rgba(5,19,15,.20);border:1px solid rgba(255,255,255,.08);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  pointer-events:none;
-}
-html[lang="en"] #earthwork3d::after{content:"Drag upper body • tap machine: lights • tap bucket: work"}
 #excavatorViewport.excavator-lights-on::after{
-  content:"";position:absolute;inset:10% -5% 11%;z-index:4;pointer-events:none;
+  content:"";position:absolute;inset:8% 0 10%;z-index:5;pointer-events:none;
   background:
-    radial-gradient(ellipse at 58% 34%,rgba(255,248,198,.34) 0 2.5%,rgba(255,222,120,.17) 4%,transparent 17%),
-    conic-gradient(from 249deg at 59% 35%,transparent 0 7deg,rgba(255,232,157,.16) 8deg 19deg,transparent 20deg 360deg);
-  filter:blur(4px);mix-blend-mode:screen;
+    radial-gradient(circle at 58% 35%,rgba(255,246,190,.26),transparent 8%),
+    conic-gradient(from 250deg at 58% 35%,transparent 0 8deg,rgba(255,232,160,.12) 10deg 18deg,transparent 20deg 360deg);
+  filter:blur(5px);mix-blend-mode:screen;
 }
 @media(max-width:1120px){
-  #earthwork3d.excavator-scene{width:min(112%,860px)!important;margin-inline:-6%!important;height:620px!important}
+  #earthwork3d.excavator-scene{width:min(108%,820px)!important;margin-inline:-4%!important;height:590px!important}
 }
 @media(max-width:620px){
-  #earthwork3d.excavator-scene{width:118%!important;margin-left:-9%!important;height:510px!important}
-  #excavatorViewport{inset:-24px -5% 16px -5%!important}
-  #earthwork3d::after{bottom:0;font-size:9px;max-width:94%;white-space:normal;text-align:center}
+  #earthwork3d.excavator-scene{width:114%!important;margin-left:-7%!important;height:480px!important}
+  #excavatorViewport{inset:-16px -3% 6px!important}
 }
 </style>
 
@@ -5142,7 +5130,7 @@ host.appendChild(renderer.domElement);renderer.domElement.setAttribute('aria-hid
 scene.add(new T.HemisphereLight(0xdcefe7,0x393025,2.5));
 const sun=new T.DirectionalLight(0xffedce,4);sun.position.set(-3,9,6);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8,near:1,far:25});sun.shadow.normalBias=.04;scene.add(sun);
 const rim=new T.DirectionalLight(0x88d9c0,2.5);rim.position.set(4,5,-5);scene.add(rim);
-const yellow=new T.MeshPhysicalMaterial({color:0xe84a18,metalness:.28,roughness:.29,clearcoat:.62,clearcoatRoughness:.22}),dark=new T.MeshPhysicalMaterial({color:0x1b2222,metalness:.68,roughness:.34,clearcoat:.18}),steel=new T.MeshPhysicalMaterial({color:0x879195,metalness:.92,roughness:.2}),rubber=new T.MeshStandardMaterial({color:0x101414,roughness:.96}),glass=new T.MeshPhysicalMaterial({color:0x224c57,metalness:.05,roughness:.08,transmission:.28,transparent:true,opacity:.78,clearcoat:.8,clearcoatRoughness:.08}),ground=new T.MeshStandardMaterial({color:0x344e43,roughness:.95});
+const yellow=new T.MeshPhysicalMaterial({color:0xe96a1a,metalness:.32,roughness:.30,clearcoat:.58,clearcoatRoughness:.24}),dark=new T.MeshPhysicalMaterial({color:0x1b2222,metalness:.68,roughness:.34,clearcoat:.18}),steel=new T.MeshPhysicalMaterial({color:0x879195,metalness:.92,roughness:.2}),rubber=new T.MeshStandardMaterial({color:0x101414,roughness:.96}),glass=new T.MeshPhysicalMaterial({color:0x224c57,metalness:.05,roughness:.08,transmission:.28,transparent:true,opacity:.78,clearcoat:.8,clearcoatRoughness:.08}),ground=new T.MeshStandardMaterial({color:0x344e43,roughness:.95});
 function mesh(g,m,p,x=0,y=0,z=0){const a=new T.Mesh(g,m);a.position.set(x,y,z);a.castShadow=true;a.receiveShadow=true;p.add(a);return a;}
 function box(p,w,h,d,x,y,z,m=yellow){return mesh(new T.BoxGeometry(w,h,d),m,p,x,y,z);}
 function cylinder(p,r,h,x,y,z,m=dark){return mesh(new T.CylinderGeometry(r,r,h,24),m,p,x,y,z);}
@@ -5151,47 +5139,23 @@ function profile(p,pts,depth,mat){const s=new T.Shape();pts.forEach(([x,y],i)=>i
 const rig=new T.Group();scene.add(rig);
 const platform=mesh(new T.PlaneGeometry(200,200),new T.ShadowMaterial({opacity:.24}),scene,0,-.035,0);platform.rotation.x=-Math.PI/2;platform.castShadow=false;platform.receiveShadow=true;
 renderer.setClearColor(0x000000,0);
-// Wheeled excavator undercarriage inspired by the user's Doosan reference.
-box(rig,3.55,.30,1.38,-.50,.72,0,dark);
-box(rig,2.65,.20,1.52,-.48,.91,0,steel);
-
-// Four road wheels: lower chassis stays fixed when the upper carriage slews.
-for(const x of [-1.52,.54]){
-  for(const z of [-.91,.91]){
-    const tire=cylinder(rig,.53,.36,x,.48,z,rubber);tire.rotation.x=Math.PI/2;
-    const rim=cylinder(rig,.28,.385,x,.48,z,steel);rim.rotation.x=Math.PI/2;
-    const hub=cylinder(rig,.115,.405,x,.48,z,dark);hub.rotation.x=Math.PI/2;
-  }
+for(const z of [-.94,.94]){
+box(rig,2.7,.6,.55,-.6,.43,z,rubber);
+for(const x of [-1.85,.65]){const wh=cylinder(rig,.36,.58,x,.43,z,rubber);wh.rotation.x=Math.PI/2;}
+for(let i=0;i<8;i++){const wh=cylinder(rig,.235,.61,-1.7+i*.32,.4,z,steel);wh.rotation.x=Math.PI/2;const hub=cylinder(rig,.1,.64,-1.7+i*.32,.4,z,dark);hub.rotation.x=Math.PI/2;}
+for(let i=0;i<18;i++){for(const y of [.1,.78])box(rig,.15,.075,.65,-1.92+i*.154,y,z,dark);}
+for(const x of [-1.99,.79])for(let i=0;i<7;i++){const angle=-Math.PI/2+i*Math.PI/6;const tread=box(rig,.16,.08,.65,x+(x<0?-1:1)*.28*Math.cos(angle),.44+.32*Math.sin(angle),z,dark);tread.rotation.z=(x<0?-1:1)*angle;}
 }
-
-// Axle housings.
-for(const x of [-1.52,.54])box(rig,.35,.26,1.72,x,.52,0,dark);
-
-// Four realistic outriggers / stabilizers.
-const feet=[];
-for(const x of [-1.68,.66]){
-  for(const z of [-1.17,1.17]){
-    const side=z<0?-1:1;
-    bar(rig,[x,.70,side*.64],[x+(x<0?-.18:.18),.18,side*1.31],.095,dark);
-    const foot=box(rig,.62,.11,.38,x+(x<0?-.20:.20),.10,side*1.37,dark);
-    foot.rotation.y=(x<0?-.08:.08);
-    feet.push(foot);
-  }
-}
-box(rig,2.35,.22,1.48,-.50,1.02,0,dark);
-cylinder(rig,.66,.24,-.50,1.17,0,steel);
+box(rig,2.3,.24,1.5,-.6,.79,0,dark);cylinder(rig,.66,.26,-.6,1,0,steel);
 // Real excavator hierarchy: tracks/undercarriage stay fixed; only the upper carriage slews.
 const upper=new T.Group();upper.position.set(-.6,0,0);rig.add(upper);
 const body=new T.Group();body.position.set(0,1.15,0);upper.add(body);
 box(body,2.5,.24,1.85,0,.03,0,dark);
-box(body,1.34,.92,1.76,-.66,.56,0);
-box(body,.12,.56,1.80,-1.36,.57,0,dark);
-box(body,.50,.68,1.66,-1.36,.57,0,yellow);
-box(body,1.62,.20,1.82,-.47,.14,0,yellow);
+box(body,1.2,.87,1.72,-.65,.55,0);box(body,.12,.56,1.76,-1.29,.56,0,dark);
 for(let i=0;i<8;i++)box(body,.045,.39,.018,-1.06+i*.083,.65,.872,dark);
 box(body,.56,.18,.64,-.6,1.06,0,dark);cylinder(body,.055,.65,-.95,1.25,-.45,dark);
 // Cabin: solid glass volume, structural frame, door and working lights.
-box(body,1.05,1.42,.86,.38,.92,.49,glass);box(body,1.14,.13,.98,.38,1.66,.49,dark);box(body,1.10,.29,.96,.38,.28,.49,yellow);
+box(body,.98,1.35,.82,.34,.89,.51,glass);box(body,1.09,.13,.94,.34,1.6,.51,dark);box(body,1.06,.28,.92,.34,.3,.51,yellow);
 for(const x of [-.16,.84])for(const z of [.08,.94])bar(body,[x,.33,z],[x,1.58,z],.045,dark);
 bar(body,[-.16,.9,.957],[.84,.9,.957],.025,dark);box(body,.16,.035,.035,.63,.73,.98,steel);
 const lamp=new T.MeshStandardMaterial({color:0xfff1cd,emissive:0xffe4a3,emissiveIntensity:1.6});for(const z of [.17,.84])box(body,.06,.13,.18,.91,1.59,z,lamp);
@@ -5199,7 +5163,7 @@ cylinder(body,.09,.15,.05,1.76,.5,new T.MeshStandardMaterial({color:0xffa511,emi
 // Premium detail pass: exhaust, mirrors, rails, work lights, vents and branded side decals.
 const blackMetal=new T.MeshPhysicalMaterial({color:0x090d0d,metalness:.78,roughness:.3,clearcoat:.25});
 const chrome=new T.MeshPhysicalMaterial({color:0xb9c2c3,metalness:1,roughness:.14});
-const red=new T.MeshStandardMaterial({color:0x8f2018,emissive:0x310402,emissiveIntensity:.12,roughness:.48});
+const red=new T.MeshStandardMaterial({color:0xb3261e,emissive:0x3b0603,emissiveIntensity:.15,roughness:.55});
 const whiteLamp=new T.MeshStandardMaterial({color:0xfff7dd,emissive:0xffe8a2,emissiveIntensity:2.4,roughness:.2});
 // exhaust + intake
 cylinder(body,.075,.92,-1.02,1.45,-.46,blackMetal);cylinder(body,.11,.12,-1.02,1.94,-.46,dark);
@@ -5225,16 +5189,7 @@ const beaconGlow=new T.PointLight(0xffa000,1.25,4.2,2.0);beaconGlow.position.set
 // warning reflectors
 box(body,.22,.08,.025,-1.18,.42,.89,red);box(body,.22,.08,.025,-1.18,.42,-.89,red);
 // Branded decal generated locally on canvas; no extra image request/download.
-function brandTexture(){
-  const c=document.createElement('canvas');c.width=1400;c.height=300;
-  const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);
-  x.fillStyle='rgba(13,18,17,.97)';x.roundRect(10,10,1380,280,36);x.fill();
-  x.strokeStyle='rgba(255,255,255,.88)';x.lineWidth=7;x.stroke();
-  x.fillStyle='#ffffff';x.font='900 92px Manrope,Arial,sans-serif';
-  x.textAlign='center';x.textBaseline='middle';x.fillText('MALISTAN PALVELU',700,150);
-  const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;
-  tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return tex;
-}
+function brandTexture(){const c=document.createElement('canvas');c.width=1400;c.height=300;const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle='rgba(10,14,13,.96)';x.roundRect(10,10,1380,280,36);x.fill();x.strokeStyle='rgba(255,255,255,.9)';x.lineWidth=7;x.stroke();x.fillStyle='#ffffff';x.font='900 92px Manrope,Arial,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('MALISTAN PALVELU',700,150);const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return tex;}
 const decalMat=new T.MeshBasicMaterial({map:brandTexture(),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-4});
 const brandGlass=new T.MeshPhysicalMaterial({color:0xdff8ef,transparent:true,opacity:.16,roughness:.08,metalness:0,transmission:.35,clearcoat:1,clearcoatRoughness:.06,side:T.DoubleSide,depthWrite:false});
 for(const z of [-.966,.966]){
@@ -5361,7 +5316,7 @@ function hitPart(e){
 motion?.addEventListener('click',()=>{paused=!paused;sync();wake();});
 reset?.addEventListener('click',()=>{
   yaw=.7;pitch=.38;zoom=10.8;slewCenter=.06;manualSlew=0;slewDirection=1;
-  boom.rotation.z=.08;stick.rotation.z=-.17;bucket.rotation.z=-.28;setLights(false);draw();
+  boom.rotation.z=.08;stick.rotation.z=-.17;bucket.rotation.z=-.28;setLights(true);draw();
 });
 
 host.addEventListener('pointerdown',e=>{
@@ -5420,7 +5375,7 @@ host.addEventListener('keydown',e=>{
   if(e.key==='ArrowDown')pitch=Math.max(.12,pitch-.08);
   if(e.key==='Enter'){setLights(!lightsOn);}
   if(e.key===' '){bucketPunch=1;bucketPunchStart=performance.now();if(paused){paused=false;sync();}wake();}
-  if(e.key==='Home'){yaw=.7;pitch=.38;manualSlew=0;slewDirection=1;setLights(false);}
+  if(e.key==='Home'){yaw=.7;pitch=.38;manualSlew=0;slewDirection=1;setLights(true);}
   draw();
 });
 
@@ -5431,7 +5386,7 @@ matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{pau
 renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();paused=true;sync();fallback.hidden=false;host.style.opacity='0';});
 renderer.domElement.addEventListener('webglcontextrestored',()=>{fallback.hidden=true;host.style.opacity='1';draw();});
 
-fallback.hidden=true;const ui=document.getElementById('excavatorControls');if(ui)ui.hidden=true;draw();wake();host.dataset.renderer='webgl';
+fallback.hidden=true;const ctl=document.getElementById('excavatorControls');if(ctl)ctl.hidden=true;draw();wake();host.dataset.renderer='webgl';
 }catch(e){host.hidden=true;fallback.hidden=false;fallback.querySelector('p').textContent=document.documentElement.lang==='en'?'The 3D scene could not start. Open the website in Safari or Chrome with WebGL enabled.':'3D-näkymä ei käynnistynyt. Avaa verkkosivu Safarissa tai Chromessa, jossa WebGL on käytössä.';console.warn('Excavator WebGL unavailable',e);}
 })();
 </script>
