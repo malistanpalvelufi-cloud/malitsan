@@ -171,6 +171,14 @@ html[data-theme="dark"] .wizard-head,html[data-theme="dark"] .wizard-step,html[d
 @media(max-width:600px){.hero-copy h1{font-size:clamp(50px,15vw,74px)}.hero-visual{min-height:520px;padding-top:86px}.hero-scene{height:390px}.hero-glass-card{top:0}.route-row{grid-template-columns:1fr 1fr}.route-line{display:none}.route-destination{text-align:left}.realistic-truck{width:132%;top:57%;transform:translate(-50%,-34%)}.hero-mini-dock{bottom:-1px}.float-card-a{left:-2px;top:57%}.float-card-b{right:-2px;top:68%}.wizard-head{padding:24px 20px 18px}.wizard-head h3{font-size:22px}.wizard-progress{margin-inline:20px}.wizard-step{padding:24px 20px}.wizard-actions{padding-inline:20px}.form-note{padding-inline:20px!important}.wizard-choice-grid,.service-picks{grid-template-columns:1fr}.wizard-choice-grid label span,.service-picks label span{min-height:82px}.wizard-icon{width:52px;height:52px}.wizard-kicker{margin-bottom:17px}.wizard-kicker b{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero-copy h1 span,.realistic-truck,.truck-boxes{animation:none}.wizard-step.active{animation:none}}
 </style>
+<style id="fixed-3d-hero-css">
+.truck3d-wrap{position:absolute;inset:0;z-index:3;overflow:hidden;touch-action:pan-y}
+#truck3DCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.truck3d-badge{position:absolute;right:20px;top:20px;padding:8px 12px;border-radius:999px;font:800 10px/1 Inter,system-ui,sans-serif;letter-spacing:.11em;color:#35604e;background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.9);box-shadow:0 8px 25px rgba(25,70,50,.10);backdrop-filter:blur(14px);pointer-events:none}
+.truck3d-badge span{display:inline-block;width:6px;height:6px;border-radius:50%;background:#65c9a7;margin-right:6px;box-shadow:0 0 10px #65c9a7}
+html[data-theme="dark"] .truck3d-badge{color:#bfe9d5;background:rgba(7,25,19,.56);border-color:rgba(214,255,235,.14)}
+@media(max-width:600px){.truck3d-badge{right:12px;top:12px;font-size:9px;padding:7px 10px}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Siirry sisältöön</a>
@@ -215,40 +223,11 @@ html[data-theme="dark"] .wizard-head,html[data-theme="dark"] .wizard-step,html[d
 
     <div class="hero-scene">
       <div class="scene-halo"></div>
-      <div class="realistic-truck" aria-hidden="true">
-        <svg viewBox="0 0 760 360" role="img" aria-label="Muuttoauto" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <linearGradient id="cargoPaint" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".52" stop-color="#eef5f8"/><stop offset="1" stop-color="#cbd9df"/></linearGradient>
-            <linearGradient id="cabPaint" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#25a6ff"/><stop offset=".55" stop-color="#0877df"/><stop offset="1" stop-color="#064da8"/></linearGradient>
-            <linearGradient id="glassPaint" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dff8ff"/><stop offset=".45" stop-color="#8fd4ef"/><stop offset="1" stop-color="#4b9fc8"/></linearGradient>
-            <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f9ffff"/><stop offset=".5" stop-color="#b7cbd4"/><stop offset="1" stop-color="#718791"/></linearGradient>
-            <filter id="truckShadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="22" stdDeviation="16" flood-color="#173d52" flood-opacity=".24"/></filter>
-            <filter id="softGlow"><feGaussianBlur stdDeviation="8"/></filter>
-          </defs>
-          <ellipse cx="375" cy="318" rx="286" ry="25" fill="#1d526d" opacity=".16" filter="url(#softGlow)"/>
-          <g filter="url(#truckShadow)">
-            <rect x="92" y="83" width="445" height="188" rx="22" fill="url(#cargoPaint)" stroke="#ffffff" stroke-width="5"/>
-            <path d="M106 104h416" stroke="#ffffff" stroke-width="3" opacity=".8"/>
-            <path d="M100 204h430" stroke="#0a84ff" stroke-width="16" opacity=".92"/>
-            <path d="M100 220h430" stroke="#63baff" stroke-width="3" opacity=".75"/>
-            <rect x="116" y="122" width="397" height="56" rx="9" fill="#f7fbfc" opacity=".88"/>
-            <text x="137" y="158" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="800" fill="#173443" letter-spacing="3">MUUTOS PALVELU</text>
-            <path d="M520 108h17v143h-17z" fill="url(#metal)" opacity=".9"/>
-            <path d="M537 143h82c21 0 42 14 49 34l21 57v37H527V108z" fill="url(#cabPaint)" stroke="#ffffff" stroke-width="5"/>
-            <path d="M559 125h58c12 0 23 8 28 19l14 35h-100z" fill="url(#glassPaint)" stroke="#dff7ff" stroke-width="4"/>
-            <path d="M559 181h104" stroke="#4c88a5" stroke-width="2" opacity=".6"/>
-            <path d="M641 183v70" stroke="#0c4e9c" stroke-width="2" opacity=".65"/>
-            <rect x="650" y="238" width="15" height="27" rx="5" fill="#fff6bd"/><rect x="650" y="239" width="15" height="27" rx="5" fill="#fff" opacity=".3" filter="url(#softGlow)"/>
-            <rect x="604" y="198" width="24" height="5" rx="2.5" fill="#d9edf6"/>
-            <path d="M94 271h596" stroke="#647d88" stroke-width="6"/>
-            <g><circle cx="196" cy="282" r="47" fill="#d7e3e8" stroke="#ffffff" stroke-width="5"/><circle cx="196" cy="282" r="31" fill="#202d35"/><circle cx="196" cy="282" r="16" fill="#71838c"/><circle cx="196" cy="282" r="8" fill="#d4e2e8"/></g>
-            <g><circle cx="607" cy="282" r="47" fill="#d7e3e8" stroke="#ffffff" stroke-width="5"/><circle cx="607" cy="282" r="31" fill="#202d35"/><circle cx="607" cy="282" r="16" fill="#71838c"/><circle cx="607" cy="282" r="8" fill="#d4e2e8"/></g>
-            <path d="M112 86h420" stroke="#0a84ff" stroke-width="5" opacity=".5"/>
-          </g>
-          <g class="truck-boxes"><rect x="150" y="190" width="55" height="42" rx="3" fill="#c99a62" stroke="#fff" stroke-width="2"/><path d="M150 201h55M177 190v42" stroke="#a87747" stroke-width="2"/><rect x="218" y="179" width="50" height="38" rx="3" fill="#dfb47a" stroke="#fff" stroke-width="2"/><path d="M218 190h50M243 179v38" stroke="#b98652" stroke-width="2"/></g>
-        </svg>
-      </div>
-      <div class="float-card float-card-a"><span class="float-icon"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><span><b>Turvallinen</b><small>Suojaus mukana</small></span></div>
+      <div class="truck3d-wrap" aria-label="Interaktiivinen 3D-muuttoauto">
+  <canvas id="truck3DCanvas"></canvas>
+  <div class="truck3d-badge"><span></span> REAL-TIME 3D</div>
+</div>
+<div class="float-card float-card-a"><span class="float-icon"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><span><b>Turvallinen</b><small>Suojaus mukana</small></span></div>
       <div class="float-card float-card-b"><span class="float-icon gold"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg></span><span><b>Hinta-arvio</b><small>Päivittyy heti</small></span></div>
       <div class="panel-note"><span class="panel-note-dot"></span> Uudenmaan muutot • koti &amp; yritys</div>
     </div>
@@ -643,5 +622,131 @@ const today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffs
 showStep(1,false);
 </script>
 <script id="theme-switcher">(function(){const root=document.documentElement,btn=document.getElementById('themeToggle');if(!btn)return;function setTheme(t){root.dataset.theme=t;try{localStorage.setItem('muutos-theme',t)}catch(e){}btn.setAttribute('aria-label',t==='dark'?'Vaihda päivätilaan':'Vaihda yötilaan');btn.setAttribute('title',t==='dark'?'Vaihda päivätilaan':'Vaihda yötilaan');const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=t==='dark'?'#050908':'#eef5ff'}btn.addEventListener('click',()=>setTheme(root.dataset.theme==='dark'?'light':'dark'));setTheme(root.dataset.theme==='dark'?'dark':'light')})();</script>
+<script id="fixed-3d-hero">
+(function(){
+  const canvas=document.getElementById('truck3DCanvas');
+  if(!canvas)return;
+  const wrap=canvas.parentElement;
+
+  function loadThree(){
+    return new Promise(function(resolve,reject){
+      if(window.THREE)return resolve(window.THREE);
+      const s=document.createElement('script');
+      s.src='https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js';
+      s.onload=function(){window.THREE?resolve(window.THREE):reject(new Error('THREE unavailable'))};
+      s.onerror=reject;
+      document.head.appendChild(s);
+    });
+  }
+
+  loadThree().then(function(THREE){
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(30,1,.1,100);
+    camera.position.set(8.7,4.5,10.8);
+
+    const renderer=new THREE.WebGLRenderer({
+      canvas:canvas,antialias:true,alpha:true,powerPreference:'high-performance'
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
+    renderer.outputColorSpace=THREE.SRGBColorSpace;
+    renderer.toneMapping=THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure=1.08;
+    renderer.shadowMap.enabled=true;
+    renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+
+    scene.add(new THREE.HemisphereLight(0xe8fff5,0x07100d,2.1));
+    const key=new THREE.DirectionalLight(0xffffff,4.2);
+    key.position.set(5,9,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);scene.add(key);
+    const rim=new THREE.PointLight(0x65c9a7,12,18);rim.position.set(-5,4,3);scene.add(rim);
+    const warm=new THREE.PointLight(0xd4a62f,9,15);warm.position.set(5,2,-4);scene.add(warm);
+
+    const truck=new THREE.Group();truck.rotation.y=-.48;scene.add(truck);
+    const mat=(c,metal,rough,opacity)=>new THREE.MeshStandardMaterial({
+      color:c,metalness:metal||0,roughness:rough||.45,transparent:(opacity||1)<1,opacity:opacity||1
+    });
+    const mint=mat(0x65c9a7,.18,.28),white=mat(0xf2f6f4,.15,.3),dark=mat(0x17241f,.15,.35);
+    const glass=mat(0x8ec9cf,.1,.16,.72);glass.depthWrite=false;
+    const gold=mat(0xd4a62f,.45,.22),tire=mat(0x111613,.05,.7),hub=mat(0x8ca59a,.55,.25),wood=mat(0xc89a68,0,.7);
+
+    function add(g,m,x,y,z){
+      const o=new THREE.Mesh(g,m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;truck.add(o);return o;
+    }
+
+    add(new THREE.BoxGeometry(5.4,2.65,3),white,-.9,2.15,0);
+    add(new THREE.BoxGeometry(6.2,.42,3.15),dark,-.45,.75,0);
+    [-1.52,1.52].forEach(z=>{
+      add(new THREE.BoxGeometry(4.85,1.65,.08),mint,-1.05,2.18,z);
+      for(let i=0;i<5;i++)add(new THREE.BoxGeometry(.045,1.35,.035),dark,-3.15+i*1.05,2.18,z>0?1.565:-1.565);
+    });
+
+    add(new THREE.BoxGeometry(2.35,2.35,3),mint,2.45,1.95,0);
+    add(new THREE.BoxGeometry(2.05,1.05,3.04),white,2.55,3.05,0);
+    add(new THREE.BoxGeometry(.06,.88,2.45),glass,1.48,3.08,0);
+    [-1.535,1.535].forEach(z=>add(new THREE.BoxGeometry(.72,.72,.05),glass,2.72,3.08,z));
+    add(new THREE.BoxGeometry(.35,.48,3.05),dark,3.65,.95,0);
+    add(new THREE.BoxGeometry(.08,.55,1.5),gold,3.84,1.35,0);
+
+    const lampMat=new THREE.MeshStandardMaterial({color:0xfff4bf,emissive:0xffe17a,emissiveIntensity:2.4,roughness:.2});
+    [-.82,.82].forEach(z=>add(new THREE.BoxGeometry(.08,.22,.5),lampMat,3.87,1.58,z));
+
+    const wheelGeo=new THREE.CylinderGeometry(.72,.72,.34,32);
+    const hubGeo=new THREE.CylinderGeometry(.34,.34,.37,24);
+    const ringGeo=new THREE.TorusGeometry(.53,.06,10,32);
+    [-2.05,2.48].forEach(x=>[-1.62,1.62].forEach(z=>{
+      let w=add(wheelGeo,tire,x,.72,z);w.rotation.x=Math.PI/2;
+      let h=add(hubGeo,hub,x,.72,z);h.rotation.x=Math.PI/2;
+      let r=add(ringGeo,gold,x,.72,z);r.rotation.x=Math.PI/2;
+    }));
+
+    [[-1.9,1.2,.7,.65],[-1.25,1.05,.55,.35],[-.75,1.35,.48,-.3]].forEach(v=>{
+      const b=add(new THREE.BoxGeometry(v[2],v[2],v[2]),wood,v[0],v[1],-.25);b.rotation.z=v[3];
+    });
+
+    const ground=new THREE.Mesh(new THREE.CircleGeometry(6.8,64),new THREE.ShadowMaterial({color:0x07100d,opacity:.22}));
+    ground.rotation.x=-Math.PI/2;ground.position.y=.02;ground.scale.set(1,.42,1);ground.receiveShadow=true;scene.add(ground);
+
+    const geo=new THREE.BufferGeometry(),count=90,arr=new Float32Array(count*3);
+    for(let i=0;i<count;i++){arr[i*3]=(Math.random()-.5)*13;arr[i*3+1]=Math.random()*5.8;arr[i*3+2]=(Math.random()-.5)*5}
+    geo.setAttribute('position',new THREE.BufferAttribute(arr,3));
+    const particles=new THREE.Points(geo,new THREE.PointsMaterial({color:0x65c9a7,size:.025,transparent:true,opacity:.45}));
+    scene.add(particles);
+
+    const pointer={x:0,y:0},target={x:0,y:0};
+    wrap.addEventListener('pointermove',e=>{
+      const r=wrap.getBoundingClientRect();
+      target.x=((e.clientX-r.left)/r.width-.5)*2;
+      target.y=((e.clientY-r.top)/r.height-.5)*2;
+    },{passive:true});
+
+    let scroll=0;
+    window.addEventListener('scroll',()=>{scroll=Math.max(-.35,Math.min(.35,window.scrollY/1200))},{passive:true});
+
+    function resize(){
+      const w=Math.max(1,wrap.clientWidth),h=Math.max(1,wrap.clientHeight);
+      camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);
+    }
+    new ResizeObserver(resize).observe(wrap);resize();
+
+    const clock=new THREE.Clock();
+    function animate(){
+      const t=clock.getElapsedTime();
+      pointer.x+=(target.x-pointer.x)*.055;
+      pointer.y+=(target.y-pointer.y)*.055;
+      truck.rotation.y=-.48+pointer.x*.16+Math.sin(t*.42)*.025;
+      truck.rotation.x=pointer.y*.035;
+      truck.position.y=Math.sin(t*.9)*.08-scroll*.22;
+      particles.rotation.y=t*.025;
+      camera.position.x=8.7+pointer.x*.7;
+      camera.position.y=4.5-pointer.y*.28;
+      camera.lookAt(.2,1.75,0);
+      renderer.render(scene,camera);
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }).catch(()=>{
+    canvas.style.display='none';
+  });
+})();
+</script>
 </body>
 </html>
